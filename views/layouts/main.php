@@ -16,6 +16,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" charset="utf8" src="<?= Yii::$app->request->baseUrl; ?>/js/jquery.min.js"></script>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -35,9 +36,24 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => 'Inicio', 'url' => ['/site/index']],
+                    ['label' => 'Clientes',
+                        'items' => [
+                            ['label' => 'Listar clientes', 'url' => ['/clientes/index']],                            
+                            ['label' => 'Planillas', 'url' => ['/planillas/index']],
+                            ['label' => 'Instituciones', 'url' => ['/instituciones/index']],                            
+                        ],
+
+                    ],
+                    ['label' => 'Auxilios',
+                        'items' => [
+                            ['label' => 'Auxilio de desempleo', 'url' => ['/auxilios/indexdes']],                            
+                            ['label' => 'Auxilio exequial', 'url' => ['/auxilios/indexexe']],
+                        ],
+
+                    ],
+                    ['label' => 'Prestamos', 'url' => ['/prestamos/index']],
+                    ['label' => 'Usuarios', 'url' => ['/usuarios/index']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
