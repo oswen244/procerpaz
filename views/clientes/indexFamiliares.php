@@ -72,10 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' =>  function($data){
                         return  Html::a('', ['view-familiar', 'id'=>$data->id_familiar, 'idc'=>$data->id_cliente], [
                             'class' => 'glyphicon glyphicon-eye-open', 
-                        ]).'&nbsp'.Html::a('', ['update-familiar', 'id'=>$data->id_familiar], [
+                        ]).'&nbsp'.Html::a('', ['update-familiar', 'id'=>$data->id_familiar, 'idc'=>$data->id_cliente], [
                             'class' => 'act glyphicon glyphicon-pencil', 
-                        ]).'&nbsp'.Html::a('', ['delete-familiar', 'id'=>$data->id_familiar], [
-                            'class' => 'glyphicon glyphicon-trash', 
                         ]);
                     },
                     'format' => 'raw',

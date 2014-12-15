@@ -9,12 +9,21 @@ $this->title = 'Actualizar Familiares: ' . ' ' . $familiar->nombres.' '.$familia
 $this->params['breadcrumbs'][] = ['label' => 'Familiares', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="familiares-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="col-md-12">
+	<div class="col-md-3">
+	    <ul class="nav nav-pills nav-stacked">
+	        <li><?= Html::a('Regresar a información de familiar', ['view-familiar', 'id' => $familiar->id_familiar, 'idc' => $id_cliente], ['class' => '']) ?></li><br>
+	        <li><a href="index">Listar clientes</a></li>
+	    </ul>
+	</div>
+	<div class="familiares-update col-md-9">
 
-    <?= $this->render('_formFamiliares', [
-        'familiar' => $familiar,
-    ]) ?>
+	    <h1><?= Html::encode($this->title) ?></h1>
 
+	    <?= $this->render('_formFamiliares', [
+	        'familiar' => $familiar,
+	    ]) ?>
+
+	</div>
 </div>

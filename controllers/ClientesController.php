@@ -152,7 +152,7 @@ class ClientesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdateFamiliar($id)
+    public function actionUpdateFamiliar($id,$idc)
     {
         $familiar = $this->findfamiliar($id);
 
@@ -161,6 +161,7 @@ class ClientesController extends Controller
         } else {
             return $this->render('updateFamiliares', [
                 'familiar' => $familiar,
+                'id_cliente' => $idc,
             ]);
         }
     }

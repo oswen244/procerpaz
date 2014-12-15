@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked">
             <li><?= Html::a('Actualizar información', ['update', 'id' => $model->id_cliente], ['class' => '']) ?></li>
             <li><?= Html::a('Familiares', ['familiares', 'id' => $model->id_cliente], ['class' => '']) ?></li>
-            <li><a href="">Mensualidad</a></li>
+            <li><?= Html::a('Mensualidad', ['mensualidades/index', 'id' => $model->id_cliente], ['class' => '']) ?></li>
             <li><a href="">Auxilios</a></li>
             <li><a href="index">Listar clientes</a></li>
             <br>

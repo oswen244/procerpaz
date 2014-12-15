@@ -16,8 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
                 <li><?= Html::a('Listar familiares', ['familiares', 'id' => $id_cliente], ['class' => '']) ?></li>
-                <li><?= Html::a('Regresar a información de cliente', ['view', 'id' => $id_cliente], ['class' => '']) ?></li><br>
+                <li><?= Html::a('Regresar a información de cliente', ['view', 'id' => $id_cliente], ['class' => '']) ?></li>
                 <li><a href="index">Listar clientes</a></li>
+                <br>
+                <li><?= Html::a('Eliminar familiar', ['delete-familiar', 'id' => $familiar->id_familiar], [
+                    'class' => '',
+                    'data' => [
+                        'confirm' => 'Está seguro que desea eliminar este familiar?',
+                        'method' => 'post',
+                    ],
+                    ]) ?>
+                </li>
             </ul>
         </div>
     <div class="familiares-view col-md-9">

@@ -40,9 +40,10 @@ class MensualidadesSearch extends Mensualidades
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$id)
     {
-        $query = Mensualidades::find();
+        $query = Mensualidades::find()->where('id_cliente=:id');
+        $query->addParams([':id' => $id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

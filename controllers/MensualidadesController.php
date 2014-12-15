@@ -30,14 +30,15 @@ class MensualidadesController extends Controller
      * Lists all Mensualidades models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new MensualidadesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'id_cliente' => $id,
         ]);
     }
 
@@ -58,15 +59,16 @@ class MensualidadesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Mensualidades();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_mensualidad]);
+            return $this->redirect(['index', 'id' => $id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'id_cliente' => $id,
             ]);
         }
     }
