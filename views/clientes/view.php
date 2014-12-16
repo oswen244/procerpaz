@@ -18,13 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <li><?= Html::a('Actualizar información', ['update', 'id' => $model->id_cliente], ['class' => '']) ?></li>
             <li><?= Html::a('Familiares', ['familiares', 'id' => $model->id_cliente], ['class' => '']) ?></li>
             <li><?= Html::a('Mensualidad', ['mensualidades/index', 'id' => $model->id_cliente], ['class' => '']) ?></li>
-            <li><a href="">Auxilios</a></li>
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Auxilios<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><?= Html::a('Auxilio de desempleo', ['auxilios/indexdescl', 'id' => $model->id_cliente], ['class' => '']) ?></li>
+                    <li><?= Html::a('Auxilio exequial', ['auxilios/indexexecl', 'id' => $model->id_cliente], ['class' => '']) ?></li>
+                </ul>
+            </li>
+            <li><?= Html::a('Prestamos', ['prestamos/indexcl', 'id' => $model->id_cliente], ['class' => '']) ?></li>
             <li><a href="index">Listar clientes</a></li>
             <br>
             <li><?= Html::a('Eliminar cliente', ['delete', 'id' => $model->id_cliente], [
                 'class' => '',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => '¿Está seguro que desea eliminar este cliente?',
                     'method' => 'post',
                 ],
                 ]) ?>
@@ -58,6 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id_institucion',
                 'id_planilla',
                 'id_estado',
+                'monto_paquete',
+                'observaciones',
             ],
         ]) ?>
 

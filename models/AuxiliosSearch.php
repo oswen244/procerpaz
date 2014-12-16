@@ -40,9 +40,14 @@ class AuxiliosSearch extends Auxilios
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$tipo)
+    public function search($params,$tipo, $id)
     {
-        $query = Auxilios::find()->where('tipo=:tipo');
+        if($id == 0){
+            $query = Auxilios::find()->where('tipo=:tipo');
+        }else{
+            $query = Auxilios::find()->where('tipo=:tipo AND id_cliente =:id');
+            $query->addParams([':id' => $id]);
+        } 
         $query->addParams([':tipo' => $tipo]);
 
         $dataProvider = new ActiveDataProvider([

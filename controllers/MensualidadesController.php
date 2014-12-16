@@ -47,10 +47,11 @@ class MensualidadesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id,$idc)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'id_cliente' => $idc,
         ]);
     }
 
@@ -79,15 +80,16 @@ class MensualidadesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$idc)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_mensualidad]);
+            return $this->redirect(['index', 'id' => $idc]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'id_cliente'=> $idc,
             ]);
         }
     }
@@ -98,11 +100,11 @@ class MensualidadesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id,$idc)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index?id='.$idc]);
     }
 
     /**

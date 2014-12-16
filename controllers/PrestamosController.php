@@ -33,11 +33,23 @@ class PrestamosController extends Controller
     public function actionIndex()
     {
         $searchModel = new PrestamosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,0);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndexcl($id)
+    {
+        $searchModel = new PrestamosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
+
+        return $this->render('indexcl', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_cliente' => $id,
         ]);
     }
 

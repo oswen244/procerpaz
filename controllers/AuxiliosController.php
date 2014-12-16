@@ -33,7 +33,7 @@ class AuxiliosController extends Controller
     public function actionIndexdes()
     {
         $searchModel = new AuxiliosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1',0);
 
         return $this->render('indexdes', [
             'searchModel' => $searchModel,
@@ -44,11 +44,35 @@ class AuxiliosController extends Controller
      public function actionIndexexe()
     {
         $searchModel = new AuxiliosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2',0);
 
         return $this->render('indexexe', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndexdescl($id)
+    {
+        $searchModel = new AuxiliosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1',$id);
+
+        return $this->render('indexdescl', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_cliente' => $id,
+        ]);
+    }
+
+     public function actionIndexexecl($id)
+    {
+        $searchModel = new AuxiliosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2',$id);
+
+        return $this->render('indexexecl', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_cliente' => $id,
         ]);
     }
 

@@ -17,6 +17,7 @@ use kartik\grid\GridView;
 
 $this->title = 'Familiares';
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $id_cliente, 'url' => ['view', 'id' => $id_cliente]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -74,7 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'glyphicon glyphicon-eye-open', 
                         ]).'&nbsp'.Html::a('', ['update-familiar', 'id'=>$data->id_familiar, 'idc'=>$data->id_cliente], [
                             'class' => 'act glyphicon glyphicon-pencil', 
-                        ]);
+                        ]).'&nbsp'.Html::a('', ['delete-familiar', 'id' => $data->id_familiar, 'idc'=>$data->id_cliente], [
+                            'class' => 'act glyphicon glyphicon-trash',
+                                'data' => [
+                                    'confirm' => 'Está seguro que desea borrar este familiar?',
+                                    'method' => 'post',
+                                ]
+                            ]);;
                     },
                     'format' => 'raw',
                     

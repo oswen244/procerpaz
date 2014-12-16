@@ -26,6 +26,8 @@ use Yii;
  * @property integer $id_institucion
  * @property integer $id_planilla
  * @property integer $id_estado
+ * @property string $monto_paquete
+ * @property string $observaciones
  *
  * @property Auxilios[] $auxilios
  * @property Estados $idEstado
@@ -52,11 +54,13 @@ class Clientes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado'], 'required'],
+            [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado', 'monto_paquete'], 'required'],
             [['fecha_afiliacion', 'fecha_nacimiento'], 'safe'],
             [['id_institucion', 'id_planilla', 'id_estado'], 'integer'],
+            [['monto_paquete'], 'number'],
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'lugar_exp', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono'], 'string', 'max' => 45],
-            [['genero'], 'string', 'max' => 1]
+            [['genero'], 'string', 'max' => 1],
+            [['observaciones'], 'string', 'max' => 1000]
         ];
     }
 
@@ -67,24 +71,26 @@ class Clientes extends \yii\db\ActiveRecord
     {
         return [
             'id_cliente' => 'Id Cliente',
-            'num_afiliacion' => 'Numero de Afiliación',
-            'fecha_afiliacion' => 'Fecha de Afiliación',
+            'num_afiliacion' => 'Num Afiliacion',
+            'fecha_afiliacion' => 'Fecha Afiliacion',
             'nombres' => 'Nombres',
             'apellidos' => 'Apellidos',
-            'tipo_id' => 'Tipo de ID',
-            'num_id' => 'Número de ID',
+            'tipo_id' => 'Tipo ID',
+            'num_id' => 'Num ID',
             'genero' => 'Genero',
-            'lugar_exp' => 'Lugar de Expedición',
+            'lugar_exp' => 'Lugar Exp',
             'fecha_nacimiento' => 'Fecha Nacimiento',
             'grado' => 'Grado',
-            'pais' => 'País',
+            'pais' => 'Pais',
             'ciudad' => 'Ciudad',
             'email' => 'Email',
-            'direccion' => 'Dirección',
-            'telefono' => 'Teléfono',
+            'direccion' => 'Direccion',
+            'telefono' => 'Telefono',
             'id_institucion' => 'Id Institucion',
             'id_planilla' => 'Id Planilla',
             'id_estado' => 'Id Estado',
+            'monto_paquete' => 'Monto Paquete',
+            'observaciones' => 'Observaciones',
         ];
     }
 

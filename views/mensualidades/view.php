@@ -10,30 +10,36 @@ $this->title = $model->id_mensualidad;
 $this->params['breadcrumbs'][] = ['label' => 'Mensualidades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mensualidades-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><?= Html::a('Listar mensualidades', ['index', 'id' => $id_cliente], ['class' => '']) ?></li>
+            <li><?= Html::a('Regresar a información de cliente', ['clientes/view', 'id' => $id_cliente], ['class' => '']) ?></li>
+            <li><a href="index">Listar clientes</a></li>
+            <br>
+            <li><?= Html::a('Eliminar pago', ['delete', 'id' => $model->id_mensualidad], [
+                'class' => '',
+                'data' => [
+                    'confirm' => 'Está seguro que desea eliminar este pago?',
+                    'method' => 'post',
+                ],
+                ]) ?>
+            </li>
+        </ul>
+    </div>
+    <div class="mensualidades-view col-md-9">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_mensualidad], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_mensualidad], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                // 'id_mensualidad',
+                'fecha_pago',
+                'monto',
+                'total_cuotas',
+                'id_cliente',
             ],
         ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_mensualidad',
-            'fecha_pago',
-            'monto',
-            'total_cuotas',
-            'id_cliente',
-        ],
-    ]) ?>
-
+    </div>
 </div>

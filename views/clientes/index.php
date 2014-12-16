@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id_institucion',
             // 'id_planilla',
             // 'id_estado',
+            'monto_paquete',
+            'observaciones',
 
             ['class' => '\kartik\grid\ActionColumn'],
         ],

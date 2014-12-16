@@ -40,9 +40,15 @@ class PrestamosSearch extends Prestamos
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$id)
     {
-        $query = Prestamos::find();
+        if($id==0){
+            $query = Prestamos::find();
+        }else{
+            $query = Prestamos::find()->where('id_cliente=:id');
+            $query->addParams([':id' => $id]);
+        }
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

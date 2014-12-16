@@ -48,8 +48,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_estado')->textInput() ?>
 
+    <?= $form->field($model, 'monto_paquete')->textInput(['maxlength' => 10]) ?>
+
+    <?= $form->field($model, 'observaciones')->textArea(['maxlength' => 1000]) ?>
+
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

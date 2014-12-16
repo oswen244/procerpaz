@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
            <li><?= Html::a('Regresar a información de cliente', ['clientes/view', 'id' => $id_cliente], ['class' => '']) ?></li>
-            <li><a href="index">Listar clientes</a></li>
+            <li><?= Html::a('Listar clientes', ['clientes/index'], ['class' => '']) ?></a></li>
         </ul>
     </div>
     <div class="mensualidades-index col-md-9">
@@ -35,7 +35,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'total_cuotas',
                 // 'id_cliente',
 
-                ['class' => '\kartik\grid\ActionColumn'],
+                [
+                    'label' => 'Actions', 
+                    'vAlign' => 'middle',
+                    'value' =>  function($data){
+                        return  Html::a('', ['view', 'id'=>$data->id_mensualidad, 'idc'=>$data->id_cliente], [
+                            'class' => 'glyphicon glyphicon-eye-open', 
+                        ]).'&nbsp'.Html::a('', ['update', 'id'=>$data->id_mensualidad, 'idc'=>$data->id_cliente], [
+                            'class' => 'act glyphicon glyphicon-pencil', 
+                        ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_mensualidad, 'idc'=>$data->id_cliente], [
+                            'class' => 'act glyphicon glyphicon-trash',
+                                'data' => [
+                                    'confirm' => 'Está seguro que desea borrar este pago?',
+                                    'method' => 'post',
+                                ]
+                            ]);
+                    },
+                    'format' => 'raw',
+                    
+                ],
 
             ],
             'toolbar' => [
