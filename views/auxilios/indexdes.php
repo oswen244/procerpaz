@@ -32,11 +32,29 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             'estado',
             'tipo_auxilio',
 
-            ['class' => '\kartik\grid\ActionColumn'],
+            [
+                'label' => 'Actions', 
+                'vAlign' => 'middle',
+                'value' =>  function($data){
+                    return  Html::a('', ['view', 'id'=>$data->id_auxilio], [
+                        'class' => 'glyphicon glyphicon-eye-open', 
+                    ]).'&nbsp'.Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], [
+                        'class' => 'act glyphicon glyphicon-pencil', 
+                    ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_auxilio], [
+                        'class' => 'act glyphicon glyphicon-trash',
+                            'data' => [
+                                'confirm' => '¿Está seguro que desea borrar este auxilio?',
+                                'method' => 'post',
+                            ]
+                        ]);;
+                },
+                'format' => 'raw',
+                    
+            ],
         ],
         'toolbar' => [
             ['content'=>
-                Html::a('Crear auxilio exequial', ['create'], ['class' => 'btn btn-success'])
+                Html::a('Crear auxilio de desempleo', ['create', 'tipo'=> $tipo], ['class' => 'btn btn-success'])
             ],
             '{export}',
         ],

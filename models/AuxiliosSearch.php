@@ -20,7 +20,7 @@ class AuxiliosSearch extends Auxilios
         return [
             [['id_auxilio', 'tipo', 'porcentaje_aux', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio'], 'integer'],
             [['monto'], 'number'],
-            [['fecha_auxilio', 'proveedor'], 'safe'],
+            [['fecha_auxilio', 'proveedor', 'familiar'], 'safe'],
         ];
     }
 
@@ -68,9 +68,11 @@ class AuxiliosSearch extends Auxilios
             'estado' => $this->estado,
             'id_cliente' => $this->id_cliente,
             'tipo_auxilio' => $this->tipo_auxilio, 
+            
         ]);
 
-        $query->andFilterWhere(['like', 'proveedor', $this->proveedor]);
+        $query->andFilterWhere(['like', 'proveedor', $this->proveedor])
+           ->andFilterWhere(['like', 'familiar', $this->familiar]);
 
         return $dataProvider;
     }

@@ -12,14 +12,24 @@ $this->params['breadcrumbs'][] = 'Update';
 
 <div class="col-md-12">
 	<div class="col-md-3">
-	    <ul class="nav nav-pills nav-stacked">
-	        <li><?= Html::a('Regresar a información de familiar', ['view-familiar', 'id' => $familiar->id_familiar, 'idc' => $id_cliente], ['class' => '']) ?></li><br>
-	        <li><a href="index">Listar clientes</a></li>
-	    </ul>
-	</div>
+        <ul class="nav nav-pills nav-stacked">
+            <li><?= Html::a('Listar familiares', ['familiares', 'id' => $id_cliente], ['class' => '']) ?></li>
+            <li><?= Html::a('Regresar a información de cliente', ['view', 'id' => $id_cliente], ['class' => '']) ?></li>
+            <li><a href="index">Listar clientes</a></li>
+            <br>
+            <li><?= Html::a('Eliminar familiar', ['delete-familiar', 'id' => $familiar->id_familiar], [
+                'class' => '',
+                'data' => [
+                    'confirm' => 'Está seguro que desea eliminar este familiar?',
+                    'method' => 'post',
+                ],
+                ]) ?>
+            </li>
+        </ul>
+    </div>
 	<div class="familiares-update col-md-9">
 
-	    <h1><?= Html::encode($this->title) ?></h1>
+	    <h1><?= Html::encode($this->title) ?></h1><br>
 
 	    <?= $this->render('_formFamiliares', [
 	        'familiar' => $familiar,

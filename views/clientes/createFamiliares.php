@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<div class="familiares-create col-md-9">
 
-	    <h1><?= Html::encode($this->title) ?></h1>
+	    <h1><?= Html::encode($this->title) ?></h1><br>
 
 	    <?= $this->render('_formFamiliares', [
 	        'familiar' => $familiar,

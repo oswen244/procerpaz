@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Clientes */
@@ -10,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="clientes-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']) ?>
 
     <?= $form->field($model, 'num_afiliacion')->textInput(['maxlength' => 45]) ?>
 
@@ -52,7 +53,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'observaciones')->textArea(['maxlength' => 1000]) ?>
 
-    <div class="form-group">
+    <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

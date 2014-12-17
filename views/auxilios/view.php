@@ -7,7 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Auxilios */
 
 $this->title = $model->id_auxilio;
-$this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['index']];
+if($model->tipo == '1'){
+    $this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['indexdes']];
+}else{
+    $this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['indexexe']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auxilios-view">

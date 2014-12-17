@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'tipo_id',
                 'num_id',
                 'genero',
-                'parentezco',
                 // 'lugar_exp',
                 // 'fecha_nacimiento',
                 // 'grado',

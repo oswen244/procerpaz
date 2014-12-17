@@ -17,9 +17,11 @@ use Yii;
  * @property integer $estado
  * @property integer $id_cliente
  * @property integer $tipo_auxilio
+ * @property string $familiar
  *
  * @property Clientes $idCliente
  * @property TipoAuxilio $tipoAuxilio
+ * @property PagosAuxilios[] $pagosAuxilios
  */
 class Auxilios extends \yii\db\ActiveRecord
 {
@@ -40,8 +42,8 @@ class Auxilios extends \yii\db\ActiveRecord
             [['tipo', 'porcentaje_aux', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio'], 'integer'],
             [['monto'], 'number'],
             [['fecha_auxilio'], 'safe'],
-            [['estado', 'id_cliente', 'tipo_auxilio'], 'required'],
-            [['proveedor'], 'string', 'max' => 45]
+            [['id_cliente', 'tipo_auxilio'], 'required'],
+            [['proveedor', 'familiar'], 'string', 'max' => 45]
         ];
     }
 
@@ -61,6 +63,7 @@ class Auxilios extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'id_cliente' => 'Id Cliente',
             'tipo_auxilio' => 'Tipo Auxilio',
+            'familiar' => 'Familiar',
         ];
     }
 
@@ -78,5 +81,13 @@ class Auxilios extends \yii\db\ActiveRecord
     public function getTipoAuxilio()
     {
         return $this->hasOne(TipoAuxilio::className(), ['id_tipo' => 'tipo_auxilio']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPagosAuxilios()
+    {
+        return $this->hasMany(PagosAuxilios::className(), ['id_auxilio' => 'id_auxilio']);
     }
 }

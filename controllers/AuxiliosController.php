@@ -32,23 +32,27 @@ class AuxiliosController extends Controller
      */
     public function actionIndexdes()
     {
+        $tipo = '1';
         $searchModel = new AuxiliosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1',0);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$tipo,0);
 
         return $this->render('indexdes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tipo' => $tipo,
         ]);
     }
 
      public function actionIndexexe()
     {
+        $tipo = '2';
         $searchModel = new AuxiliosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2',0);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$tipo,0);
 
         return $this->render('indexexe', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tipo' => $tipo,
         ]);
     }
 
@@ -93,7 +97,7 @@ class AuxiliosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($tipo)
     {
         $model = new Auxilios();
 
@@ -102,6 +106,7 @@ class AuxiliosController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'tipo' => $tipo,
             ]);
         }
     }
@@ -112,7 +117,7 @@ class AuxiliosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$tipo)
     {
         $model = $this->findModel($id);
 
@@ -121,6 +126,7 @@ class AuxiliosController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'tipo' => $tipo,
             ]);
         }
     }
@@ -136,6 +142,21 @@ class AuxiliosController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionFamiliares(){
+        $query = (new \yii\db\Query());
+        $query->select('id_cliente')->from('clientes')->where('num_id=:num_id AND id_estado=:estado');
+        $query->addParams([':num_id' => $_POST['data'], ':estado' => '1']);
+        $id_cliente = $query->scalar();
+
+        $query = (new \yii\db\Query());
+        $query->select('nombres,apellidos')->from('familiares')->where('id_cliente=:id');
+        $query->addParams([':id'=>$id_cliente]);
+        $familiares = $query->all();
+        \Yii::$app->response->format = 'json';
+
+        return $familiares;
     }
 
     /**

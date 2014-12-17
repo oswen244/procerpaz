@@ -19,7 +19,7 @@ class FamiliaresSearch extends Familiares
     {
         return [
             [['id_familiar', 'id_cliente', 'id_parentezco'], 'integer'],
-            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'fecha_nacimiento', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'parentezco'], 'safe'],
+            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'fecha_nacimiento', 'pais', 'ciudad', 'email', 'direccion', 'telefono'], 'safe'],
         ];
     }
 
@@ -68,8 +68,7 @@ class FamiliaresSearch extends Familiares
             ->andFilterWhere(['like', 'ciudad', $this->ciudad])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'direccion', $this->direccion])
-            ->andFilterWhere(['like', 'telefono', $this->telefono])
-            ->andFilterWhere(['like', 'parentezco', $this->parentezco]);
+            ->andFilterWhere(['like', 'telefono', $this->telefono]);
 
         return $dataProvider;
     }

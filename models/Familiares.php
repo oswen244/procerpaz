@@ -19,7 +19,6 @@ use Yii;
  * @property string $email
  * @property string $direccion
  * @property string $telefono
- * @property string $parentezco
  * @property integer $id_cliente
  * @property integer $id_parentezco
  *
@@ -42,10 +41,10 @@ class Familiares extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'parentezco', 'id_cliente', 'id_parentezco'], 'required'],
+            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'id_cliente', 'id_parentezco'], 'required'],
             [['fecha_nacimiento'], 'safe'],
             [['id_cliente', 'id_parentezco'], 'integer'],
-            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'parentezco'], 'string', 'max' => 45],
+            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'pais', 'ciudad', 'email', 'direccion', 'telefono'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1]
         ];
     }
@@ -68,7 +67,6 @@ class Familiares extends \yii\db\ActiveRecord
             'email' => 'Email',
             'direccion' => 'Dirección',
             'telefono' => 'Teléfono',
-            'parentezco' => 'Parentezco',
             'id_cliente' => 'Id Cliente',
             'id_parentezco' => 'Id Parentezco',
         ];

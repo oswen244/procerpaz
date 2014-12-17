@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $familiar app\familiars\Familiares */
@@ -10,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="familiares-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
     <?= $form->field($familiar, 'nombres')->textInput(['maxlength' => 45]) ?>
 
@@ -34,14 +35,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($familiar, 'telefono')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($familiar, 'parentezco')->textInput(['maxlength' => 45]) ?>
-
     <?= $form->field($familiar, 'id_cliente')->textInput() ?>
 
     <?= $form->field($familiar, 'id_parentezco')->textInput() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($familiar->isNewRecord ? 'Create' : 'Update', ['class' => $familiar->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div class="text-center">
+        <?= Html::submitButton($familiar->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $familiar->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
