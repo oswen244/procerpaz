@@ -1,3 +1,11 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#cedula').on('blur',  function(event) {
+			event.preventDefault();
+			famLista($('#cedula').val(),'Seleccione un familiar');
+		});	
+	});
+</script>
 <?php
 
 use yii\helpers\Html;
@@ -34,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <?= $this->render('_form', [
 	        'model' => $model,
 	        'tipo' => $tipo,
+	        'familiares' => $familiares,
 	    ]) ?>
 
 	</div>

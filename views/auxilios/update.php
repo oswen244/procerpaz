@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#cedula').val('<?=$num_id;?>');
+	});
+</script>
 <?php
 
 use yii\helpers\Html;
@@ -11,7 +16,7 @@ if($tipo == '1'){
 }else{
 	$this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['indexexe']];
 }
-$this->params['breadcrumbs'][] = ['label' => $model->id_auxilio, 'url' => ['view', 'id' => $model->id_auxilio]];
+$this->params['breadcrumbs'][] = ['label' => $model->id_auxilio, 'url' => ['view', 'id' => $model->id_auxilio]]; 
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -34,6 +39,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	    <?= $this->render('_form', [
 	        'model' => $model,
 	        'tipo' => $tipo,
+	        'familiares' => $familiares,
 	    ]) ?>
 
 	</div>

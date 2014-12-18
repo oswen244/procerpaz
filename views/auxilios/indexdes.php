@@ -36,20 +36,19 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 'label' => 'Actions', 
                 'vAlign' => 'middle',
                 'value' =>  function($data){
-                    return  Html::a('', ['view', 'id'=>$data->id_auxilio], [
-                        'class' => 'glyphicon glyphicon-eye-open', 
-                    ]).'&nbsp'.Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], [
-                        'class' => 'act glyphicon glyphicon-pencil', 
-                    ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_auxilio], [
-                        'class' => 'act glyphicon glyphicon-trash',
+                    return  Html::a('', ['pagos-auxilios/index', 'id_auxilio'=>$data->id_auxilio], ['class' => 'glyphicon glyphicon-usd', 'title'=>'Pagos']).'&nbsp'.
+                            Html::a('', ['view', 'id'=>$data->id_auxilio], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'View']).'&nbsp'.
+                            Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Edit']).'&nbsp'.
+                            Html::a('', ['delete', 'id' => $data->id_auxilio], ['class' => 'act glyphicon glyphicon-trash',
                             'data' => [
                                 'confirm' => '¿Está seguro que desea borrar este auxilio?',
                                 'method' => 'post',
-                            ]
-                        ]);;
+                            ],
+                            'title'=>'Trash',
+                        ]);
                 },
                 'format' => 'raw',
-                    
+                'options'=>['width'=>'8%'],   
             ],
         ],
         'toolbar' => [

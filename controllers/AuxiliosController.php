@@ -104,13 +104,26 @@ class AuxiliosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_auxilio]);
         } else {
+            $familiares ='';
             return $this->render('create', [
                 'model' => $model,
                 'tipo' => $tipo,
+                'familiares' => $familiares,
             ]);
         }
     }
 
+    /**
+     * @return mixed
+     */
+    private function idCliente($id){
+        $query = (new \yii\db\Query());
+        $query->select('num_id')->from('clientes')->where('id_cliente=:id');
+        $query->addParams([':id'=>$id]);
+        $numero = $query->scalar();
+
+        return $numero;
+    }
     /**
      * Updates an existing Auxilios model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -121,12 +134,17 @@ class AuxiliosController extends Controller
     {
         $model = $this->findModel($id);
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_auxilio]);
         } else {
+            $num_id = $this->idCliente($model->id_cliente);
+            $familiares = $this->buscarFamiliares($model->id_cliente);
             return $this->render('update', [
                 'model' => $model,
                 'tipo' => $tipo,
+                'num_id'=>$num_id,
+                'familiares'=>$familiares,
             ]);
         }
     }
@@ -149,15 +167,22 @@ class AuxiliosController extends Controller
         $query->select('id_cliente')->from('clientes')->where('num_id=:num_id AND id_estado=:estado');
         $query->addParams([':num_id' => $_POST['data'], ':estado' => '1']);
         $id_cliente = $query->scalar();
-
-        $query = (new \yii\db\Query());
-        $query->select('nombres,apellidos')->from('familiares')->where('id_cliente=:id');
-        $query->addParams([':id'=>$id_cliente]);
-        $familiares = $query->all();
+        
+        $familiares = $this->buscarFamiliares($id_cliente);
         \Yii::$app->response->format = 'json';
 
         return $familiares;
     }
+
+    public function buscarFamiliares($id_cliente){
+        $query = (new \yii\db\Query());
+        $query->select('nombres,apellidos')->from('familiares')->where('id_cliente=:id');
+        $query->addParams([':id'=>$id_cliente]);
+        $familiares = $query->all();
+
+        return $familiares;
+    }
+
 
     /**
      * Finds the Auxilios model based on its primary key value.
