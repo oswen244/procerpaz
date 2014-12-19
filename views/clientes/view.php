@@ -62,10 +62,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 'email:email',
                 'direccion',
                 'telefono',
-                'id_institucion',
+                // 'id_institucion',
+                [
+                    'attribute' => 'id_institucion',
+                    'label'=>'Institución',
+                    'value' => $model->idInstitucion->nombre,
+                    
+                ],
                 'id_planilla',
-                'id_estado',
-                'monto_paquete',
+                // 'id_estado',
+                 [
+                    'attribute' => 'id_estado',
+                    'label'=>'Estado',
+                    'value' => $model->idEstado->nombre,
+                    
+                ],
+                // 'monto_paquete',
+                 [
+                    'attribute' => 'monto_paquete',
+                    'value' => "$ ".number_format($model->monto_paquete,0)
+                 ],
                 'observaciones',
             ],
         ]) ?>

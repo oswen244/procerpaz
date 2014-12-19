@@ -19,15 +19,45 @@ $this->params['breadcrumbs'][] = 'Auxilios';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => ['class' => 'text-center'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id_auxilio',
-            'id_cliente',
+            [
+                'attribute' => 'id_cliente',
+                'label'=>'Documento',
+                'value' => function($model){
+                    return $model->idCliente->num_id;
+                },
+            ],
+            [
+                'attribute' => 'id_cliente',
+                'label'=>'Nombres',
+                'value' => function($model){
+                    return $model->idCliente->nombres;
+                },
+            ],
+             [
+                'attribute' => 'id_cliente',
+                'label'=>'Apellidos',
+                'value' => function($model){
+                    return $model->idCliente->apellidos;
+                },
+            ],
             // 'tipo',
             // 'porcentaje_aux',
-            'monto',
-            'tipo_auxilio',
+            [
+                'attribute' => 'monto',
+                'value' => function($data){ return "$ ".number_format($data->monto,0);}
+            ],
+             [
+                'attribute' => 'tipo_auxilio',
+                'label'=>'Tipo de auxilio',
+                'value' => function($model){
+                    return $model->tipoAuxilio->tipo_auxilio;
+                },
+            ],
             // 'num_meses',
             'fecha_auxilio',
             // 'proveedor',
@@ -35,12 +65,10 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             'familiar',
 
             [
-                    'label' => 'Actions', 
+                    'label' => '', 
                     'vAlign' => 'middle',
                     'value' =>  function($data){
-                        return  Html::a('', ['view', 'id'=>$data->id_auxilio], [
-                            'class' => 'glyphicon glyphicon-eye-open', 
-                        ]).'&nbsp'.Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], [
+                        return  Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], [
                             'class' => 'act glyphicon glyphicon-pencil', 
                         ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_auxilio], [
                             'class' => 'act glyphicon glyphicon-trash',
@@ -51,7 +79,7 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                             ]);;
                     },
                     'format' => 'raw',
-                    
+                    'options'=>['width'=>'5%'],
             ],
         ],
         'toolbar' => [

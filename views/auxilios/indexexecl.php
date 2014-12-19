@@ -28,19 +28,50 @@ $this->params['breadcrumbs'][] = 'Auxilios';
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => ['class' => 'text-center'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
                 // 'id_auxilio',
                 // 'tipo',
                 // 'id_cliente',
+                 [
+                    'attribute' => 'id_cliente',
+                    'label'=>'Documento',
+                    'value' => function($model){
+                        return $model->idCliente->num_id;
+                    },
+                 ],
+                 [
+                    'attribute' => 'id_cliente',
+                    'label'=>'Nombres',
+                    'value' => function($model){
+                        return $model->idCliente->nombres;
+                    },
+                ],
+                [
+                    'attribute' => 'id_cliente',
+                    'label'=>'Apellidos',
+                    'value' => function($model){
+                        return $model->idCliente->apellidos;
+                    },
+                 ],
                 // 'porcentaje_aux',
-                'monto',
+                [
+                    'attribute' => 'monto',
+                    'value' => function($data){ return "$ ".number_format($data->monto,0);}
+                ],
                 // 'num_meses',
                 'fecha_auxilio',
                 // 'proveedor',
                 // 'estado',
-                'tipo_auxilio',
+                [
+                    'attribute' => 'tipo_auxilio',
+                    'label'=>'Tipo de auxilio',
+                    'value' => function($model){
+                        return $model->tipoAuxilio->tipo_auxilio;
+                    },
+                ],
 
             ],
             'toolbar' => [

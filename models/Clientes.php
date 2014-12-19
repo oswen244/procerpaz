@@ -87,7 +87,7 @@ class Clientes extends \yii\db\ActiveRecord
             'direccion' => 'Dirección',
             'telefono' => 'Teléfono',
             'id_institucion' => 'Id Institucion',
-            'id_planilla' => 'Id Planilla',
+            'id_planilla' => 'Planilla',
             'id_estado' => 'Id Estado',
             'monto_paquete' => 'Monto de paquete',
             'observaciones' => 'Observaciones',

@@ -47,6 +47,7 @@ class PagosAuxiliosSearch extends PagosAuxilios
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['fecha' => false]],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

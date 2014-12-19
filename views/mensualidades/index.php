@@ -26,12 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => ['class' => 'text-center'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
                 // 'id_mensualidad',
                 'fecha_pago',
-                'monto',
+                // 'monto',
+                 [
+                    'attribute' => 'monto',
+                    'value' => function($data){ return "$ ".number_format($data->monto,0);}
+                 ],
                 // 'total_cuotas',
                 // 'id_cliente',
 

@@ -35,9 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 // 'id_mensualidad',
                 'fecha_pago',
-                'monto',
+                // 'monto',
+                [
+                    'attribute' => 'monto',
+                    'value' => "$ ".number_format($model->monto,0)
+                 ],
                 'total_cuotas',
-                'id_cliente',
+                // 'id_cliente',
             ],
         ]) ?>
 

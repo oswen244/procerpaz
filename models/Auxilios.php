@@ -55,14 +55,14 @@ class Auxilios extends \yii\db\ActiveRecord
         return [
             'id_auxilio' => 'Id Auxilio',
             'tipo' => 'Tipo',
-            'porcentaje_aux' => 'Porcentaje Aux',
+            'porcentaje_aux' => 'Porcentaje de auxilio',
             'monto' => 'Monto',
-            'num_meses' => 'Num Meses',
-            'fecha_auxilio' => 'Fecha Auxilio',
+            'num_meses' => 'Número de meses',
+            'fecha_auxilio' => 'Fecha de auxilio',
             'proveedor' => 'Proveedor',
             'estado' => 'Estado',
             'id_cliente' => 'Id Cliente',
-            'tipo_auxilio' => 'Tipo Auxilio',
+            'tipo_auxilio' => 'Tipo de auxilio',
             'familiar' => 'Familiar',
         ];
     }

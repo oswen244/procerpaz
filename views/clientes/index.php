@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => ['class' => 'text-center'],
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
 
@@ -38,8 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id_institucion',
             // 'id_planilla',
             // 'id_estado',
-            'monto_paquete',
-            'observaciones',
+            // 'monto_paquete',
+            [
+                'attribute' => 'monto_paquete',
+                'value' => function($data){ return "$ ".number_format($data->monto_paquete,0);}
+            ],
+            // 'observaciones',
 
             ['class' => '\kartik\grid\ActionColumn'],
         ],

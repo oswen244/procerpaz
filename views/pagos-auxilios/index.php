@@ -31,11 +31,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'fecha',
                 // 'id_auxilio',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'label' => '', 
+                    'vAlign' => 'middle',
+                    'value' =>  function($data){
+                        return  Html::a('', ['update', 'id'=>$data->id_pago, 'id_auxilio'=>$_GET['id_auxilio'], 'cuota' => $_GET['monto']], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
+                                Html::a('', ['delete', 'id' => $data->id_pago, 'id_auxilio'=>$_GET['id_auxilio'], 'cuota' => $_GET['monto']], ['class' => 'act glyphicon glyphicon-trash',
+                                'data' => [
+                                    'confirm' => '¿Está seguro que desea borrar este auxilio?',
+                                    'method' => 'post',
+                                ],
+                                'title'=>'Eliminar',
+
+                            ]);
+                         },
+                    'format' => 'raw',
+                    'options'=>['width'=>'7%'],
+                ],
             ],
             'toolbar' => [
                 ['content'=>
-                    Html::a('Agregar pago', ['create'], ['class' => 'btn btn-success'])
+                    Html::a('Agregar pago', ['create', 'cuota' => $_GET['monto'], 'id_auxilio'=>$_GET['id_auxilio']], ['class' => 'btn btn-success'])
                 ],
                 '{export}',
             ],

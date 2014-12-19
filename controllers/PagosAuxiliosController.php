@@ -30,7 +30,7 @@ class PagosAuxiliosController extends Controller
      * Lists all PagosAuxilios models.
      * @return mixed
      */
-    public function actionIndex($id_auxilio)
+    public function actionIndex($id_auxilio,$monto)
     {
         $searchModel = new PagosAuxiliosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id_auxilio);
@@ -39,6 +39,7 @@ class PagosAuxiliosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_auxilio'=>$id_auxilio,
+            'cuota' => $monto,
         ]);
     }
 
@@ -59,15 +60,17 @@ class PagosAuxiliosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cuota,$id_auxilio)
     {
         $model = new PagosAuxilios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_pago]);
+            return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'cuota' => $cuota,
+                'id_auxilio'=>$id_auxilio,
             ]);
         }
     }
@@ -78,7 +81,7 @@ class PagosAuxiliosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$id_auxilio,$cuota)
     {
         $model = $this->findModel($id);
 
@@ -87,6 +90,8 @@ class PagosAuxiliosController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'cuota' => $cuota,
+                'id_auxilio'=>$id_auxilio,
             ]);
         }
     }
@@ -97,11 +102,11 @@ class PagosAuxiliosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id,$id_auxilio,$cuota)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
     }
 
     /**

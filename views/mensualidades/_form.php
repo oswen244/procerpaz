@@ -18,8 +18,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'total_cuotas')->textInput() ?>
 
-    <?= $form->field($model, 'id_cliente')->textInput() ?>
-
+	<?php if($model->isNewRecord){ ?>
+    	<?= $form->field($model, 'id_cliente')->hiddenInput(['value'=>$id_cliente])->label('') ?>
+	<?php }else{ ?>
+    	<?= $form->field($model, 'id_cliente')->textInput() ?>
+    <?php } ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Agregar' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
