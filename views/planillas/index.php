@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\PlanillasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usuarios';
+$this->title = 'Planillas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planillas-index">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => ['class' => 'text-center'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -25,7 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'unidad',
             // 'comision_afiliado',
             // 'por_ant_com',
-            'id_usuario',
+            // 'id_usuario',
+            [
+                'attribute' => 'id_usuario',
+                'label'=>'Promotor',
+                'value' => function($model){
+                    return $model->idUsuario->nombres.' '.$model->idUsuario->apellidos;
+                },
+            ],
 
             ['class' => '\kartik\grid\ActionColumn'],
         ],

@@ -51,8 +51,8 @@ class Planillas extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'lugar' => 'Lugar',
             'unidad' => 'Unidad',
-            'comision_afiliado' => 'Comision Afiliado',
-            'por_ant_com' => 'Por Ant Com',
+            'comision_afiliado' => 'Comision por afiliado',
+            'por_ant_com' => '% Ant Com',
             'id_usuario' => 'Id Usuario',
         ];
     }

@@ -6,36 +6,56 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
 
-$this->title = $model->id_planilla;
+$this->title = 'Planilla N° '.$model->id_planilla;
 $this->params['breadcrumbs'][] = ['label' => 'Planillas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planillas-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="col-md-12">
+     <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+           <li><?= Html::a('Listar planillas', ['index'], ['class' => '']) ?></li>
+           <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_planilla], ['class' => '']) ?></li><br>
+           <li>
+               <?= Html::a('Eliminar', ['delete', 'id' => $model->id_planilla], [
+                    'class' => '',
+                    'data' => [
+                        'confirm' => '¿Está seguro que desea eliminar esta planilla?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </li>
+        </ul>
+    </div>
+    <div class="planillas-view col-md-9">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_planilla], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_planilla], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+        <h1><?= Html::encode($this->title) ?></h1>
+
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                // 'id_planilla',
+                'fecha',
+                'lugar',
+                'unidad',
+                // 'comision_afiliado',
+                [
+                    'attribute' => 'comision_afiliado',
+                    'value' => "$ ".number_format($model->comision_afiliado,0)
+                ],
+                // 'por_ant_com',
+                [
+                    'attribute' => 'por_ant_com',
+                    'value' => $model->por_ant_com."%",
+                ],
+                // 'id_usuario',
+                [
+                    'attribute' => 'id_usuario',
+                    'label' => 'Promotor',
+                    'value' => $model->idUsuario->nombres.' '.$model->idUsuario->apellidos,
+                ],
             ],
         ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_planilla',
-            'fecha',
-            'lugar',
-            'unidad',
-            'comision_afiliado',
-            'por_ant_com',
-            'id_usuario',
-        ],
-    ]) ?>
-
+    </div>
 </div>

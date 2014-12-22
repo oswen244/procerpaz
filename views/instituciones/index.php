@@ -8,6 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\InstitucionesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Instituciones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="instituciones-index">
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => ['class' => 'text-center'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

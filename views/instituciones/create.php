@@ -10,12 +10,22 @@ $this->title = 'Create Instituciones';
 $this->params['breadcrumbs'][] = ['label' => 'Instituciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="instituciones-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="col-md-12">
+	 <div class="col-md-3">
+	    <ul class="nav nav-pills nav-stacked">
+	       <li>
+	       		<?= Html::a('Regresar', ['index'], ['class' => '']) ?>
+	       </li>
+	    </ul>
+	</div>
+	<div class="instituciones-create col-md-9">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+	    <h1><?= Html::encode($this->title) ?></h1>
 
+	    <?= $this->render('_form', [
+	        'model' => $model,
+	    ]) ?>
+
+	</div>
 </div>
