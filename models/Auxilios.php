@@ -25,6 +25,9 @@ use Yii;
  */
 class Auxilios extends \yii\db\ActiveRecord
 {
+
+    const EN_CURSO = '1';
+    const TERMINADO = '2';
     /**
      * @inheritdoc
      */

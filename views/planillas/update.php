@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	 <div class="col-md-3">
 	    <ul class="nav nav-pills nav-stacked">
 	       <li>
-	       		<?= Html::a('Regresar', ['index'], ['class' => '']) ?>
+	       		<?= Html::a('Listar planillas', ['index'], ['class' => '']) ?>
 	       </li>
 	    </ul>
 	</div>

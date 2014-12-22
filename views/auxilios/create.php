@@ -2,7 +2,7 @@
 	$(document).ready(function() {
 		$('#cedula').on('blur',  function(event) {
 			event.preventDefault();
-			famLista($('#cedula').val(),'Seleccione un familiar');
+			famLista($('#doc').val(),'Seleccione un familiar');
 		});	
 	});
 </script>
@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'model' => $model,
 	        'tipo' => $tipo,
 	        'familiares' => $familiares,
+	        'tipos'=> $tipos,
 	    ]) ?>
 
 	</div>

@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	</div>
 	<div class="instituciones-update col-md-9">
 
-	    <h1><?= Html::encode($this->title) ?></h1>
+	    <h1><?= Html::encode($this->title) ?></h1><br>
 
 	    <?= $this->render('_form', [
 	        'model' => $model,

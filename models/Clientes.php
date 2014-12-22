@@ -23,11 +23,14 @@ use Yii;
  * @property string $email
  * @property string $direccion
  * @property string $telefono
+ * @property string $celular 
  * @property integer $id_institucion
  * @property integer $id_planilla
  * @property integer $id_estado
  * @property string $monto_paquete
  * @property string $observaciones
+ * @property string $fecha_rep 
+ * @property string $fecha_ven 
  *
  * @property Auxilios[] $auxilios
  * @property Estados $idEstado
@@ -40,6 +43,12 @@ use Yii;
  */
 class Clientes extends \yii\db\ActiveRecord
 {
+    const CEDULA = 'Cedula';
+    const TI = 'Tarjeta de identidad';
+    const PASAPORTE = 'Pasaporte';
+    const RUT = 'RUT';
+    const MASCULINO = 'M';
+    const FEMENINO = 'F';
     /**
      * @inheritdoc
      */
@@ -55,10 +64,10 @@ class Clientes extends \yii\db\ActiveRecord
     {
         return [
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado', 'monto_paquete'], 'required'],
-            [['fecha_afiliacion', 'fecha_nacimiento'], 'safe'],
+            [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven'], 'safe'],
             [['id_institucion', 'id_planilla', 'id_estado'], 'integer'],
             [['monto_paquete'], 'number'],
-            [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'lugar_exp', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono'], 'string', 'max' => 45],
+            [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'lugar_exp', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1],
             [['observaciones'], 'string', 'max' => 1000]
         ];
@@ -77,7 +86,7 @@ class Clientes extends \yii\db\ActiveRecord
             'apellidos' => 'Apellidos',
             'tipo_id' => 'Tipo de ID',
             'num_id' => 'Número de ID',
-            'genero' => 'Genero',
+            'genero' => 'Sexo',
             'lugar_exp' => 'Lugar de expedición',
             'fecha_nacimiento' => 'Fecha de nacimiento',
             'grado' => 'Grado',
@@ -86,11 +95,14 @@ class Clientes extends \yii\db\ActiveRecord
             'email' => 'Email',
             'direccion' => 'Dirección',
             'telefono' => 'Teléfono',
-            'id_institucion' => 'Id Institucion',
+            'celular' => 'Celular',
+            'id_institucion' => 'Institucion',
             'id_planilla' => 'Planilla',
-            'id_estado' => 'Id Estado',
+            'id_estado' => 'Estado',
             'monto_paquete' => 'Monto de paquete',
             'observaciones' => 'Observaciones',
+            'fecha_rep' => 'Fecha Rep', 
+            'fecha_ven' => 'Fecha Ven', 
         ];
     }
 

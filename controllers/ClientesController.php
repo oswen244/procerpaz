@@ -102,10 +102,44 @@ class ClientesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_cliente]);
         } else {
+            $instituciones = $this->buscarInstituciones();
+            $planillas = $this->buscarPlanillas();
+            $estados = $this->buscarEstados();
             return $this->render('create', [
                 'model' => $model,
+                'instituciones' => $instituciones,
+                'planillas' => $planillas,
+                'estados'=>$estados,
             ]);
         }
+    }
+
+    public function buscarInstituciones()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('id_institucion, nombre')->from('instituciones');
+        $instituciones = $query->all();
+
+        return $instituciones;
+    }
+
+    public function buscarPlanillas()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('id_planilla')->from('planillas');
+        $instituciones = $query->all();
+
+        return $instituciones;
+    }
+
+    public function buscarEstados()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('id_estado, nombre')->from('estados')->where('entidad=:entidad');
+        $query->addParams([':entidad'=>'Clientes']);
+        $instituciones = $query->all();
+
+        return $instituciones;
     }
 
      /**
@@ -140,8 +174,14 @@ class ClientesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_cliente]);
         } else {
+            $instituciones = $this->buscarInstituciones();
+            $planillas = $this->buscarPlanillas();
+            $estados = $this->buscarEstados();
             return $this->render('update', [
                 'model' => $model,
+                'instituciones' => $instituciones,
+                'planillas' => $planillas,
+                'estados'=>$estados,
             ]);
         }
     }

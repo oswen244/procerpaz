@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
@@ -10,9 +11,19 @@ use yii\widgets\ActiveForm;
 
 <div class="planillas-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
-    <?= $form->field($model, 'fecha')->textInput() ?>
+     <div class="form-group field-clientes-fecha_afiliacion">
+        <div class="form-group field-clientes-fecha_afiliacion">
+            <label for="clientes-fecha_afiliacion" class="control-label col-sm-3">Fecha</label>
+            <div class="col-sm-6">
+                <?= yii\jui\DatePicker::widget(["id" => "planillas-fecha", "name" => "Planillas[fecha]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+            </div>            
+        </div>
+    </div>
+
+
+    <!-- <?= $form->field($model, 'fecha')->textInput() ?> -->
 
     <?= $form->field($model, 'lugar')->textInput(['maxlength' => 45]) ?>
 
@@ -24,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_usuario')->textInput() ?>
 
-    <div class="form-group">
+    <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

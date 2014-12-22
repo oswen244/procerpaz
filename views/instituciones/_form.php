@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Instituciones */
@@ -10,13 +11,13 @@ use yii\widgets\ActiveForm;
 
 <div class="instituciones-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => 45]) ?>
 
     <?= $form->field($model, 'descripcion')->textArea(['maxlength' => 45]) ?>
 
-    <div class="form-group">
+    <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

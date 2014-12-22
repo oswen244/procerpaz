@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
@@ -10,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="usuarios-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
     <?= $form->field($model, 'nombres')->textInput(['maxlength' => 45]) ?>
 

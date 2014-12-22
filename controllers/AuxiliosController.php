@@ -102,15 +102,43 @@ class AuxiliosController extends Controller
         $model = new Auxilios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_auxilio]);
+            if($tipo == 1)
+                return $this->redirect(['indexdes']);
+            else
+                return $this->redirect(['indexexe']);
+
         } else {
             $familiares ='';
+            if($tipo == 1)
+                $tipos = $this->buscarTipos('0');
+            else
+                $tipos = $this->buscarTipos('2');
+
             return $this->render('create', [
                 'model' => $model,
                 'tipo' => $tipo,
                 'familiares' => $familiares,
+                'tipos' => $tipos,
             ]);
         }
+    }
+
+    public function actionGetcliente(){
+        $query = (new \yii\db\Query());
+        $query->select('id_cliente, nombres, apellidos')->from('clientes')->where('num_id=:documento');
+        $query->addParams([':documento'=>$_POST['data']]);
+        $cliente = $query->one();
+        \Yii::$app->response->format = 'json';
+
+        return $cliente;
+    }
+
+    public function buscarTipos($offset)
+    {
+        $query = "SELECT id_tipo, tipo_auxilio FROM tipo_auxilio LIMIT 2 OFFSET ".$offset;
+        $result = \Yii::$app->db->createCommand($query)->queryAll();
+
+        return $result;
     }
 
     /**
@@ -140,11 +168,16 @@ class AuxiliosController extends Controller
         } else {
             $num_id = $this->idCliente($model->id_cliente);
             $familiares = $this->buscarFamiliares($model->id_cliente);
+            if($tipo == 1)
+                $tipos = $this->buscarTipos('0');
+            else
+                $tipos = $this->buscarTipos('2');
             return $this->render('update', [
                 'model' => $model,
                 'tipo' => $tipo,
                 'num_id'=>$num_id,
                 'familiares'=>$familiares,
+                'tipos' => $tipos,
             ]);
         }
     }
@@ -155,11 +188,13 @@ class AuxiliosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id,$tipo)
     {
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        if($tipo == 1)
+            return $this->redirect(['indexdes']);
+        else
+            return $this->redirect(['indexexe']);
     }
 
     public function actionFamiliares(){

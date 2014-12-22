@@ -19,7 +19,7 @@ class ClientesSearch extends Clientes
     {
         return [
             [['id_cliente', 'id_institucion', 'id_planilla', 'id_estado'], 'integer'],
-            [['num_afiliacion', 'fecha_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'lugar_exp', 'fecha_nacimiento', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'observaciones'], 'safe'],
+            [['num_afiliacion', 'fecha_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'lugar_exp', 'fecha_nacimiento', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular', 'observaciones', 'fecha_rep', 'fecha_ven'], 'safe'],
             [['monto_paquete'], 'number'],
         ];
     }
@@ -60,6 +60,8 @@ class ClientesSearch extends Clientes
             'id_planilla' => $this->id_planilla,
             'id_estado' => $this->id_estado,
             'monto_paquete' => $this->monto_paquete,
+            'fecha_rep' => $this->fecha_rep, 
+            'fecha_ven' => $this->fecha_ven, 
         ]);
 
         $query->andFilterWhere(['like', 'num_afiliacion', $this->num_afiliacion])
@@ -75,6 +77,7 @@ class ClientesSearch extends Clientes
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
+            ->andFilterWhere(['like', 'celular', $this->celular]) 
             ->andFilterWhere(['like', 'observaciones', $this->observaciones]);
 
         return $dataProvider;

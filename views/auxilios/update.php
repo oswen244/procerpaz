@@ -1,11 +1,8 @@
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#cedula').val('<?=$num_id;?>');
-	});
-</script>
+
 <?php
 
 use yii\helpers\Html;
+use app\models\Auxilios;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Auxilios */
@@ -40,7 +37,13 @@ $this->params['breadcrumbs'][] = 'Update';
 	        'model' => $model,
 	        'tipo' => $tipo,
 	        'familiares' => $familiares,
+	        'tipos'=>$tipos,
 	    ]) ?>
 
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#doc').val('<?=$num_id;?>');
+	});
+</script>

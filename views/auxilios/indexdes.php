@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 'value' =>  function($data){
                     return  Html::a('', ['pagos-auxilios/index', 'id_auxilio'=>$data->id_auxilio, 'monto'=>$data->monto], ['class' => 'glyphicon glyphicon-usd', 'title'=>'Pagos']).'&nbsp'.
                             Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
-                            Html::a('', ['delete', 'id' => $data->id_auxilio], ['class' => 'act glyphicon glyphicon-trash',
+                            Html::a('', ['delete', 'id' => $data->id_auxilio, 'tipo' => $data->tipo], ['class' => 'act glyphicon glyphicon-trash',
                             'data' => [
                                 'confirm' => '¿Está seguro que desea borrar este auxilio?',
                                 'method' => 'post',
