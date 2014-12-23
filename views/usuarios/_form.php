@@ -1,8 +1,14 @@
+<script type="text/javascript">
+   $(document).ready(function() {
+        $('#usuarios-perfil').val('Administrador');
+    });
+</script>
 <?php
 
 use yii\helpers\Html;
 // use yii\widgets\ActiveForm;
 use yii\bootstrap\ActiveForm;
+use app\models\Usuarios;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
@@ -27,7 +33,19 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'ciudad')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($model, 'genero')->textInput(['maxlength' => 1]) ?>
+    <div class="form-group field-clientes-genero required">
+        <label for="clientes-genero" class="control-label col-sm-3">Sexo</label>
+        <div class="col-sm-6">
+            <select name="Usuarios[genero]" id="clientes-genero" class="form-control">
+                <option value=""></option>
+                <option value="<?=Usuarios::MASCULINO?>"><?=Usuarios::MASCULINO?></option>
+                <option value="<?=Usuarios::FEMENINO?>"><?=Usuarios::FEMENINO?></option>
+            </select>
+            <div class="help-block help-block-error "></div>
+        </div>
+    </div>
+
+    <!-- <?= $form->field($model, 'genero')->textInput(['maxlength' => 1]) ?> -->
 
     <?= $form->field($model, 'celular')->textInput(['maxlength' => 45]) ?>
 
@@ -35,12 +53,12 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'contrasena')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($model, 'perfil')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'perfil')->hiddenInput(['maxlength' => 45])->label('') ?>
 
-    <?= $form->field($model, 'estado')->textInput() ?>
+    <?= $form->field($model, 'estado')->hiddenInput()->label('') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div class="text-center">
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

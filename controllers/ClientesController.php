@@ -142,6 +142,14 @@ class ClientesController extends Controller
         return $instituciones;
     }
 
+    public function buscarParentezcos(){
+        $query = (new \yii\db\Query());
+        $query->select('id_parentezco, parentezco')->from('parentezcos');
+        $parentezcos = $query->all();
+
+        return $parentezcos;
+    }
+
      /**
      * Creates a new Clientes model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -154,9 +162,11 @@ class ClientesController extends Controller
         if ($familiar->load(Yii::$app->request->post()) && $familiar->save()) {
             return $this->redirect(['familiares', 'id' => $id]);
         } else {
+            $parentezcos = $this->buscarParentezcos();
             return $this->render('createFamiliares', [
                 'familiar' => $familiar,
                 'id_cliente' => $id,
+                'parentezcos' => $parentezcos,
             ]);
         }
     }
@@ -177,11 +187,13 @@ class ClientesController extends Controller
             $instituciones = $this->buscarInstituciones();
             $planillas = $this->buscarPlanillas();
             $estados = $this->buscarEstados();
+            
             return $this->render('update', [
                 'model' => $model,
                 'instituciones' => $instituciones,
                 'planillas' => $planillas,
                 'estados'=>$estados,
+                
             ]);
         }
     }
@@ -197,11 +209,13 @@ class ClientesController extends Controller
         $familiar = $this->findfamiliar($id);
 
         if ($familiar->load(Yii::$app->request->post()) && $familiar->save()) {
-            return $this->redirect(['view-familiar', 'id' => $familiar->id_familiar]);
+            return $this->redirect(['view-familiar', 'id' => $familiar->id_familiar, 'idc'=> $idc]);
         } else {
+            $parentezcos = $this->buscarParentezcos();
             return $this->render('updateFamiliares', [
                 'familiar' => $familiar,
                 'id_cliente' => $idc,
+                'parentezcos' => $parentezcos,
             ]);
         }
     }

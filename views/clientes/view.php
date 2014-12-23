@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
        
     <div class="clientes-view col-md-9">
-
-        <h1><?= Html::encode($this->title) ?></h1>
+        <!-- <p><img src="http://www.dolthink.com/wp-content/uploads/huellas1.png" data-toggle="modal" data-target="#logoModal" alt="logo" style="width:128px;height:128px"><p><br> -->
+        <h1><?= Html::encode($this->title) ?></h1><br>
 
         <?= DetailView::widget([
             'model' => $model,

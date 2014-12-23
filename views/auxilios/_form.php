@@ -18,7 +18,7 @@ use app\models\Auxilios;
         <div class="form-group field-auxilios-monto">
             <label class="control-label col-sm-3">N° de identificación</label>
             <div class="col-sm-6">                
-                <input id="doc" type="text" required value="" class="form-control">
+                <input id="doc" type="text" required class="form-control">
             </div>
         </div>
 
@@ -46,7 +46,7 @@ use app\models\Auxilios;
     <?php if($tipo === '1'){ ?>
         <?= $form->field($model, 'porcentaje_aux')->textInput() ?>
     <?php } ?>
-    <?= $form->field($model, 'monto')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'monto')->textInput(['maxlength' => 10, 'required'=>'']) ?>
     <?php if($tipo === '1'){ ?>
         <?= $form->field($model, 'num_meses')->textInput() ?>
     <?php } ?>
@@ -108,16 +108,8 @@ use app\models\Auxilios;
         $('#auxilios-fecha').val('<?=$model->fecha_auxilio?>');
         $('#auxilios-tipo_auxilio').val('<?=$model->tipo_auxilio?>');
         $('#auxilios-estado').val('<?=$model->estado?>');
-        if(<?=$model->estado?> == <?=Auxilios::EN_CURSO?>)
-            $('#auxilios-estado').val('En curso'); //No muestra el dato en el update
-        else
-            $('#auxilios-estado').val('Terminado');
-        $('#doc').on('blur', function(event) {
-            $.post('getcliente',{data: $('#doc').val()}).done(function(data) {
-                $('#auxilios-id_cliente').val(data['id_cliente']);
-                if($('#doc').val() != '')
-                    $('#clienteName').text(data['nombres']+' '+data['apellidos']);
-            });
-        });
+        
+        nombreCliente('#doc', '#auxilios-id_cliente', '#clienteName');
+       
     });
 </script>

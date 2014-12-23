@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#cedula').on('blur',  function(event) {
+		$('#doc').on('blur',  function(event) {
 			event.preventDefault();
 			famLista($('#doc').val(),'Seleccione un familiar');
 		});	

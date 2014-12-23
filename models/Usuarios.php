@@ -27,6 +27,9 @@ use Yii;
  */
 class Usuarios extends \yii\db\ActiveRecord
 {
+
+    const MASCULINO = 'M';
+    const FEMENINO = 'F';
     /**
      * @inheritdoc
      */

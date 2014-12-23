@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
 	    <?= $this->render('_formFamiliares', [
 	        'familiar' => $familiar,
+            'id_cliente' => $id_cliente,
+            'parentezcos' => $parentezcos,
 	    ]) ?>
 
 	</div>

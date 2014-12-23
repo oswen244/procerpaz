@@ -52,12 +52,12 @@ class Prestamos extends \yii\db\ActiveRecord
             'id_prestamo' => 'Id Prestamo',
             'monto' => 'Monto',
             'interes_mensual' => 'Interes Mensual',
-            'num_cuotas' => 'Num Cuotas',
-            'valor_cuota' => 'Valor Cuota',
-            'fecha_prest' => 'Fecha Prest',
-            'fecha_rep' => 'Fecha Rep',
+            'num_cuotas' => 'Número de cuotas',
+            'valor_cuota' => 'Valor de la cuota',
+            'fecha_prest' => 'Fecha del prestamo',
+            'fecha_rep' => 'Fecha de reporte',
             'id_cliente' => 'Id Cliente',
-            'id_estado' => 'Id Estado',
+            'id_estado' => 'Estado',
         ];
     }
 

@@ -77,8 +77,10 @@ class PrestamosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_prestamo]);
         } else {
+            $estados = $this->buscarEstados(); 
             return $this->render('create', [
                 'model' => $model,
+                'estados'=> $estados,
             ]);
         }
     }
@@ -96,8 +98,12 @@ class PrestamosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_prestamo]);
         } else {
+            $estados = $this->buscarEstados();
+            $num_id = $this->idCliente($model->id_cliente);
             return $this->render('update', [
                 'model' => $model,
+                'estados'=> $estados,
+                'num_id'=> $num_id,
             ]);
         }
     }
@@ -113,6 +119,36 @@ class PrestamosController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetcliente(){
+        $query = (new \yii\db\Query());
+        $query->select('id_cliente, nombres, apellidos')->from('clientes')->where('num_id=:documento');
+        $query->addParams([':documento'=>$_POST['data']]);
+        $cliente = $query->one();
+        \Yii::$app->response->format = 'json';
+
+        return $cliente;
+    }
+
+    public function buscarEstados()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('id_estado, nombre')->from('estados')->where('entidad=:entidad');
+        $query->addParams([':entidad'=>'Prestamos']);
+        $instituciones = $query->all();
+
+        return $instituciones;
+    }
+
+    public function idCliente($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('num_id')->from('clientes')->where('id_cliente=:id');
+        $query->addParams([':id'=>$id]);
+        $numero = $query->scalar();
+
+        return $numero;
     }
 
     /**

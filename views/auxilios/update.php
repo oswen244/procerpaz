@@ -1,4 +1,8 @@
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#doc').val('<?=$num_id;?>');
+	});
+</script>
 <?php
 
 use yii\helpers\Html;
@@ -42,8 +46,3 @@ $this->params['breadcrumbs'][] = 'Update';
 
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#doc').val('<?=$num_id;?>');
-	});
-</script>

@@ -65,10 +65,20 @@ class FamiliaresController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_familiar]);
         } else {
+            $parentezcos = $this->buscarParentezcos();
             return $this->render('create', [
                 'model' => $model,
+                'parentezcos' => $parentezcos,
             ]);
         }
+    }
+
+    public function buscarParentezcos(){
+        $query = (new \yii\db\Query());
+        $query->select('id_parentezco, parentezco')->from('familiares');
+        $parentezcos = $query->all();
+
+        return $parentezcos;
     }
 
     /**

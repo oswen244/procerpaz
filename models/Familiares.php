@@ -19,6 +19,7 @@ use Yii;
  * @property string $email
  * @property string $direccion
  * @property string $telefono
+ * @property string $celular
  * @property integer $id_cliente
  * @property integer $id_parentezco
  *
@@ -44,7 +45,7 @@ class Familiares extends \yii\db\ActiveRecord
             [['nombres', 'apellidos', 'tipo_id', 'num_id', 'id_cliente', 'id_parentezco'], 'required'],
             [['fecha_nacimiento'], 'safe'],
             [['id_cliente', 'id_parentezco'], 'integer'],
-            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'pais', 'ciudad', 'email', 'direccion', 'telefono'], 'string', 'max' => 45],
+            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1]
         ];
     }
@@ -58,15 +59,16 @@ class Familiares extends \yii\db\ActiveRecord
             'id_familiar' => 'Id Familiar',
             'nombres' => 'Nombres',
             'apellidos' => 'Apellidos',
-            'tipo_id' => 'Tipo de ID',
-            'num_id' => 'Número de ID',
+            'tipo_id' => 'Tipo ID',
+            'num_id' => 'Num ID',
             'genero' => 'Genero',
-            'fecha_nacimiento' => 'Fecha de Nacimiento',
+            'fecha_nacimiento' => 'Fecha Nacimiento',
             'pais' => 'Pais',
             'ciudad' => 'Ciudad',
             'email' => 'Email',
-            'direccion' => 'Dirección',
-            'telefono' => 'Teléfono',
+            'direccion' => 'Direccion',
+            'telefono' => 'Telefono',
+            'celular' => 'Celular',
             'id_cliente' => 'Id Cliente',
             'id_parentezco' => 'Id Parentezco',
         ];

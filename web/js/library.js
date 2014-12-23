@@ -17,3 +17,24 @@
             $(idSelect).append('<option value='+p[0]+" "+p[1]+'>'+p[0]+" "+p[1]+'</option>');
         });
     }
+
+    function nombreCliente(docInput,idInput,nombreTag)
+    {
+        $(docInput).on('blur', function(event) {
+            $.post('getcliente',{data: $(docInput).val()}).done(function(data) {
+                $(idInput).val(data['id_cliente']);
+                if($(docInput).val() != '')
+                    $(nombreTag).text(data['nombres']+' '+data['apellidos']);
+            });
+        });
+    }
+
+    function valorCuota(monto,intMen,numCuotas)
+    {
+        monto = parseFloat(monto);
+        var cuotaNeto = monto/parseFloat(numCuotas);
+        var interes = parseFloat(intMen)/100;
+        var valorInteres = monto*interes;
+        return cuotaNeto+valorInteres;
+    }
+

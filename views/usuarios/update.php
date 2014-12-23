@@ -10,12 +10,21 @@ $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_usuario, 'url' => ['view', 'id' => $model->id_usuario]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="usuarios-update">
+<div class="col-md-12">
+	 <div class="col-md-3">
+	    <ul class="nav nav-pills nav-stacked">
+	       <li>
+			<?= Html::a('Regresar', ['index'], ['class' => '']) ?>
+	       </li>
+	    </ul>
+	</div>
+	<div class="usuarios-update col-md-9">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+	    <?= $this->render('_form', [
+	        'model' => $model,
+	    ]) ?>
 
+	</div>
 </div>

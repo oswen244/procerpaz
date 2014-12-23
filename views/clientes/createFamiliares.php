@@ -1,3 +1,14 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#familiares-num_id').attr('disabled', 'true');
+		$('#familiares-tipo_id').on('change', function() {
+			if($('#familiares-tipo_id').val() != '')
+				$('#familiares-num_id').removeAttr('disabled');
+			else
+				$('#familiares-num_id').attr('disabled', 'true');
+		});	
+	});
+</script>
 <?php
 
 use yii\helpers\Html;
@@ -25,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <h1><?= Html::encode($this->title) ?></h1><br>
 
 	    <?= $this->render('_formFamiliares', [
-	        'familiar' => $familiar,
+	        'familiar' => $familiar, //este es el modelo
+	        'id_cliente' => $id_cliente,
+	        'parentezcos' => $parentezcos,
 	    ]) ?>
 
 	</div>
