@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "210a4d47271b1e36d3ba88c7ea41aec9",
+    "hash": "4019a07192df4ca98a81d33442b1468b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -385,16 +385,16 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v2.8.0",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "17d3b9fae95497c770e2c74077724cff7d5f0231"
+                "reference": "f98b3d767ea745ab7430cf06609fcadddf8437eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/17d3b9fae95497c770e2c74077724cff7d5f0231",
-                "reference": "17d3b9fae95497c770e2c74077724cff7d5f0231",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/f98b3d767ea745ab7430cf06609fcadddf8437eb",
+                "reference": "f98b3d767ea745ab7430cf06609fcadddf8437eb",
                 "shasum": ""
             },
             "require": {
@@ -425,7 +425,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-12-17 07:50:36"
+            "time": "2014-12-27 07:12:40"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -433,12 +433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "d99ad8a0ee6c349922ab68fd9cc7882801e00c25"
+                "reference": "2842f5dcdb4897e336e8cb1aa0585e0a0d39e3f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/d99ad8a0ee6c349922ab68fd9cc7882801e00c25",
-                "reference": "d99ad8a0ee6c349922ab68fd9cc7882801e00c25",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/2842f5dcdb4897e336e8cb1aa0585e0a0d39e3f3",
+                "reference": "2842f5dcdb4897e336e8cb1aa0585e0a0d39e3f3",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +471,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-12-11 17:55:50"
+            "time": "2014-12-18 09:48:37"
         },
         {
             "name": "kartik-v/yii2-mpdf",

@@ -5,13 +5,13 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PlanillasSearch */
+/* @var $searchModel app\models\PromotoresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Planillas';
+$this->title = 'Promotores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planillas-index">
+<div class="promotores-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -20,18 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id_planilla',
-            'fecha',
-            'lugar',
-            'unidad',
-            // 'comision_afiliado',
-            // 'por_ant_com',
+            // 'id_promotor',
+            'nombres',
+            'apellidos',
 
-            ['class' => '\kartik\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
         'toolbar' => [
             ['content'=>
-                Html::a('Crear planilla', ['create'], ['class' => 'btn btn-success'])
+                Html::a('Registrar Promotor', ['create'], ['class' => 'btn btn-success'])
             ],
             '{export}',
             // '{toggleData}',
@@ -39,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'hover' => true,
         'panel' => [
             'type' => GridView::TYPE_DEFAULT,
-            'heading' => '<i class="glyphicon glyphicon-file"></i>  Planilas',
+            'heading' => '<i class="glyphicon glyphicon-user"></i>  Promotores',
         ],
     ]); ?>
 

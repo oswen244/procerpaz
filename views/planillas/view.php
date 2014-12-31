@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
      <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
            <li><?= Html::a('Listar planillas', ['index'], ['class' => '']) ?></li>
-           <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_planilla], ['class' => '']) ?></li><br>
+           <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_planilla], ['class' => '']) ?></li>
+           <li><?= Html::a('Asignar promotores', ['#', 'id' => $model->id_planilla], ['class' => '']) ?></li><br>
            <li>
                <?= Html::a('Eliminar', ['delete', 'id' => $model->id_planilla], [
                     'class' => '',
@@ -48,12 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'por_ant_com',
                     'value' => $model->por_ant_com."%",
                 ],
-                // 'id_usuario',
-                [
-                    'attribute' => 'id_usuario',
-                    'label' => 'Promotor',
-                    'value' => $model->idUsuario->nombres.' '.$model->idUsuario->apellidos,
-                ],
+               
             ],
         ]) ?>
 

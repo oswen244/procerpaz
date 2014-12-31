@@ -33,8 +33,6 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'por_ant_com')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($model, 'id_usuario')->textInput() ?>
-
     <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

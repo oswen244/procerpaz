@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Planillas;
+use app\models\Promotores;
 
 /**
- * PlanillasSearch represents the model behind the search form about `app\models\Planillas`.
+ * PromotoresSearch represents the model behind the search form about `app\models\Promotores`.
  */
-class PlanillasSearch extends Planillas
+class PromotoresSearch extends Promotores
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PlanillasSearch extends Planillas
     public function rules()
     {
         return [
-            [['id_planilla'], 'integer'],
-            [['fecha', 'lugar', 'unidad', 'comision_afiliado', 'por_ant_com'], 'safe'],
+            [['id_promotor'], 'integer'],
+            [['nombres', 'apellidos'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class PlanillasSearch extends Planillas
      */
     public function search($params)
     {
-        $query = Planillas::find();
+        $query = Promotores::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -52,14 +52,11 @@ class PlanillasSearch extends Planillas
         }
 
         $query->andFilterWhere([
-            'id_planilla' => $this->id_planilla,
-            'fecha' => $this->fecha,
+            'id_promotor' => $this->id_promotor,
         ]);
 
-        $query->andFilterWhere(['like', 'lugar', $this->lugar])
-            ->andFilterWhere(['like', 'unidad', $this->unidad])
-            ->andFilterWhere(['like', 'comision_afiliado', $this->comision_afiliado])
-            ->andFilterWhere(['like', 'por_ant_com', $this->por_ant_com]);
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])
+            ->andFilterWhere(['like', 'apellidos', $this->apellidos]);
 
         return $dataProvider;
     }

@@ -42,6 +42,7 @@ AppAsset::register($this);
                         'items' => [
                             ['label' => 'Listar clientes', 'url' => ['/clientes/index']],                            
                             ['label' => 'Planillas', 'url' => ['/planillas/index']],
+                            ['label' => 'Promotores', 'url' => ['/promotores/index']],                            
                             ['label' => 'Instituciones', 'url' => ['/instituciones/index']],                            
                         ],
 
