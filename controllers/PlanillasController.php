@@ -4,12 +4,14 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Planillas;
+use app\models\Clientes;
 use app\models\PlanillasSearch;
 use app\models\PromotoresSearch;
 use app\models\PromotoresPlanillasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * PlanillasController implements the CRUD actions for Planillas model.
@@ -56,13 +58,28 @@ class PlanillasController extends Controller
         $searchModelLista = new PromotoresPlanillasSearch();
         $dataProviderLista = $searchModelLista->search(Yii::$app->request->queryParams,$id);
 
+        $afiliados = $this->afiliados($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchModelLista'=>$searchModelLista,
             'dataProviderLista'=>$dataProviderLista,
+            'afiliados'=>$afiliados,
         ]);
+    }
+
+    public function afiliados($id_planilla)
+    {
+        $query = Clientes::find()->where('id_planilla=:id');
+        $query->addParams([':id' => $id_planilla]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
     }
 
     public function actionAsignar()

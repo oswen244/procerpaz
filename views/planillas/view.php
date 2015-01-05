@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Promotores;
 use kartik\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
@@ -18,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked">
            <li><?= Html::a('Listar planillas', ['index'], ['class' => '']) ?></li>
            <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_planilla], ['class' => '']) ?></li>
-           <li><a href="#" id="prom">Asignar promotores</a></li><br>
+           <li><a href="#" id="prom">Asignar promotores</a></li>
+           <li><?= Html::a('Gastos', ['gastos-planillas/index', 'id_planilla' => $model->id_planilla], ['class' => '']) ?></li>
+           <li><a href="#" id="detalle">Detalle</a></li><br>
            <li>
                <?= Html::a('Eliminar', ['delete', 'id' => $model->id_planilla], [
                     'class' => '',
@@ -33,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="planillas-view col-md-9">
 
         <h1><?= Html::encode($this->title) ?></h1>
-
+        
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
@@ -55,61 +58,57 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <div class="row">
-            <div class="promotores_planillas-index">
+        <?= GridView::widget([
+            'dataProvider' => $dataProviderLista,
+            // 'filterModel' => $searchModelLista,
+            'pjax'=>true,
+            'rowOptions' => ['class' => 'text-center'],
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-                <?= GridView::widget([
-                    'dataProvider' => $dataProviderLista,
-                    // 'filterModel' => $searchModelLista,
-                    'pjax'=>true,
-                    'rowOptions' => ['class' => 'text-center'],
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                // 'id_promotor',
+                [
+                    'attribute' => 'id_promotor',
+                    'label'=>'Nombres',
+                    'value' => function($model){
+                        return $model->idPromotor->nombres;
+                    },
+                ],
+                [
+                    'attribute' => 'id_promotor',
+                    'label'=>'Apellidos',
+                    'value' => function($model){
+                        return $model->idPromotor->apellidos;
+                    },
+                ],
+                // 'id_planilla',
 
-                        // 'id_promotor',
-                        [
-                            'attribute' => 'id_promotor',
-                            'label'=>'Nombres',
-                            'value' => function($model){
-                                return $model->idPromotor->nombres;
-                            },
-                        ],
-                        [
-                            'attribute' => 'id_promotor',
-                            'label'=>'Apellidos',
-                            'value' => function($model){
-                                return $model->idPromotor->apellidos;
-                            },
-                        ],
-                        // 'id_planilla',
-
-                        [
-                            'label' => '', 
-                            'vAlign' => 'middle',
-                            'value' =>  function($data){
-                                return  Html::a('', ['promotores/view', 'id'=>$data->id_promotor], ['class' => 'glyphicon glyphicon-eye-open',]).'&nbsp'.
-                                        Html::a('', ['promotores-planillas/delete', 'id_planilla'=>$data->id_planilla, 'id' => $data->id_promotores_planillas], ['class' => 'glyphicon glyphicon-trash',
-                                        'data' => [
-                                            'confirm' => 'Está seguro que desea desvincular este promotor?',
-                                            'method' => 'post',
-                                        ]
-                                    ]);
-                            },
-                            'format' => 'raw',
-                            
-                            ],
-
-                        ],
-
-                    'hover' => true,
-                    'panel' => [
-                        // 'type' => GridView::TYPE_DEFAULT,
-                        'heading' => '<i class="glyphicon glyphicon-user"></i>  Promotores asignados',
+                [
+                    'label' => '', 
+                    'vAlign' => 'middle',
+                    'value' =>  function($data){
+                        return  Html::a('', ['promotores/view', 'id'=>$data->id_promotor], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver perfil de promotor']).'&nbsp'.
+                                Html::a('', ['promotores-planillas/delete', 'id_planilla'=>$data->id_planilla, 'id' => $data->id_promotores_planillas], ['class' => 'glyphicon glyphicon-remove',
+                                'data' => [
+                                    'confirm' => 'Está seguro que desea desvincular este promotor?',
+                                    'method' => 'post',
+                                ],
+                                'title'=>'Desvincular',
+                            ]);
+                    },
+                    'format' => 'raw',
+                    
                     ],
-                ]); ?>
 
-            </div>
-        </div>
+                ],
+
+            'hover' => true,
+            'panel' => [
+                // 'type' => GridView::TYPE_DEFAULT,
+                'heading' => '<i class="glyphicon glyphicon-user"></i>  Promotores asignados',
+            ],
+        ]); ?>
+
     </div>
 </div>
 
@@ -123,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="planillas-index">
+                    <div class="planillas-index col-md-12">
 
                         <?= GridView::widget([
                             'dataProvider' => $dataProvider,
@@ -158,11 +157,38 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
+<div id="detalleModal" class="modal fade bs-example-modal-sm" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Detalle de planilla</h4>
+            </div>
+            <div class="modal-body row">
+
+                <?= $this->render('Detalle', [
+                    'model' => $model,
+                    'afiliados'=>$afiliados,
+                    'promotores'=>$dataProviderLista,
+                ]) ?>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#prom').on('click', function(event) {
             event.preventDefault();
             $('#promotoresModal').modal({backdrop:'static'});
+        });
+        $('#detalle').on('click', function(event) {
+            event.preventDefault();
+            $('#detalleModal').modal({backdrop:'static'});
         });
         $('#asignar').on('click', function(event){
             event.preventDefault();
