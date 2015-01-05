@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#planillas-fecha').val('<?=$model->fecha;?>');
+    });
+</script>
 <?php
 
 use yii\helpers\Html;

@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Planillas;
-use app\models\PlanillasSearch;
-use app\models\PromotoresSearch;
+use app\models\PromotoresPlanillas;
 use app\models\PromotoresPlanillasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PlanillasController implements the CRUD actions for Planillas model.
+ * PromotoresPlanillasController implements the CRUD actions for PromotoresPlanillas model.
  */
-class PlanillasController extends Controller
+class PromotoresPlanillasController extends Controller
 {
     public function behaviors()
     {
@@ -29,12 +27,12 @@ class PlanillasController extends Controller
     }
 
     /**
-     * Lists all Planillas models.
+     * Lists all PromotoresPlanillas models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PlanillasSearch();
+        $searchModel = new PromotoresPlanillasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,55 +42,28 @@ class PlanillasController extends Controller
     }
 
     /**
-     * Displays a single Planillas model.
+     * Displays a single PromotoresPlanillas model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $searchModel = new PromotoresSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $searchModelLista = new PromotoresPlanillasSearch();
-        $dataProviderLista = $searchModelLista->search(Yii::$app->request->queryParams,$id);
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'searchModelLista'=>$searchModelLista,
-            'dataProviderLista'=>$dataProviderLista,
         ]);
     }
 
-    public function actionAsignar()
-    {
-        $ids = $_POST['data'];
-        $query = "INSERT INTO promotores_planillas (id_promotor,id_planilla) VALUES";
-        foreach ($ids[0] as $key => $value) {
-            $query = $query."('".$value."','".$ids[1]."'),";
-        }
-        $query = substr($query, 0, -1);
-        try {
-           \Yii::$app->db->createCommand($query)->execute();
-           $m = "Promotores asignados con exito a la planilla N°".$ids[1];
-        } catch (Exception $e) {
-            $m = $e->getMessage();
-        }
-        return $m;
-    }
-
     /**
-     * Creates a new Planillas model.
+     * Creates a new PromotoresPlanillas model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Planillas();
+        $model = new PromotoresPlanillas();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_planilla]);
+            return $this->redirect(['view', 'id' => $model->id_promotores_planillas]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -101,7 +72,7 @@ class PlanillasController extends Controller
     }
 
     /**
-     * Updates an existing Planillas model.
+     * Updates an existing PromotoresPlanillas model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +82,7 @@ class PlanillasController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_planilla]);
+            return $this->redirect(['view', 'id' => $model->id_promotores_planillas]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -120,28 +91,28 @@ class PlanillasController extends Controller
     }
 
     /**
-     * Deletes an existing Planillas model.
+     * Deletes an existing PromotoresPlanillas model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id,$id_planilla)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['planillas/view?id='.$id_planilla]);
     }
 
     /**
-     * Finds the Planillas model based on its primary key value.
+     * Finds the PromotoresPlanillas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Planillas the loaded model
+     * @return PromotoresPlanillas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Planillas::findOne($id)) !== null) {
+        if (($model = PromotoresPlanillas::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
