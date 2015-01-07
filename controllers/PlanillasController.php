@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Planillas;
+use app\models\PromotoresPlanillas;
+use app\models\GastosPlanillas;
 use app\models\Clientes;
 use app\models\PlanillasSearch;
 use app\models\PromotoresSearch;
@@ -60,6 +62,11 @@ class PlanillasController extends Controller
 
         $afiliados = $this->afiliados($id);
 
+        $gastos_planilla = $this->gastosPlanilla($id);
+
+        $totalGastosProm = $this->totalGastosProm($id);
+        $totalGastosOtrosProm = $this->totalGastosOtrosProm($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
@@ -67,7 +74,33 @@ class PlanillasController extends Controller
             'searchModelLista'=>$searchModelLista,
             'dataProviderLista'=>$dataProviderLista,
             'afiliados'=>$afiliados,
+            'gastos_planilla'=>$gastos_planilla,
+            'totalGastosProm'=>$totalGastosProm,
+            'totalGastosOtrosProm'=>$totalGastosOtrosProm,
         ]);
+    }
+
+    public function totalGastosOtrosProm($id_planilla)
+    {
+        
+        $query = (new \yii\db\Query());
+        $query->select('SUM(valor) AS gastos')->from('gastos_planillas')->where('id_planilla=:id AND asumido_por="Promotores"');
+        $query->addParams([':id'=>$id_planilla]);
+        $total = $query->scalar();
+
+        return $total;
+    }
+
+    public function totalGastosProm($id_planilla)
+    {
+
+        $query = (new \yii\db\Query());
+        $query->select('SUM(gastos_promotor) AS gastos')->from('promotores_planillas')->where('id_planilla=:id');
+        $query->addParams([':id'=>$id_planilla]);
+        $total = $query->scalar();
+
+
+        return $total;
     }
 
     public function afiliados($id_planilla)
@@ -79,6 +112,15 @@ class PlanillasController extends Controller
             'query' => $query,
         ]);
 
+        return $dataProvider;
+    }
+
+    public function gastosPlanilla($id_planilla)
+    {
+        $query = GastosPlanillas::find()->groupBy('asumido_por');
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
         return $dataProvider;
     }
 
@@ -96,6 +138,20 @@ class PlanillasController extends Controller
         } catch (Exception $e) {
             $m = $e->getMessage();
         }
+        return $m;
+    }
+
+    public function actionGastos()
+    {
+        $data = $_POST['data'];
+        $connection = \Yii::$app->db;
+        try {
+            $connection->createCommand()->update('promotores_planillas', ['gastos_promotor' => $data[1]], 'id_promotores_planillas='.$data[0])->execute();
+            $m = 'Gasto modificado';
+        } catch (Exception $e) {
+            $m = $e->getMessage();
+        }
+
         return $m;
     }
 

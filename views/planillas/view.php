@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Promotores;
 use kartik\grid\GridView;
-use yii\widgets\ListView;
+// use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
@@ -62,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProviderLista,
             // 'filterModel' => $searchModelLista,
             'pjax'=>true,
+            'id'=>'promotoresLista',
             'rowOptions' => ['class' => 'text-center'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
@@ -82,12 +84,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 // 'id_planilla',
+                'gastos_promotor',
+
 
                 [
                     'label' => '', 
                     'vAlign' => 'middle',
                     'value' =>  function($data){
-                        return  Html::a('', ['promotores/view', 'id'=>$data->id_promotor], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver perfil de promotor']).'&nbsp'.
+                        return  Html::a('', [' '], ['class' => 'gastos glyphicon glyphicon-usd', 'title'=>'Editar gasto de promotor']).'&nbsp'.
+                                Html::a('', ['promotores/view', 'id'=>$data->id_promotor], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver perfil de promotor']).'&nbsp'.
                                 Html::a('', ['promotores-planillas/delete', 'id_planilla'=>$data->id_planilla, 'id' => $data->id_promotores_planillas], ['class' => 'glyphicon glyphicon-remove',
                                 'data' => [
                                     'confirm' => 'Está seguro que desea desvincular este promotor?',
@@ -106,6 +111,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'panel' => [
                 // 'type' => GridView::TYPE_DEFAULT,
                 'heading' => '<i class="glyphicon glyphicon-user"></i>  Promotores asignados',
+            ],
+             'toolbar' => [
+                // '{export}',
+                // '{toggleData}',
             ],
         ]); ?>
 
@@ -170,10 +179,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'afiliados'=>$afiliados,
                     'promotores'=>$dataProviderLista,
+                    'gastos_planilla'=>$gastos_planilla,
+                    'totalGastosProm'=>$totalGastosProm,
+                    'totalGastosOtrosProm'=>$totalGastosOtrosProm,
                 ]) ?>
 
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="gastoModal" class="modal fade bs-example-modal-sm" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Gasto de promotor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 input-group">
+                    <span class="input-group-addon">$</span><input id="gastoInput" type="number" class="form-control">                    
+                </div>
+                <input id="idInput" hidden type="number" class="">
+            </div>
+            <div class="modal-footer">
+                <button id="gastoProm" type="button" class="btn btn-primary" data-dismiss="modal">Guardar cambios</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -190,6 +223,12 @@ $this->params['breadcrumbs'][] = $this->title;
             event.preventDefault();
             $('#detalleModal').modal({backdrop:'static'});
         });
+        $('.gastos').on('click', function(event) {
+            event.preventDefault();
+            $('#idInput').val($(this).parents('tr').attr('data-key'));
+            $('#gastoModal').modal({backdrop:'static'});
+        });
+
         $('#asignar').on('click', function(event){
             event.preventDefault();
             var data = {};
@@ -199,8 +238,24 @@ $this->params['breadcrumbs'][] = $this->title;
             $.post('asignar', {data: data}).done(function(data) {
                 alert(data);
             });
-
             
         });
+
+        $('#gastoProm').on('click', function(event){
+            event.preventDefault();
+            var data = {};
+            data[0] = $('#idInput').val();
+            data[1] = $('#gastoInput').val();
+            // console.log(data);
+            $.post('gastos', {data: data}).done(function(data) {
+                alert(data);
+            });
+            
+        });
+
+        $('#gastoModal').on('hidden.bs.modal', function(event) {
+            $.pjax.reload({container: '#promotoresLista'});
+        });
+
     });
 </script>

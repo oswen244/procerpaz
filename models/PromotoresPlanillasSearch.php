@@ -19,6 +19,7 @@ class PromotoresPlanillasSearch extends PromotoresPlanillas
     {
         return [
             [['id_promotores_planillas', 'id_promotor', 'id_planilla'], 'integer'],
+            [['gastos_promotor'], 'number'], 
         ];
     }
 
@@ -45,6 +46,7 @@ class PromotoresPlanillasSearch extends PromotoresPlanillas
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>false,
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -55,6 +57,7 @@ class PromotoresPlanillasSearch extends PromotoresPlanillas
             'id_promotores_planillas' => $this->id_promotores_planillas,
             'id_promotor' => $this->id_promotor,
             'id_planilla' => $this->id_planilla,
+            'gastos_promotor' => $this->gastos_promotor, 
         ]);
 
         return $dataProvider;

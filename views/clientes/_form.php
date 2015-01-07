@@ -84,14 +84,14 @@ use app\models\Clientes;
 
     <div class="form-group field-clientes-fecha_nacimiento">
         <div class="form-group field-clientes-fecha_nacimiento">
-            <label for="clientes-fecha_nacimiento" class="control-label col-sm-3">Fecha de reporte</label>
+            <label for="clientes-fecha_nacimiento" class="control-label col-sm-3">Fecha de nacimiento</label>
             <div class="col-sm-6">
                 <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_nacimiento", "name" => "Clientes[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_nacimiento, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
             </div>            
         </div>
     </div>
 
-    <?= $form->field($model, 'fecha_nacimiento')->textInput() ?>
+    <!-- <?= $form->field($model, 'fecha_nacimiento')->textInput() ?> -->
 
     <?= $form->field($model, 'grado')->textInput(['maxlength' => 45]) ?>
 
