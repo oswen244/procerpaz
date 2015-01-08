@@ -48,12 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'comision_afiliado',
                 [
                     'attribute' => 'comision_afiliado',
-                    'value' => "$ ".number_format($model->comision_afiliado,0)
+                    'value' => "$".number_format($model->comision_afiliado,0)
                 ],
                 // 'por_ant_com',
                 [
                     'attribute' => 'por_ant_com',
-                    'value' => $model->por_ant_com."%",
+                    'value' => number_format($model->por_ant_com)."%",
                 ],
                
             ],
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-<div id="promotoresModal" class="modal fade bs-example-modal-sm" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="promotoresModal" class="modal fade bs-example-modal-sm act" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,10 +149,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             'hover' => true,
-                            'panel' => [
-                                // 'type' => GridView::TYPE_DEFAULT,
-                                'heading' => '<i class="glyphicon glyphicon-user"></i>  Promotores',
-                            ],
+                            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i> Promotores', 'footer'=>false],
+                            'toolbar'=>[]
                         ]); ?>
 
                     </div>
@@ -192,7 +190,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<div id="gastoModal" class="modal fade bs-example-modal-sm" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="gastoModal" class="modal fade bs-example-modal-sm act" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -253,7 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
         });
 
-        $('#gastoModal').on('hidden.bs.modal', function(event) {
+        $('.act').on('hidden.bs.modal', function(event) {
             $.pjax.reload({container: '#promotoresLista'});
         });
 

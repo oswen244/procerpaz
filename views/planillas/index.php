@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'comision_afiliado',
             // 'por_ant_com',
 
-            ['class' => '\kartik\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
         'toolbar' => [
             ['content'=>

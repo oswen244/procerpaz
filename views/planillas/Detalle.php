@@ -55,6 +55,9 @@
                 ],
 
              ],
+
+            'panel' => ['heading' => '<i class="glyphicon glyphicon-user"></i>  Listado de promotores', 'footer'=>false],
+            'toolbar'=>[]
             
         ]); ?>
 </div>
@@ -109,6 +112,9 @@
 	            'observaciones',
 
                 ],
+
+                'panel' => ['heading' => '<i class="glyphicon glyphicon-user"></i>  Listado de afiliados', 'footer'=>false],
+            	'toolbar'=>[]
             
         ]); ?>
 </div>
@@ -139,7 +145,7 @@
 
              ],
              'showPageSummary' => true,
-            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i>  Gastos por promotor'],
+            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i>  Gastos por promotor', 'footer'=>false],
             'toolbar'=>[]
 
         ]); ?>
@@ -174,7 +180,7 @@
                
             ],
              'showPageSummary' => true,
-            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i> Otros gastos'],
+            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i> Otros gastos', 'footer'=>false],
             'toolbar'=>[]
 
         ]); ?>
@@ -222,17 +228,35 @@
                 	'contentOptions'=>['class'=>'monto'],
                 ],
 
+                [
+                	'label'=>number_format($model->por_ant_com).'% a pagar',
+                	'contentOptions'=>['class'=>'pagar'],
+                ],
+
+                [
+                	'label'=>number_format(100-$model->por_ant_com).'% pendiente',
+                	'contentOptions'=>['class'=>'pendiente'],
+                ],
+
                
              ],
-            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i> A favor de'],
+            'panel' => ['heading' => '<i class="glyphicon glyphicon-usd"></i> A favor de', 'footer'=>false],
             'toolbar'=>[]
             
         ]); ?>
+
+        <p>Total % a pagar: <span>$<?=number_format((($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100))*$promotores->getTotalCount());?></span></p>
+        <p>Total % Pendiente: <span>$<?=number_format((($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100))*$promotores->getTotalCount());?></span></p>
+
 </div>
+
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.monto').html('<span>$<?=number_format($valorTotal/$promotores->getTotalCount());?></span>');
+		$('.pagar').html('<span>$<?=number_format(($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100));?></span>');
+		$('.pendiente').html('<span>$<?=number_format(($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100));?></span>');
 	});
 </script>
 

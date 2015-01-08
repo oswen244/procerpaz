@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Clientes;
 use app\models\ClientesSearch;
+use app\models\Parentezcos;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -69,8 +69,8 @@ class Familiares extends \yii\db\ActiveRecord
             'direccion' => 'Direccion',
             'telefono' => 'Telefono',
             'celular' => 'Celular',
-            'id_cliente' => 'Id Cliente',
-            'id_parentezco' => 'Id Parentezco',
+            'id_cliente' => 'Cliente',
+            'id_parentezco' => 'Parentezco',
         ];
     }
 

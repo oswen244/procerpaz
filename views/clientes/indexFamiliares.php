@@ -34,18 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => ['class' => 'text-center'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'id_familiar',
-                'id_cliente',
+                // 'id_familiar',
+                // 'id_cliente',
                 // 'num_afiliacion',
                 // 'fecha_afiliacion',
                 'nombres',
                 'apellidos',
                 // 'tipo_id',
-                'num_id',
-                'genero',
+                // 'id_parentezco',
+                [
+                    'attribute'=>'id_parentezco',
+                    'label'=>'Parentezco',
+                    'value'=>function($model){
+                        return $model->idParentezco->parentezco;
+                    }
+                ],
+                // 'num_id',
+                // 'genero',
                 // 'lugar_exp',
                 // 'fecha_nacimiento',
                 // 'grado',
@@ -67,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 // ],
 
                 [
-                    'label' => 'Actions', 
+                    'label' => '', 
                     'vAlign' => 'middle',
                     'value' =>  function($data){
                         return  Html::a('', ['view-familiar', 'id'=>$data->id_familiar, 'idc'=>$data->id_cliente], [
@@ -77,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]).'&nbsp'.Html::a('', ['delete-familiar', 'id' => $data->id_familiar, 'idc'=>$data->id_cliente], [
                             'class' => 'act glyphicon glyphicon-trash',
                                 'data' => [
-                                    'confirm' => 'Está seguro que desea borrar este familiar?',
+                                    'confirm' => '¿Está seguro que desea borrar este familiar?',
                                     'method' => 'post',
                                 ]
                             ]);;

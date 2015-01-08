@@ -84,7 +84,7 @@ class GastosPlanillasController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_gastos_planillas]);
+            return $this->redirect(['index', 'id_planilla' => $id_planilla]);
         } else {
             return $this->render('update', [
                 'model' => $model,

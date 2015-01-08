@@ -49,8 +49,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'direccion',
                 'telefono',
                 // 'parentezco',
-                'id_cliente',
-                'id_parentezco',
+                [
+                    'attribute'=>'id_cliente',
+                    'value'=>$familiar->idCliente->nombres.' '.$familiar->idCliente->apellidos,
+                ],
+                // 'id_parentezco',
+                [
+                    'attribute'=>'id_parentezco',
+                    'value'=>$familiar->idParentezco->parentezco,
+                ],
             ],
         ]) ?>
 
