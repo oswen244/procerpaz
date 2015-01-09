@@ -8,6 +8,7 @@ use app\models\UsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UsuariosController implements the CRUD actions for Usuarios model.
@@ -61,14 +62,32 @@ class UsuariosController extends Controller
     public function actionCreate()
     {
         $model = new Usuarios();
+        $
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->contrasena = sha1($model->contrasena);
+
+            $role = Yii::$app->authManager->getRole($model->rol);
+            Yii::$app->authManager->assign($role, $model->id_usuario);
+
             return $this->redirect(['view', 'id' => $model->id_usuario]);
         } else {
+
+            $perfiles = $this->perfiles();
             return $this->render('create', [
                 'model' => $model,
+                'perfiles'=>$perfiles,
             ]);
         }
+    }
+
+    public function perfiles()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('description')->from('items')->where('data<>1');
+        $perfiles = $query->all();
+
+        return $perfiles;
     }
 
     /**

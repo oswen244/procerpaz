@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => ['class' => 'text-center'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'perfil',
             // 'estado',
 
-            ['class' => '\kartik\grid\ActionColumn'],
+            ['class' => '\yii\grid\ActionColumn'],
         ],
         'toolbar' => [
             ['content'=>

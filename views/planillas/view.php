@@ -231,7 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
             event.preventDefault();
             var data = {};
             data[0] = $('#promList').yiiGridView('getSelectedRows');//Obtener los valores de la tabla
-            data[1] = <?=$model->id_planilla;?>;
+            data[1] = <?=Html::encode($model->id_planilla);?>;
             // console.log(data);
             $.post('asignar', {data: data}).done(function(data) {
                 alert(data);

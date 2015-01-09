@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Familiares;
 use app\models\FamiliaresSearch;
+use yii\filters\AccessControl;
 
 /**
  * ClientesController implements the CRUD actions for Clientes model.
@@ -20,6 +21,42 @@ class ClientesController extends Controller
     public function behaviors()
     {
         return [
+        // 'access' => [
+        //         'class' => AccessControl::className(),
+        //         // 'only' => ['login', 'logout', 'signup', 'index'],
+        //         'rules' => [
+        //             [
+        //                 'allow' => false,
+        //                 // 'actions' => ['index'],
+        //                 'roles' => ['?'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 // 'actions' => ['*'],
+        //                 'roles' => ['admin'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['index','indexFamiliares','view','viewFamiliar'],
+        //                 'roles' => ['leer_clientes'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['create','createFamiliares'],
+        //                 'roles' => ['crear_clientes'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['update','updateFamiliar'],
+        //                 'roles' => ['editar_clientes'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['delete','deleteFamiliar'],
+        //                 'roles' => ['borrar_clientes'],
+        //             ],
+        //         ],
+        //     ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

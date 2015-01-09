@@ -1,8 +1,3 @@
-<script type="text/javascript">
-   $(document).ready(function() {
-        $('#usuarios-perfil').val('Administrador');
-    });
-</script>
 <?php
 
 use yii\helpers\Html;
@@ -33,10 +28,10 @@ use app\models\Usuarios;
 
     <?= $form->field($model, 'ciudad')->textInput(['maxlength' => 45]) ?>
 
-    <div class="form-group field-clientes-genero required">
-        <label for="clientes-genero" class="control-label col-sm-3">Sexo</label>
+    <div class="form-group field-usuarios-genero required">
+        <label for="usuarios-genero" class="control-label col-sm-3">Sexo</label>
         <div class="col-sm-6">
-            <select name="Usuarios[genero]" id="clientes-genero" class="form-control">
+            <select name="Usuarios[genero]" id="usuarios-genero" class="form-control">
                 <option value=""></option>
                 <option value="<?=Usuarios::MASCULINO?>"><?=Usuarios::MASCULINO?></option>
                 <option value="<?=Usuarios::FEMENINO?>"><?=Usuarios::FEMENINO?></option>
@@ -53,7 +48,19 @@ use app\models\Usuarios;
 
     <?= $form->field($model, 'contrasena')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($model, 'perfil')->hiddenInput(['maxlength' => 45])->label('') ?>
+    <div class="form-group field-usuarios-perfil required">
+        <label for="usuarios-perfil" class="control-label col-sm-3">Perfil</label>
+        <div class="col-sm-6">
+            <select name="Usuarios[perfil]" id="usuarios-perfil" class="form-control">
+                 <?php foreach($perfiles as $row){?>
+                    <option value="<?= $row['description'];?>"><?= $row['description'];?></option>
+                <?php }?>
+            </select>
+            <div class="help-block help-block-error "></div>
+        </div>
+    </div>
+
+    <!-- <?= $form->field($model, 'perfil')->textInput(['maxlength' => 45])->label('') ?> -->
 
     <?= $form->field($model, 'estado')->hiddenInput()->label('') ?>
 
@@ -64,3 +71,9 @@ use app\models\Usuarios;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+        $('#usuarios-perfil').val('<?=$model->perfil;?>');
+    });
+</script>

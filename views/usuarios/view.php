@@ -19,6 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
            </li>
            <li>
             <?= Html::a('Actualizar', ['update', 'id' => $model->id_usuario], ['class' => '']) ?>
+           </li>
+           <li>
+            <?= Html::a('Asignar permisos', ['#'], ['class' => '']) ?>
            </li><br>
            <li>
             <?= Html::a('Eliminar', ['delete', 'id' => $model->id_usuario], [

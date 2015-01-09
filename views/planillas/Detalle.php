@@ -77,6 +77,7 @@
 	            	'attribute'=>'num_afiliacion',
 	            	'label'=>'N° afiliación'
 	            ],
+                'grado',
 	            'nombres',
 	            'apellidos',
 	            // 'tipo_id',

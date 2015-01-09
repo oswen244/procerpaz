@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 /**
  * PlanillasController implements the CRUD actions for Planillas model.
@@ -23,6 +24,42 @@ class PlanillasController extends Controller
     public function behaviors()
     {
         return [
+        // 'access' => [
+        //         'class' => AccessControl::className(),
+        //         // 'only' => ['login', 'logout', 'signup', 'index'],
+        //         'rules' => [
+        //             [
+        //                 'allow' => false,
+        //                 // 'actions' => ['index'],
+        //                 'roles' => ['?'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 // 'actions' => ['*'],
+        //                 'roles' => ['admin'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['index','view'],
+        //                 'roles' => ['leer_planillas'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['create'],
+        //                 'roles' => ['crear_planillas'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['update'],
+        //                 'roles' => ['editar_planillas'],
+        //             ],
+        //             [
+        //                 'allow' => true,
+        //                 'actions' => ['delete'],
+        //                 'roles' => ['borrar_planillas'],
+        //             ],
+        //         ],
+        //     ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
