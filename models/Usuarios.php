@@ -25,11 +25,13 @@ use Yii;
  * @property Planillas[] $planillas
  * @property ProcesoJuridico[] $procesoJuridicos
  */
-class Usuarios extends \yii\db\ActiveRecord
+class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
 
     const MASCULINO = 'M';
     const FEMENINO = 'F';
+    public $authKey;
+    public $accessToken;
     /**
      * @inheritdoc
      */
@@ -88,5 +90,57 @@ class Usuarios extends \yii\db\ActiveRecord
     public function getProcesoJuridicos()
     {
         return $this->hasMany(ProcesoJuridico::className(), ['id_abogado' => 'id_usuario']);
+    }
+
+    public function getId()
+    {
+        return $this->id_usuario;
+    }
+
+    public static function findIdentity($id)
+    {
+        // return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        $usuario = Usuarios::find()->where(['id_usuario' => $id])->one();
+        if ($usuario !== null) {
+            return new static($usuario);
+        }
+        return null;
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        $usuario = Usuarios::find()->where(['accessToken' => $toke])->one();
+        if ($usuario['accessToken'] !== null) {
+            return new static($usuario);
+        }
+        return null;
+    }
+
+    public function getUsername(){
+        return $this->usuario;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
+    
+    public function validatePassword($password)
+    {
+        return $this->contrasena === sha1($password);
+    }
+
+    public static function findByUsername($username)
+    {
+        $usuario = Usuarios::find()->where(['usuario' => $username])->one();
+        if ($usuario !== null) {
+            return new static($usuario);
+        }
+        return null;
     }
 }

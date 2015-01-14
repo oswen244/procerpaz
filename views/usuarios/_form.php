@@ -53,7 +53,7 @@ use app\models\Usuarios;
         <div class="col-sm-6">
             <select name="Usuarios[perfil]" id="usuarios-perfil" class="form-control">
                  <?php foreach($perfiles as $row){?>
-                    <option value="<?= $row['description'];?>"><?= $row['description'];?></option>
+                    <option value="<?= $row['name'];?>"><?= $row['description'];?></option>
                 <?php }?>
             </select>
             <div class="help-block help-block-error "></div>

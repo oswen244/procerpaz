@@ -55,7 +55,12 @@ AppAsset::register($this);
 
                     ],
                     ['label' => 'Prestamos', 'url' => ['/prestamos/index']],
-                    ['label' => 'Usuarios', 'url' => ['/usuarios/index']],
+                    ['label' => 'Usuarios', 
+                        'items' => [
+                            ['label' => 'Listar usuarios', 'url' => ['/usuarios/index']],                            
+                            ['label' => 'Perfiles', 'url' => ['/items/index']],
+                        ],
+                    ],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',

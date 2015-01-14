@@ -41,7 +41,7 @@ class ItemsSearch extends Items
      */
     public function search($params)
     {
-        $query = Items::find();
+        $query = Items::find()->where('data<>1');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

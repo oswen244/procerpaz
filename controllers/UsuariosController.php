@@ -18,6 +18,22 @@ class UsuariosController extends Controller
     public function behaviors()
     {
         return [
+        'access' => [
+                'class' => AccessControl::className(),
+                // 'only' => ['login', 'logout', 'signup', 'index'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        // 'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        // 'actions' => ['*'],
+                        'roles' => ['admin'],
+                    ],
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -62,15 +78,17 @@ class UsuariosController extends Controller
     public function actionCreate()
     {
         $model = new Usuarios();
-        $
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->contrasena = sha1($model->contrasena);
+            if($model->save()){
+                $model->perfil = str_replace(' ', '', $$model->perfil);
+                $role = Yii::$app->authManager->getRole($model->perfil);
+                Yii::$app->authManager->assign($role, $model->id_usuario);
+                return $this->redirect(['view', 'id' => $model->id_usuario]);
+            }
 
-            $role = Yii::$app->authManager->getRole($model->rol);
-            Yii::$app->authManager->assign($role, $model->id_usuario);
-
-            return $this->redirect(['view', 'id' => $model->id_usuario]);
         } else {
 
             $perfiles = $this->perfiles();
@@ -84,7 +102,7 @@ class UsuariosController extends Controller
     public function perfiles()
     {
         $query = (new \yii\db\Query());
-        $query->select('description')->from('items')->where('data<>1');
+        $query->select('name,description')->from('items')->where('data<>1');
         $perfiles = $query->all();
 
         return $perfiles;
@@ -100,11 +118,21 @@ class UsuariosController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_usuario]);
+        if ($model->load(Yii::$app->request->post())){
+            ($model->contrasena === '') ? $model->contrasena = $contrasena : $model->contrasena = sha1($model->contrasena);
+            $role = Yii::$app->authManager->getRole($model->perfil);
+            if($model->perfil !== ''){
+                Yii::$app->authManager->revokeAll($id);
+                Yii::$app->authManager->assign($role, $id);
+            }
+            if($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_usuario]);
+            }
         } else {
+            $perfiles = $this->perfiles();
             return $this->render('update', [
                 'model' => $model,
+                'perfiles'=>$perfiles,
             ]);
         }
     }

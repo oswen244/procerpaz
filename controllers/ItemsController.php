@@ -61,14 +61,36 @@ class ItemsController extends Controller
     public function actionCreate()
     {
         $model = new Items();
+        $auth = Yii::$app->authManager;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+        if (Yii::$app->request->post())
+        {
+            $data = $_POST['data'];
+            $model->name = $data[1];
+            $role = $auth->createRole($data[1]);
+            $role->description = $data[2];
+            $role->data = '';
+
+            if($auth->add($role)) {
+                $i = 0;
+                foreach ($data[0] as $key => $value) {
+                    $child = $auth->getRole($value['data']['value']);
+                    $auth->addChild($role,$child);
+                }
+                return $this->redirect(['index']);
+                // \Yii::$app->response->format = 'json';
+                // return $data[0][0]['data']['value']; //valor del atributo data-value de los <li> del arbol
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function guardatHijos($arbol)
+    {
+
     }
 
     /**
