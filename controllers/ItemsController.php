@@ -8,6 +8,7 @@ use app\models\ItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ItemsController implements the CRUD actions for Items model.
@@ -17,6 +18,22 @@ class ItemsController extends Controller
     public function behaviors()
     {
         return [
+        'access' => [
+                'class' => AccessControl::className(),
+                // 'only' => ['login', 'logout', 'signup', 'index'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        // 'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        // 'actions' => ['*'],
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -72,18 +89,18 @@ class ItemsController extends Controller
             $role->data = '';
 
             if($auth->add($role)) {
-                $i = 0;
                 foreach ($data[0] as $key => $value) {
                     $child = $auth->getRole($value['data']['value']);
                     $auth->addChild($role,$child);
                 }
                 return $this->redirect(['index']);
-                // \Yii::$app->response->format = 'json';
-                // return $data[0][0]['data']['value']; //valor del atributo data-value de los <li> del arbol
             }
         } else {
+            $nodes = $this->getNodesSelected($model->name);
+            $nodes = json_encode($nodes);
             return $this->render('create', [
                 'model' => $model,
+                'nodes'=>$nodes,
             ]);
         }
     }
@@ -102,14 +119,52 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $auth = Yii::$app->authManager;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+        if (Yii::$app->request->post() && $model->save()){
+            return $this->redirect(['index']);
         } else {
+            $nodes = $this->getNodesSelected($model->name);
+            $nodes = json_encode($nodes);
             return $this->render('update', [
                 'model' => $model,
+                'nodes'=>$nodes,
             ]);
         }
+    }
+
+    public function actionActualizar()
+    {
+        $auth = Yii::$app->authManager;
+
+        if (Yii::$app->request->post())
+        {
+            $data = $_POST['data'];
+            $model = $this->findModel($data[1]);
+            $padre = $auth->getRole($data[1]);
+            $auth->removeChildren($padre);
+            $model->name = $data[1]; 
+            $model->description = $data[2];
+        }
+        foreach ($data[0] as $key => $value) {
+            $child = $auth->getRole($value['data']['value']);
+            $auth->addChild($padre,$child);
+        }
+
+        if($model->save()) {
+            return $this->redirect(['index']);
+        }     
+          
+    }
+
+    function getNodesSelected($padre)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('child')->from('items_hijos')->where('parent=:padre');
+        $query->addParams([':padre'=>$padre]);
+        $nodes = $query->all();
+
+        return $nodes;
     }
 
     /**
@@ -137,7 +192,7 @@ class ItemsController extends Controller
         if (($model = Items::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe');
         }
     }
 }

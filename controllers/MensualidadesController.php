@@ -39,17 +39,17 @@ class MensualidadesController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create'],
+                        'actions' => ['index','create'],
                         'roles' => ['crear_mensualidad'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update'],
+                        'actions' => ['index','update'],
                         'roles' => ['editar_mensualidad'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['delete'],
+                        'actions' => ['index','delete'],
                         'roles' => ['borrar_mensualidad'],
                     ],
                 ],

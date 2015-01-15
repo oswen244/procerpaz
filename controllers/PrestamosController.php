@@ -39,17 +39,17 @@ class PrestamosController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create'],
+                        'actions' => ['index','create'],
                         'roles' => ['crear_prestamos'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update'],
+                        'actions' => ['index','update'],
                         'roles' => ['editar_prestamos'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['delete'],
+                        'actions' => ['index','delete'],
                         'roles' => ['borrar_prestamos'],
                     ],
                 ],

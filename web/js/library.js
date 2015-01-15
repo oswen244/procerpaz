@@ -37,4 +37,3 @@
         var valorInteres = monto*interes;
         return cuotaNeto+valorInteres;
     }
-

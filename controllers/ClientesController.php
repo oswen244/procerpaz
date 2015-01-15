@@ -21,42 +21,52 @@ class ClientesController extends Controller
     public function behaviors()
     {
         return [
-        // 'access' => [
-        //         'class' => AccessControl::className(),
-        //         // 'only' => ['login', 'logout', 'signup', 'index'],
-        //         'rules' => [
-        //             [
-        //                 'allow' => false,
-        //                 // 'actions' => ['index'],
-        //                 'roles' => ['?'],
-        //             ],
-        //             [
-        //                 'allow' => true,
-        //                 // 'actions' => ['*'],
-        //                 'roles' => ['admin'],
-        //             ],
-        //             [
-        //                 'allow' => true,
-        //                 'actions' => ['index','indexFamiliares','view','viewFamiliar'],
-        //                 'roles' => ['leer_clientes'],
-        //             ],
-        //             [
-        //                 'allow' => true,
-        //                 'actions' => ['create','createFamiliares'],
-        //                 'roles' => ['crear_clientes'],
-        //             ],
-        //             [
-        //                 'allow' => true,
-        //                 'actions' => ['update','updateFamiliar'],
-        //                 'roles' => ['editar_clientes'],
-        //             ],
-        //             [
-        //                 'allow' => true,
-        //                 'actions' => ['delete','deleteFamiliar'],
-        //                 'roles' => ['borrar_clientes'],
-        //             ],
-        //         ],
-        //     ],
+        'access' => [
+                'class' => AccessControl::className(),
+                // 'only' => ['login', 'logout', 'signup', 'index'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        // 'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        // 'actions' => ['*'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','indexFamiliares','view','viewFamiliar'],
+                        'roles' => ['leer_clientes'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['leer_mensualidad','editar_mensualidad','crear_mensualidad','borrar_mensualidad'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['leer_mensualidad','editar_mensualidad','crear_mensualidad','borrar_mensualidad'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create','createFamiliares'],
+                        'roles' => ['crear_clientes'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update','updateFamiliar'],
+                        'roles' => ['editar_clientes'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete','deleteFamiliar'],
+                        'roles' => ['borrar_clientes'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

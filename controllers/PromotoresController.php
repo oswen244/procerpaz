@@ -39,22 +39,22 @@ class PromotoresController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view'],
+                        'actions' => ['index','view'],
                         'roles' => ['leer_planillas'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create'],
+                        'actions' => ['index','create'],
                         'roles' => ['crear_promotores'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update'],
+                        'actions' => ['index','update'],
                         'roles' => ['editar_promotores'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['delete'],
+                        'actions' => ['index','delete'],
                         'roles' => ['borrar_promotores'],
                     ],
                 ],

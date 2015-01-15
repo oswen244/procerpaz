@@ -10,13 +10,24 @@ $this->title = 'Crear perfil';
 $this->params['breadcrumbs'][] = ['label' => 'Perfiles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="items-create">
+<div class="col-md-12">
+     <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+           <li>
+            <?= Html::a('Regresar', ['index'], ['class' => '']) ?>
+           </li>
+        </ul>
+    </div>
+	<div class="items-create col-md-9">
 
-    <h1><?= Html::encode($this->title) ?></h1><br>
+	    <h1><?= Html::encode($this->title) ?></h1><br>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+	    <?= $this->render('_form', [
+	        'model' => $model,
+            'accion'=> 'create',
+            'nodes'=>$nodes,
+	    ]) ?>
 
+	</div>
 </div>
 

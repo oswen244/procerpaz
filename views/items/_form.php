@@ -3,39 +3,80 @@
           "plugins" : [ "wholerow", "checkbox", "state"],
           "checkbox" : {
               "keep_selected_style" : false,
-              // "three_state" : false
           },
         }); 
     });
+
+    function updateArbol(selecc)
+    {   
+        var instancia = $('#jstree_demo_div').jstree();
+        var x = instancia.get_state();
+        var ids = [];
+        $.each(selecc, function(index, val) {
+            n = instancia.get_node('li[data-value="'+val+'"]');
+            ids.push(n['id']);
+        });
+        x['core']['selected'] = ids;
+
+        $('#jstree_demo_div').jstree().set_state(x);
+        $('#jstree_demo_div').jstree().redraw(true);
+    }
+
+    function guardarArbol(accion)
+    {
+        $('#asignar').on('click', function(event) {
+            event.preventDefault();
+            
+            var data = {};
+            data[0] = instancia.get_top_selected(true);
+            data[1] = $('#items-name').val();
+            data[2] = $('#items-description').val();
+             if(data[1] !== '' && data[2] !== ''){
+                $.post(accion, {data: data}).done(function(data) {
+                    console.log(data);
+                });
+            }else{alert('Debe llenar los campos de Nombre y Descripción')}
+
+        });
+        
+    }
+
+    function seleccionados(array)
+    {
+        var sel = [];
+        $.each(array, function(index, val) {
+            sel.push(val['child']);
+        });
+        return sel;
+    }
+
     $(document).ready(function() {
+            $('#jstree_demo_div').jstree().clear_state();
 
-          $('#permisos').on('click', function(event) {
-              event.preventDefault();
-              $('#PermisosModal').modal({backdrop:'static'});
-          });
+            if('<?=$accion;?>' == 'actualizar'){
+                $('#jstree_demo_div').jstree().open_all();
+                updateArbol(seleccionados($.parseJSON('<?=$nodes;?>')));
+            }
 
-          $('#jstree_demo_div').on('changed.jstree', function (e, data) {
-              instancia = data.instance;
-              var i, j, r = [];
-              for(i = 0, j = data.selected.length; i < j; i++) {
-                r.push(data.instance.get_node(data.selected[i]).text);
-              }
-              $('#event_result').html('Seleccionados: ' + r.join(', '));
-
-          });
-          $('#asignar').on('click', function(event) {
+            $('#permisos').on('click', function(event) {
                 event.preventDefault();
-                var data = {};
-                data[0] = instancia.get_top_selected(true);
-                data[1] = $('#items-name').val();
-                data[2] = $('#items-description').val();
-                if(data[1] !== '' && data[2] !== ''){
-                    $.post('create', {data: data}).done(function(data) {
-                        console.log(data);
-                    });
-                }else{alert('Debe llenar los campos de Nombre y Descripción')}
+                if('<?=$accion;?>' == 'actualizar'){
+                $('#jstree_demo_div').jstree().open_all();
+                    updateArbol(seleccionados($.parseJSON('<?=$nodes;?>')));
+                }
+                $('#PermisosModal').modal({backdrop:'static'});
+             });
 
-          });
+            $('#jstree_demo_div').on('changed.jstree', function (e, data) {
+                instancia = data.instance;
+                var i, j, r = [];
+                for(i = 0, j = data.selected.length; i < j; i++) {
+                    r.push(data.instance.get_node(data.selected[i]).text);
+                }
+                $('#event_result').html('Permisos: ' + r.join(', '));
+
+            });
+            guardarArbol('<?=$accion;?>');
     });
    
 </script>
@@ -70,8 +111,7 @@ use yii\bootstrap\ActiveForm;
 
 
     <div class="text-center">
-     <a id="permisos" class="text-center" href="">Asignar permisos</a><br><br>
-      <!-- <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?> -->
+         <a id="permisos" class="text-center" href="">Asignar permisos</a><br><br>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -162,11 +202,12 @@ use yii\bootstrap\ActiveForm;
                             </li>
                         </ul>
                     </div>
-                </div><br>
+                </div><br> <!-- Arbol -->
             </div>
             <div class="panel panel-default text-center"><div id="event_result" class="panel-body"></div></div>
             <div class="modal-footer">
-                <button id="asignar" type="button" class="btn btn-primary" data-dismiss="modal">Crear perfil</button>
+                <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['id'=>'asignar', 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                <!-- <button id="asignar" type="button" class="btn btn-primary" data-dismiss="modal">Crear perfil</button> -->
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
