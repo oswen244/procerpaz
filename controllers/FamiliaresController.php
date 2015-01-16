@@ -17,6 +17,42 @@ class FamiliaresController extends Controller
     public function behaviors()
     {
         return [
+        'access' => [
+                'class' => AccessControl::className(),
+                // 'only' => ['login', 'logout', 'signup', 'index'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        // 'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        // 'actions' => ['*'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['indexFamiliares','viewFamiliares'],
+                        'roles' => ['leer_familiares'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['createFamiliares'],
+                        'roles' => ['crear_familiares'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['updateFamiliares'],
+                        'roles' => ['editar_familiares'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['borrar_familiares'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

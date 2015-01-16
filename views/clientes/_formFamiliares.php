@@ -77,7 +77,7 @@ use app\models\Clientes;
         <div class="form-group field-familiares-fecha_nacimiento">
             <label for="familiares-fecha_nacimiento" class="control-label col-sm-3">Fecha de nacimiento</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "familiares-fecha_nacimiento", "name" => "Familiares[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "familiares-fecha_nacimiento", "name" => "Familiares[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>

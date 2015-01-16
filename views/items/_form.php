@@ -168,6 +168,14 @@ use yii\bootstrap\ActiveForm;
                                                     <li data-value="borrar_mensualidad">Borrar mensualidades</li>
                                                 </ul>
                                             </li>
+                                            <li data-value="familiares">Familiares
+                                                <ul>
+                                                    <li data-value="leer_familiares">Ver familiares</li>
+                                                    <li data-value="editar_familiares">Editar familiares</li>
+                                                    <li data-value="crear_familiares">Crear familiares</li>
+                                                    <li data-value="borrar_familiares">Borrar familiares</li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li data-value="auxilios">Auxilios

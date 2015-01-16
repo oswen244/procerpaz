@@ -101,8 +101,11 @@ class MensualidadesController extends Controller
     {
         $model = new Mensualidades();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $id]);
+        if ($model->load(Yii::$app->request->post())){
+            
+            if($model->save()) {
+                return $this->redirect(['index', 'id' => $id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -32,9 +32,9 @@ use app\models\Clientes;
             <label for="clientes-fecha_afiliacion" class="control-label col-sm-3">Fecha de afiliación</label>
             <div class="col-sm-6">
                 <?php if($model->isNewRecord){ ?>
-                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
                 <?php }else{ ?>
-                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=> $model->fecha_afiliacion, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=> $model->fecha_afiliacion, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
                 <?php } ?>
             </div>            
         </div>
@@ -86,7 +86,7 @@ use app\models\Clientes;
         <div class="form-group field-clientes-fecha_nacimiento">
             <label for="clientes-fecha_nacimiento" class="control-label col-sm-3">Fecha de nacimiento</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_nacimiento", "name" => "Clientes[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_nacimiento, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_nacimiento", "name" => "Clientes[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_nacimiento, 'class' => 'fecha form-control', "placeholder" => "año-mes-dia ej:1985-05-10"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>
@@ -156,7 +156,7 @@ use app\models\Clientes;
         <div class="form-group field-clientes-fecha_rep">
             <label for="clientes-fecha_rep" class="control-label col-sm-3">Fecha de reporte</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_rep", "name" => "Clientes[fecha_rep]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_rep, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_rep", "name" => "Clientes[fecha_rep]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_rep, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>
@@ -167,7 +167,7 @@ use app\models\Clientes;
         <div class="form-group field-clientes-fecha_ven">
             <label for="clientes-fecha_ven" class="control-label col-sm-3">Fecha de vencimiento</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_ven", "name" => "Clientes[fecha_ven]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_ven, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_ven", "name" => "Clientes[fecha_ven]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_ven, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>           
         </div>
     </div>

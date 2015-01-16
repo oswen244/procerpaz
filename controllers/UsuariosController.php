@@ -83,7 +83,7 @@ class UsuariosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->contrasena = sha1($model->contrasena);
             if($model->save()){
-                $model->perfil = str_replace(' ', '', $$model->perfil);
+                $model->perfil = str_replace(' ', '', $model->perfil);
                 $role = Yii::$app->authManager->getRole($model->perfil);
                 Yii::$app->authManager->assign($role, $model->id_usuario);
                 return $this->redirect(['view', 'id' => $model->id_usuario]);

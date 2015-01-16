@@ -48,21 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => '\kartik\grid\ActionColumn'],
         ],
-        // [
-        //     'class' => 'kartik\grid\ExpandRowColumn',
-        //     'value' => function ($model, $key, $index, $column) {
-        //         return GridView::ROW_COLLAPSED;
-        //     },
-        //     'detail' => function ($model, $key, $index, $column) {
-        //         return Yii::$app->controller->renderPartial('_expand-row-details', ['model'=>$model]);
-        //     }, 
-        //     // uncomment below and comment detail above to load via ajax
-        //     // 'detailUrl' => Url::to(['/book/show-detail'])
-        // ],
+       
         'toolbar' => [
             ['content'=>
                 Html::a('Crear cliente', ['create'], ['class' => 'btn btn-success'])
-                // Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>'Agregar cliente', 'class'=>'btn btn-success', 'onclick'=>'create.php']) 
             ],
             '{export}',
             // '{toggleData}',

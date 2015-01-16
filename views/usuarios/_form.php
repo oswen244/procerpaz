@@ -45,7 +45,7 @@ use app\models\Usuarios;
     <?= $form->field($model, 'celular')->textInput(['maxlength' => 45]) ?>
 
     <?= $form->field($model, 'usuario')->textInput(['maxlength' => 45]) ?>
-
+    
     <?= $form->field($model, 'contrasena')->textInput(['maxlength' => 45]) ?>
 
     <div class="form-group field-usuarios-perfil required">
@@ -75,5 +75,6 @@ use app\models\Usuarios;
 <script type="text/javascript">
    $(document).ready(function() {
         $('#usuarios-perfil').val('<?=$model->perfil;?>');
+        $('#usuarios-contrasena').val('');
     });
 </script>

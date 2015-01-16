@@ -22,7 +22,7 @@ use yii\bootstrap\ActiveForm;
         <div class="form-group field-clientes-fecha_afiliacion">
             <label for="clientes-fecha_afiliacion" class="control-label col-sm-3">Fecha</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "planillas-fecha", "name" => "Planillas[fecha]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "planillas-fecha", "name" => "Planillas[fecha]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>

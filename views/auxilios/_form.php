@@ -55,7 +55,7 @@ use app\models\Auxilios;
         <div class="form-group field-auxilios-fecha_auxilio">
             <label for="auxilios-fecha_auxilio" class="control-label col-sm-3">Fecha</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "auxilios-fecha", "name" => "Auxilios[fecha_auxilio]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_auxilio, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "auxilios-fecha", "name" => "Auxilios[fecha_auxilio]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_auxilio, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>
