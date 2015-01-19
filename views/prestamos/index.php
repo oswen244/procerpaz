@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prestamos-index">
 
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -76,7 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '', 
                 'vAlign' => 'middle',
                 'value' =>  function($data){
-                    return  Html::a('', ['update', 'id'=>$data->id_prestamo], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
+                    return  Html::a('', ['pagos-prestamos/index', 'id_prestamo'=>$data->id_prestamo], ['class' => 'act glyphicon glyphicon-usd', 'title'=>'Agregar pago']).'&nbsp'.
+                            Html::a('', ['update', 'id'=>$data->id_prestamo], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
                             Html::a('', ['delete', 'id' => $data->id_prestamo], ['class' => 'act glyphicon glyphicon-trash',
                             'data' => [
                                 'confirm' => '¿Está seguro que desea borrar este prestamo?',
