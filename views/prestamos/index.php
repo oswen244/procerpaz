@@ -59,7 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data){ return "$ ".number_format($data->valor_cuota,0);}
             ],
             // 'valor_cuota',
-            'cuotas_pagadas',
             // 'fecha_prest',
             // 'fecha_rep',
             [

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\PagosPrestamos;
+use app\models\Prestamos;
 use app\models\PagosPrestamosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,30 +65,76 @@ class PagosPrestamosController extends Controller
         $model = new PagosPrestamos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_pagos]);
+            $this->cambiarEstado($id_prestamo);
+            return $this->redirect(['index', 'id_prestamo' => $id_prestamo]);
         } else {
+            $resto = $this->getCapital();
+            $valor_cuota = $this->getCuota($id_prestamo);
             return $this->render('create', [
                 'model' => $model,
                 'id_prestamo'=>$id_prestamo,
+                'resto'=>$resto,
+                'cuota'=>$valor_cuota,
             ]);
         }
     }
 
+    public function cambiarEstado($id_prestamo)
+    {
+        $model = $this->findModelPrestamos($id_prestamo);
+        if($this->getTotal() === $model->num_cuotas){
+            $model->id_estado = '10';
+            $model->save();
+        }
+    }
+
+    public function getCapital()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('MIN(capital)')->from('pagos_prestamos')->where('1');
+        $capital = $query->scalar();
+
+        return $capital;
+    }
+
+    public function getCuota($id_prestamo)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('(monto*(interes_mensual/100)) AS interes, valor_cuota')->from('prestamos')->where('id_prestamo=:id_prestamo');
+        $query->addParams([':id_prestamo'=>$id_prestamo]);
+        $cuota = $query->one();
+
+        return $cuota;
+    }
+
+    public function getTotal()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('pagos_prestamos');
+        $total = $query->scalar();
+
+        return $total-1;
+    }
     /**
      * Updates an existing PagosPrestamos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$id_prestamo)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_pagos]);
+            return $this->redirect(['index', 'id_prestamo' => $id_prestamo]);
         } else {
+            $resto = $this->getCapital();
+            $valor_cuota = $this->getCuota($id_prestamo);
             return $this->render('update', [
                 'model' => $model,
+                'id_prestamo'=>$id_prestamo,
+                'resto'=>$resto,
+                'cuota'=>$valor_cuota,
             ]);
         }
     }
@@ -102,7 +149,7 @@ class PagosPrestamosController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index','id_prestamo' => $id_prestamo]);
     }
 
     /**
@@ -115,6 +162,15 @@ class PagosPrestamosController extends Controller
     protected function findModel($id)
     {
         if (($model = PagosPrestamos::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelPrestamos($id)
+    {
+        if (($model = Prestamos::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -30,9 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_pagos',
             'capital',
-            'amortizacion',
+            'valor_cuota',
             'fecha',
             'id_prestamo',
+            'interes',
+            'amortizacion',
         ],
     ]) ?>
 

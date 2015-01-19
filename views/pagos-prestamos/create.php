@@ -20,13 +20,30 @@ $this->params['breadcrumbs'][] = $this->title;
            </li>
         </ul>
     </div>
-	<div class="pagos-prestamos-create col-md-9">
+    <div class="pagos-prestamos-create col-md-9">
 
-	    <h1><?= Html::encode($this->title) ?></h1><br>
+        <h1><?= Html::encode($this->title) ?></h1><br>
 
-	    <?= $this->render('_form', [
-	        'model' => $model,
-	    ]) ?>
+        <?= $this->render('_form', [
+            'model' => $model,
+            'id_prestamo'=>$id_prestamo,
+            'resto'=>$resto,
+            'cuota'=>$cuota,
+        ]) ?>
 
-	</div>
+    </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#pagosprestamos-valor_cuota').on('change',  function(event) {
+            event.preventDefault();
+            var valor_nuevo = $(this).val();
+            $('#pagosprestamos-amortizacion').val(valor_nuevo-'<?=$cuota["interes"];?>');            
+            if(valor_nuevo === '<?=$cuota["valor_cuota"]?>'){
+                $('#pagosprestamos-capital').val('<?=$resto-($cuota["valor_cuota"]-$cuota["interes"])?>')
+            }else{
+                $('#pagosprestamos-capital').val($('#pagosprestamos-capital').val()-$('#pagosprestamos-amortizacion').val())
+            }
+        });
+    });
+</script>

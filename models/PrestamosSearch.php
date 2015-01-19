@@ -18,7 +18,7 @@ class PrestamosSearch extends Prestamos
     public function rules()
     {
         return [
-            [['id_prestamo', 'interes_mensual', 'num_cuotas', 'cuotas_pagadas', 'id_cliente', 'id_estado'], 'integer'],
+            [['id_prestamo', 'interes_mensual', 'num_cuotas', 'id_cliente', 'id_estado'], 'integer'],
             [['monto', 'valor_cuota'], 'number'],
             [['fecha_prest', 'fecha_rep'], 'safe'],
         ];
@@ -64,7 +64,6 @@ class PrestamosSearch extends Prestamos
             'interes_mensual' => $this->interes_mensual,
             'num_cuotas' => $this->num_cuotas,
             'valor_cuota' => $this->valor_cuota,
-            'cuotas_pagadas' => $this->cuotas_pagadas,
             'fecha_prest' => $this->fecha_prest,
             'fecha_rep' => $this->fecha_rep,
             'id_cliente' => $this->id_cliente,

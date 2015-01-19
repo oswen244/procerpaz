@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Prestamos;
+use app\models\PagosPrestamos;
 use app\models\PrestamosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -110,8 +111,12 @@ class PrestamosController extends Controller
     public function actionCreate()
     {
         $model = new Prestamos();
+        $pagos = new PagosPrestamos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $pagos->capital = $model->monto;
+            $pagos->id_prestamo = $model->id_prestamo;
+            $pagos->save();
             return $this->redirect(['view', 'id' => $model->id_prestamo]);
         } else {
             $estados = $this->buscarEstados(); 

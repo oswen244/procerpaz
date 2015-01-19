@@ -19,7 +19,7 @@ class PagosPrestamosSearch extends PagosPrestamos
     {
         return [
             [['id_pagos', 'id_prestamo'], 'integer'],
-            [['capital', 'amortizacion'], 'number'],
+            [['capital', 'valor_cuota', 'interes', 'amortizacion'], 'number'],
             [['fecha'], 'safe'],
         ];
     }
@@ -56,9 +56,11 @@ class PagosPrestamosSearch extends PagosPrestamos
         $query->andFilterWhere([
             'id_pagos' => $this->id_pagos,
             'capital' => $this->capital,
-            'amortizacion' => $this->amortizacion,
+            'valor_cuota' => $this->valor_cuota,
             'fecha' => $this->fecha,
             'id_prestamo' => $this->id_prestamo,
+            'interes' => $this->interes, 
+            'amortizacion' => $this->amortizacion,
         ]);
 
         return $dataProvider;

@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id_prestamo
  * @property string $monto
- * @property integer $interes_mensual
+ * @property string $interes_mensual
  * @property integer $num_cuotas
  * @property string $valor_cuota
  * @property string $fecha_prest
@@ -17,6 +17,7 @@ use Yii;
  * @property integer $id_cliente
  * @property integer $id_estado
  *
+ * @property PagosPrestamos[] $pagosPrestamos
  * @property Clientes $idCliente
  * @property Estados $idEstado
  */
@@ -36,8 +37,8 @@ class Prestamos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['monto', 'valor_cuota'], 'number'],
-            [['interes_mensual', 'num_cuotas', 'id_cliente', 'id_estado'], 'integer'],
+            [['monto', 'interes_mensual', 'valor_cuota'], 'number'],
+            [['num_cuotas', 'id_cliente', 'id_estado'], 'integer'],
             [['fecha_prest', 'fecha_rep'], 'safe'],
             [['id_cliente', 'id_estado'], 'required']
         ];
@@ -52,13 +53,21 @@ class Prestamos extends \yii\db\ActiveRecord
             'id_prestamo' => 'Id Prestamo',
             'monto' => 'Monto',
             'interes_mensual' => 'Interes Mensual',
-            'num_cuotas' => 'Número de cuotas',
-            'valor_cuota' => 'Valor de la cuota',
-            'fecha_prest' => 'Fecha del prestamo',
-            'fecha_rep' => 'Fecha de reporte',
+            'num_cuotas' => 'Num Cuotas',
+            'valor_cuota' => 'Valor Cuota',
+            'fecha_prest' => 'Fecha Prest',
+            'fecha_rep' => 'Fecha Rep',
             'id_cliente' => 'Id Cliente',
-            'id_estado' => 'Estado',
+            'id_estado' => 'Id Estado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPagosPrestamos()
+    {
+        return $this->hasMany(PagosPrestamos::className(), ['id_prestamo' => 'id_prestamo']);
     }
 
     /**

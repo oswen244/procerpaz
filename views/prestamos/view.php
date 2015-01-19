@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'interes_mensual',
             'num_cuotas',
             'valor_cuota',
-            'cuotas_pagadas',
             'fecha_prest',
             'fecha_rep',
             'id_cliente',

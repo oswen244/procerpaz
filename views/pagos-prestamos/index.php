@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
            </li>
         </ul>
     </div>
+
     <div class="pagos-prestamos-index col-md-9">
 
         <?= GridView::widget([
@@ -28,15 +29,53 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'rowOptions' => ['class' => 'text-center'],
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+                // ['class' => 'yii\grid\SerialColumn'],
 
                 // 'id_pagos',
-                'capital',
-                'amortizacion',
+                // 'capital',
+                [
+                    'attribute'=>'capital',
+                    'label'=>'Capital',
+                    'pageSummary' => 'Total',
+                ],
+                // 'interes',
+                [
+                    'attribute'=>'interes',
+                    'label'=>'Intereses',
+                    'pageSummary' => true,
+                ],
+                // 'amortizacion',
+                [
+                    'attribute'=>'amortizacion',
+                    'label'=>'Amortización',
+                    'pageSummary' => true,
+                ],
+                // 'valor_cuota',
+                [
+                    'attribute'=>'valor_cuota',
+                    'label'=>'Valor de cuota',
+                    'pageSummary' => true,
+                ],
                 'fecha',
                 // 'id_prestamo',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'label' => '', 
+                    'vAlign' => 'middle',
+                    'value' =>  function($data){
+                        return  Html::a('', ['update', 'id'=>$data->id_pagos, 'id_prestamo' => $data->id_prestamo], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
+                                Html::a('', ['delete', 'id'=>$data->id_pagos, 'id_prestamo' => $data->id_prestamo], ['class' => 'act glyphicon glyphicon-trash',
+                                'data' => [
+                                    'confirm' => '¿Está seguro que desea borrar este auxilio?',
+                                    'method' => 'post',
+                                ],
+                                'title'=>'Eliminar',
+
+                            ]);
+                    },
+                    'format' => 'raw',
+                    'options'=>['width'=>'8%'],
+                ],
             ],
             'toolbar' => [
                 ['content'=>
@@ -45,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 '{export}',
             ],
             'hover' => true,
+            'showPageSummary' => true,
             'panel' => [
                 'type' => GridView::TYPE_DEFAULT,
                 'heading' => '<i class="glyphicon glyphicon-usd"></i> Pagos de prestamos',

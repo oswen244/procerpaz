@@ -9,9 +9,11 @@ use Yii;
  *
  * @property integer $id_pagos
  * @property string $capital
- * @property string $amortizacion
+ * @property string $valor_cuota
  * @property string $fecha
  * @property integer $id_prestamo
+ * @property string $interes
+ * @property string $amortizacion
  *
  * @property Prestamos $idPrestamo
  */
@@ -31,7 +33,7 @@ class PagosPrestamos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['capital', 'amortizacion'], 'number'],
+            [['capital', 'valor_cuota', 'interes', 'amortizacion'], 'number'],
             [['fecha'], 'safe'],
             [['id_prestamo'], 'required'],
             [['id_prestamo'], 'integer']
@@ -46,9 +48,11 @@ class PagosPrestamos extends \yii\db\ActiveRecord
         return [
             'id_pagos' => 'Id Pagos',
             'capital' => 'Capital',
-            'amortizacion' => 'Amortizacion',
+            'valor_cuota' => 'Valor Cuota',
             'fecha' => 'Fecha',
             'id_prestamo' => 'Id Prestamo',
+            'interes' => 'Interes',
+            'amortizacion' => 'Amortizacion',
         ];
     }
 
