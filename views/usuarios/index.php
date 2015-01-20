@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'pais',
             'ciudad',
             // 'genero',
-            // 'celular',
+            'celular',
             // 'usuario',
             // 'contrasena',
             'perfil',

@@ -46,7 +46,7 @@ use app\models\Usuarios;
 
     <?= $form->field($model, 'usuario')->textInput(['maxlength' => 45]) ?>
     
-    <?= $form->field($model, 'contrasena')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'contrasena')->passwordInput(['maxlength' => 45]) ?>
 
     <div class="form-group field-usuarios-perfil required">
         <label for="usuarios-perfil" class="control-label col-sm-3">Perfil</label>

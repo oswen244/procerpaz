@@ -54,7 +54,11 @@ AppAsset::register($this);
                         ],
 
                     ],
+
+                    ['label' => 'Cartera', 'url' => ['#']],
+                    
                     ['label' => 'Prestamos', 'url' => ['/prestamos/index']],
+                    
                     ['label' => 'Usuarios', 
                         'items' => [
                             ['label' => 'Listar usuarios', 'url' => ['/usuarios/index']],                            

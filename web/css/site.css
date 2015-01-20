@@ -7,6 +7,10 @@ a{
     text-decoration: none;
 }
 
+.kv-page-summary{
+    text-align: center;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
