@@ -43,9 +43,12 @@ use Yii;
  */
 class Clientes extends \yii\db\ActiveRecord
 {
-    const CEDULA = 'Cedula';
-    const TI = 'Tarjeta de identidad';
-    const PASAPORTE = 'Pasaporte';
+    const CEDULA = 'CC';
+    const CEDULA_EXT = 'CE';
+    const TI = 'TI';
+    const PASAPORTE = 'PA';
+    const NIT = 'NI';
+    const REGISTRO_CIVIL = 'RC';
     const RUT = 'RUT';
     const MASCULINO = 'M';
     const FEMENINO = 'F';
