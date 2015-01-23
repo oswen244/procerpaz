@@ -85,7 +85,7 @@ class PagosPrestamosController extends Controller
         if($this->getTotal() === $model->num_cuotas){
             $model->id_estado = '10';
         }else{
-            $model->id_estado = '9';
+            $model->id_estado = '11';
         }
         $model->save();
     }

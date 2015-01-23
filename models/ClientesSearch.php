@@ -19,7 +19,7 @@ class ClientesSearch extends Clientes
     {
         return [
             [['id_cliente', 'id_institucion', 'id_planilla', 'id_estado'], 'integer'],
-            [['num_afiliacion', 'fecha_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'lugar_exp', 'fecha_nacimiento', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular', 'observaciones', 'fecha_rep', 'fecha_ven'], 'safe'],
+            [['num_afiliacion', 'fecha_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'lugar_exp', 'fecha_nacimiento', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular', 'observaciones', 'fecha_rep', 'fecha_ven', 'fecha_desafil'], 'safe'],
             [['monto_paquete'], 'number'],
         ];
     }
@@ -62,6 +62,7 @@ class ClientesSearch extends Clientes
             'monto_paquete' => $this->monto_paquete,
             'fecha_rep' => $this->fecha_rep, 
             'fecha_ven' => $this->fecha_ven, 
+            'fecha_desafil' => $this->fecha_desafil, 
         ]);
 
         $query->andFilterWhere(['like', 'num_afiliacion', $this->num_afiliacion])

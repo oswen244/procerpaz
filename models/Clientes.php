@@ -31,6 +31,7 @@ use Yii;
  * @property string $observaciones
  * @property string $fecha_rep 
  * @property string $fecha_ven 
+ * @property string $fecha_desafil 
  *
  * @property Auxilios[] $auxilios
  * @property Estados $idEstado
@@ -67,7 +68,7 @@ class Clientes extends \yii\db\ActiveRecord
     {
         return [
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado', 'monto_paquete'], 'required'],
-            [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven'], 'safe'],
+            [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven', 'fecha_desafil'], 'safe'],
             [['id_institucion', 'id_planilla', 'id_estado'], 'integer'],
             [['monto_paquete'], 'number'],
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'lugar_exp', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'string', 'max' => 45],
@@ -106,6 +107,7 @@ class Clientes extends \yii\db\ActiveRecord
             'observaciones' => 'Observaciones',
             'fecha_rep' => 'Fecha Rep', 
             'fecha_ven' => 'Fecha Ven', 
+            'fecha_desafil' => 'Fecha Desafil',
         ];
     }
 

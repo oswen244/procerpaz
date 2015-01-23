@@ -142,9 +142,11 @@ class ClientesController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {
+    {   
+        $estados = $this->buscarEstados();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'estados'=>$estados,
         ]);
     }
 
@@ -268,6 +270,24 @@ class ClientesController extends Controller
                 'estados'=>$estados,
                 
             ]);
+        }
+    }
+
+    public function actionCambiarEstado()
+    {
+        if (Yii::$app->request->post()) 
+        {   
+            $model = $this->findModel($_POST['id_cliente']);
+            $model->id_estado = $_POST['id_estado'];
+            if(isset($_POST['fecha_ven']))
+            {
+                $model->fecha_ven = $_POST['fecha_ven'];
+            }
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id_cliente]);
+            }else{
+                return 'No guardó';
+            }
         }
     }
 

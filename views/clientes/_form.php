@@ -7,6 +7,7 @@
         $('#clientes-id_planilla').val('<?= $model->id_planilla;?>')
         $('#clientes-id_estado').val('<?= $model->id_estado;?>')
         $('#clientes-fecha_afiliacion').val('<?=$model->fecha_afiliacion?>');
+        $('#clientes-fecha_nacimiento').val('<?=$model->fecha_nacimiento?>');
         $('#clientes-fecha_ven').val('<?=$model->fecha_ven?>');
         $('#clientes-fecha_rep').val('<?=$model->fecha_rep?>');
     });
