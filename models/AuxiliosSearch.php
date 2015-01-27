@@ -18,9 +18,9 @@ class AuxiliosSearch extends Auxilios
     public function rules()
     {
         return [
-            [['id_auxilio', 'tipo', 'porcentaje_aux', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio'], 'integer'],
-            [['monto'], 'number'],
-            [['fecha_auxilio', 'proveedor', 'familiar'], 'safe'],
+            [['id_auxilio', 'tipo', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio', 'id_familiar'], 'integer'],
+            [['porcentaje_aux', 'monto'], 'number'],
+            [['fecha_auxilio', 'proveedor'], 'safe'],
         ];
     }
 
@@ -67,12 +67,12 @@ class AuxiliosSearch extends Auxilios
             'fecha_auxilio' => $this->fecha_auxilio,
             'estado' => $this->estado,
             'id_cliente' => $this->id_cliente,
-            'tipo_auxilio' => $this->tipo_auxilio, 
+            'tipo_auxilio' => $this->tipo_auxilio,
+            'id_familiar' => $this->id_familiar, 
             
         ]);
 
-        $query->andFilterWhere(['like', 'proveedor', $this->proveedor])
-           ->andFilterWhere(['like', 'familiar', $this->familiar]);
+        $query->andFilterWhere(['like', 'proveedor', $this->proveedor]);
 
         return $dataProvider;
     }

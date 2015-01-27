@@ -282,6 +282,18 @@ class ClientesController extends Controller
             if(isset($_POST['fecha_ven']))
             {
                 $model->fecha_ven = $_POST['fecha_ven'];
+                $model->fecha_desafil = date('Y-m-d');
+            }else{
+                $model->fecha_ven = null;
+                $model->fecha_desafil = null;
+            }
+            if(isset($_POST['fecha_desafil']))
+            {
+                $model->fecha_desafil = $_POST['fecha_desafil'];
+                $model->fecha_ven = null;
+            }else{
+                $model->fecha_desafil = null;
+                $model->fecha_ven = null;
             }
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id_cliente]);

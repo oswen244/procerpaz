@@ -61,16 +61,22 @@ class CarteraController extends Controller
                 $query = "CALL nuevos_desc('".$_POST['institucion']."','".$_POST['cartera_fecha']."')";
                 try {
                     $nuevos = \Yii::$app->db->createCommand($query)->queryAll();
-                    $this->download_send_headers("NUEVO_" . date_format(date_create($_POST['cartera_fecha']),'Ym') ."_PROSERPAZ S A S". ".csv");
+                    $this->download_send_headers("NUEVO_" . date_format(date_create($_POST['cartera_fecha']),'Ym') ."_PROSERPAZ S A". ".csv");
                     $archivo = $this->array2csv($nuevos);
                 } catch (Exception $e) {
                     $archivo = $e->getMessage();
                 }
-                // \Yii::$app->response->format = 'json';
-                return $archivo;
             }else{
-                return 'archivo de cancelaciones';
+                $query = "CALL cancel_desc('".$_POST['institucion']."','".$_POST['cartera_fecha']."')";
+                try {
+                    $nuevos = \Yii::$app->db->createCommand($query)->queryAll();
+                    $this->download_send_headers("CANCEL_" . date_format(date_create($_POST['cartera_fecha']),'Ym') ."_PROSERPAZ S A". ".csv");
+                    $archivo = $this->array2csv($nuevos);
+                } catch (Exception $e) {
+                    $archivo = $e->getMessage();
+                }
             }
+            return $archivo;
         }
     }
 

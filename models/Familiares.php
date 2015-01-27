@@ -23,6 +23,7 @@ use Yii;
  * @property integer $id_cliente
  * @property integer $id_parentezco
  *
+ * @property Auxilios[] $auxilios 
  * @property Clientes $idCliente
  * @property Parentezcos $idParentezco
  */
@@ -89,4 +90,12 @@ class Familiares extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Parentezcos::className(), ['id_parentezco' => 'id_parentezco']);
     }
+
+    /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getAuxilios() 
+   { 
+       return $this->hasMany(Auxilios::className(), ['id_familiar' => 'id_familiar']); 
+   }
 }

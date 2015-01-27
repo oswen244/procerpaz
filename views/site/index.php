@@ -4,4 +4,5 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
     <h1>Proserpaz página de inicio</h1>
+    <h2>Bienvenido <span><?= Yii::$app->user->identity->username; ?></span></h2>
 </div>

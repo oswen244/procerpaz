@@ -68,7 +68,7 @@ class PagosPrestamosController extends Controller
             $this->cambiarEstado($id_prestamo);
             return $this->redirect(['index', 'id_prestamo' => $id_prestamo]);
         } else {
-            $resto = $this->getCapital();
+            $resto = $this->getCapital($id_prestamo);
             $valor_cuota = $this->getCuota($id_prestamo);
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +82,8 @@ class PagosPrestamosController extends Controller
     public function cambiarEstado($id_prestamo)
     {
         $model = $this->findModelPrestamos($id_prestamo);
-        if($this->getTotal() === $model->num_cuotas){
+        $model->save();
+        if($this->getCapital($id_prestamo) <= '0' || $this->getTotal($id_prestamo) === $model->num_cuotas){
             $model->id_estado = '10';
         }else{
             $model->id_estado = '11';
@@ -90,10 +91,11 @@ class PagosPrestamosController extends Controller
         $model->save();
     }
 
-    public function getCapital()
+    public function getCapital($id_prestamo)
     {
         $query = (new \yii\db\Query());
-        $query->select('MIN(capital)')->from('pagos_prestamos')->where('1');
+        $query->select('MIN(capital)')->from('pagos_prestamos')->where('id_prestamo=:id');
+        $query->addParams([':id'=>$id_prestamo]);
         $capital = $query->scalar();
 
         return $capital;
@@ -109,10 +111,11 @@ class PagosPrestamosController extends Controller
         return $cuota;
     }
 
-    public function getTotal()
+    public function getTotal($id_prestamo)
     {
         $query = (new \yii\db\Query());
-        $query->select('COUNT(*)')->from('pagos_prestamos');
+        $query->select('COUNT(*)')->from('pagos_prestamos')->where('id_prestamo=:id');
+        $query->addParams([':id'=>$id_prestamo]);
         $total = $query->scalar();
 
         return $total-1;
@@ -130,7 +133,7 @@ class PagosPrestamosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id_prestamo' => $id_prestamo]);
         } else {
-            $resto = $this->getCapital();
+            $resto = $this->getCapital($id_prestamo);
             $valor_cuota = $this->getCuota($id_prestamo);
             return $this->render('update', [
                 'model' => $model,
@@ -147,10 +150,10 @@ class PagosPrestamosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_prestamo)
     {
         $this->findModel($id)->delete();
-
+        $this->cambiarEstado($id_prestamo);
         return $this->redirect(['index','id_prestamo' => $id_prestamo]);
     }
 

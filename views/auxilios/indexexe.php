@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             'fecha_auxilio',
             // 'proveedor',
             // 'estado',
-            'familiar',
+            'id_familiar',
 
             [
                     'label' => '', 
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                     'value' =>  function($data){
                         return  Html::a('', ['update', 'id'=>$data->id_auxilio, 'tipo' => $data->tipo], [
                             'class' => 'act glyphicon glyphicon-pencil', 
-                        ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_auxilio], [
+                        ]).'&nbsp'.Html::a('', ['delete', 'id' => $data->id_auxilio, 'tipo' => $data->tipo], [
                             'class' => 'act glyphicon glyphicon-trash',
                                 'data' => [
                                     'confirm' => '¿Está seguro que desea borrar este auxilio?',

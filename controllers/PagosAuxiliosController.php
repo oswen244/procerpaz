@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\PagosAuxilios;
+use app\models\Auxilios;
 use app\models\PagosAuxiliosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,8 +65,11 @@ class PagosAuxiliosController extends Controller
     {
         $model = new PagosAuxilios();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
+        if ($model->load(Yii::$app->request->post())){
+            $this->cambiarEstado($id_auxilio);
+            if($model->save()) {
+                return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,6 +79,27 @@ class PagosAuxiliosController extends Controller
         }
     }
 
+    public function cambiarEstado($id_auxilio)
+    {
+        $model = $this->findModelAuxilios($id_auxilio);
+
+        if($model->num_meses === ($this->getTotal($id_auxilio)+1)){
+            $model->estado = '2';
+        }else{
+            $model->estado = '1';
+        }
+        $model->save();
+    }
+
+    public function getTotal($id_auxilio)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('pagos_auxilios')->where('id_auxilio=:id');
+        $query->addParams([':id'=>$id_auxilio]);
+        $total = $query->scalar();
+
+        return $total;
+    }
     /**
      * Updates an existing PagosAuxilios model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -105,8 +130,11 @@ class PagosAuxiliosController extends Controller
     public function actionDelete($id,$id_auxilio,$cuota)
     {
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
+        $model = $this->findModelAuxilios($id_auxilio);
+        $model->estado = '1';
+        if($model->save()){
+            return $this->redirect(['index', 'id_auxilio'=>$id_auxilio, 'monto' => $cuota]);
+        }
     }
 
     /**
@@ -121,7 +149,15 @@ class PagosAuxiliosController extends Controller
         if (($model = PagosAuxilios::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+    }
+    protected function findModelAuxilios($id)
+    {
+        if (($model = Auxilios::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('La página solicitada no existe.');
         }
     }
 }

@@ -44,6 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'monto_paquete',
                 'value' => function($data){ return "$ ".number_format($data->monto_paquete,0);}
             ],
+            [
+                'attribute'=>'id_estado',
+                'value'=> function($model){ return $model->idEstado->nombre;}
+
+            ],
             // 'observaciones',
 
             ['class' => '\kartik\grid\ActionColumn'],

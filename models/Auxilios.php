@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id_auxilio
  * @property integer $tipo
- * @property integer $porcentaje_aux
+ * @property string $porcentaje_aux
  * @property string $monto
  * @property integer $num_meses
  * @property string $fecha_auxilio
@@ -17,9 +17,10 @@ use Yii;
  * @property integer $estado
  * @property integer $id_cliente
  * @property integer $tipo_auxilio
- * @property string $familiar
+ * @property integer $id_familiar
  *
  * @property Clientes $idCliente
+ * @property Familiares $idFamiliar 
  * @property TipoAuxilio $tipoAuxilio
  * @property PagosAuxilios[] $pagosAuxilios
  */
@@ -42,11 +43,11 @@ class Auxilios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo', 'porcentaje_aux', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio'], 'integer'],
-            [['monto'], 'number'],
+            [['tipo', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio', 'id_familiar'], 'integer'],
+            [['porcentaje_aux', 'monto'], 'number'],
             [['fecha_auxilio'], 'safe'],
-            [['id_cliente', 'tipo_auxilio'], 'required'],
-            [['proveedor', 'familiar'], 'string', 'max' => 45]
+            [['id_cliente', 'tipo_auxilio', 'id_familiar'], 'required'],
+            [['proveedor'], 'string', 'max' => 45]
         ];
     }
 
@@ -78,6 +79,14 @@ class Auxilios extends \yii\db\ActiveRecord
         return $this->hasOne(Clientes::className(), ['id_cliente' => 'id_cliente']);
     }
 
+    /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getIdFamiliar() 
+   { 
+       return $this->hasOne(Familiares::className(), ['id_familiar' => 'id_familiar']); 
+   }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -93,4 +102,5 @@ class Auxilios extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PagosAuxilios::className(), ['id_auxilio' => 'id_auxilio']);
     }
+
 }

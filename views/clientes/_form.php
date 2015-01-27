@@ -137,22 +137,22 @@ use app\models\Clientes;
     </div>
 
     <!-- <?= $form->field($model, 'id_planilla')->textInput() ?> -->
-
-    <div class="form-group field-clientes-id_estado required">
-        <label for="clientes-id_estado" class="control-label col-sm-3">Estado del cliente</label>
-        <div class="col-sm-6">
-            <select name="Clientes[id_estado]" id="clientes-id_estado" class="form-control">
-                <option value=""></option>
-                <?php foreach($estados as $row){?>
-                    <option value="<?= $row['id_estado'];?>"><?= $row['nombre'];?></option>
-                <?php }?>
-            </select>
-            <div class="help-block help-block-error "></div>
+    <?php if($model->isNewRecord){ ?>
+        <div class="form-group field-clientes-id_estado required">
+            <label for="clientes-id_estado" class="control-label col-sm-3">Estado del cliente</label>
+            <div class="col-sm-6">
+                <select name="Clientes[id_estado]" id="clientes-id_estado" class="form-control">
+                    <option value=""></option>
+                    <?php foreach($estados as $row){?>
+                        <option value="<?= $row['id_estado'];?>"><?= $row['nombre'];?></option>
+                    <?php }?>
+                </select>
+                <div class="help-block help-block-error "></div>
+            </div>
         </div>
-    </div>
-
+    <?php } ?>
     <!-- <?= $form->field($model, 'id_estado')->textInput() ?> -->
-
+    
     <div class="form-group field-clientes-fecha_rep">
         <div class="form-group field-clientes-fecha_rep">
             <label for="clientes-fecha_rep" class="control-label col-sm-3">Fecha de reporte</label>
@@ -161,7 +161,7 @@ use app\models\Clientes;
             </div>            
         </div>
     </div>
-
+    
     <!-- <?= $form->field($model, 'fecha_rep')->textInput() ?> -->
 
     <div class="form-group field-clientes-fecha_ven">

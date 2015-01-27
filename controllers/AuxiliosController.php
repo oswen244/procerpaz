@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Auxilios;
+use app\models\Familiares;
 use app\models\AuxiliosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -158,14 +159,22 @@ class AuxiliosController extends Controller
     {
         $model = new Auxilios();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if($tipo == 1)
-                return $this->redirect(['indexdes']);
-            else
-                return $this->redirect(['indexexe']);
+        if ($model->load(Yii::$app->request->post())){ 
+            if(true){
+                // $fam = $this->buscarFamiliar($_POST['Auxilios[familiar]']);
+                $fam = $this->findModelFamiliar($_POST['familiar']);
+                $model->familiar = $fam->nombres." ".$fam->apellidos;
+            }
+            if($model->save()) {
+                if($tipo == 1){
+                    return $this->redirect(['indexdes']);
+                }else{
+                    return $this->redirect(['indexexe']);
+                }
+            }
 
         } else {
-            $familiares ='';
+            $familiares = '';
             if($tipo == 1)
                 $tipos = $this->buscarTipos('0');
             else
@@ -266,9 +275,18 @@ class AuxiliosController extends Controller
         return $familiares;
     }
 
+     public function buscarFamiliar($id_familiar){
+        $query = (new \yii\db\Query());
+        $query->select('nombres,apellidos')->from('familiares')->where('id_familiar=:id');
+        $query->addParams([':id'=>$id_familiar]);
+        $familiares = $query->one();
+
+        return $familiar;
+    }
+
     public function buscarFamiliares($id_cliente){
         $query = (new \yii\db\Query());
-        $query->select('nombres,apellidos')->from('familiares')->where('id_cliente=:id');
+        $query->select('id_familiar,nombres,apellidos')->from('familiares')->where('id_cliente=:id');
         $query->addParams([':id'=>$id_cliente]);
         $familiares = $query->all();
 
@@ -288,7 +306,16 @@ class AuxiliosController extends Controller
         if (($model = Auxilios::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe');
+        }
+    }
+
+    protected function findModelFamiliar($id)
+    {
+        if (($model = Familiares::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('La página solicitada no existe');
         }
     }
 }

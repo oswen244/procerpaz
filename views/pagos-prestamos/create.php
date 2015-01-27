@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#pagosprestamos-capital').val('<?=$resto?>');
         $('#pagosprestamos-valor_cuota').on('change',  function(event) {
             event.preventDefault();
             var valor_nuevo = $(this).val();

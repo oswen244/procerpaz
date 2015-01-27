@@ -1,7 +1,7 @@
     function famLista(num_id,opcion){
         var num = num_id;
         $.post('familiares', {data: num}).done(function(data) {
-            reloadSelect(data,'#fam',opcion)
+            reloadSelect(data,'#auxilios-familiar',opcion)
         });
     }
 
@@ -14,7 +14,7 @@
             $.each(element, function(i, e) {
                 p.push(e);
             });
-            $(idSelect).append('<option value='+p[0]+" "+p[1]+'>'+p[0]+" "+p[1]+'</option>');
+            $(idSelect).append('<option value='+p[0]+'>'+p[1]+" "+p[2]+'</option>');
         });
     }
 

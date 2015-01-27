@@ -30,21 +30,22 @@ use app\models\Auxilios;
         <div class="form-group field-auxilios-monto">
             <label class="control-label col-sm-3">Familiares</label>
             <div class="col-sm-6">
-                <select name="Auxilios[familiar]" id="fam" class="form-control">
-                    <option value=""></option>
+                <select name="familiar" id="auxilios-familiar" class="form-control">
+                <option value=""></option>
                 <?php if(!$model->isNewRecord){ ?>
                     <?php foreach($familiares as $row){?>
-                        <option value="<?= $row['nombres']." ".$row['apellidos'];?>"><?= $row['nombres']." ".$row['apellidos'];?></option>
+                        <option value="<?= $row['nombres']." ".$row['apellidos'];?>"><?= $row['nombres']." ".$row['apellidos'];?></option>
                     <?php }?>
                 <?php }?>
                 </select>
             </div>
         </div>
+        <!-- <?= $form->field($model, 'id_familiar')->textInput() ?> -->
     <?php } ?>        
     
     <?= $form->field($model, 'tipo')->hiddenInput(['value'=>$tipo])->label('') ?>
     <?php if($tipo === '1'){ ?>
-        <?= $form->field($model, 'porcentaje_aux')->textInput() ?>
+        <?= $form->field($model, 'porcentaje_aux')->textInput(['placeHolder'=>'Porcentaje SMLMV a pagar']) ?>
     <?php } ?>
     <?= $form->field($model, 'monto')->textInput(['maxlength' => 10, 'required'=>'']) ?>
     <?php if($tipo === '1'){ ?>
@@ -56,7 +57,8 @@ use app\models\Auxilios;
             <label for="auxilios-fecha_auxilio" class="control-label col-sm-3">Fecha</label>
             <div class="col-sm-6">
                 <?= yii\jui\DatePicker::widget(["id" => "auxilios-fecha", "name" => "Auxilios[fecha_auxilio]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_auxilio, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
-            </div>            
+            </div>
+            <div class="help-block help-block-error "></div>             
         </div>
     </div>
     <!-- <?= $form->field($model, 'fecha_auxilio')->textInput() ?> -->
@@ -78,7 +80,6 @@ use app\models\Auxilios;
         </div>
         <!-- <?= $form->field($model, 'estado')->textInput() ?> -->
     <?php } ?>
-    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
     <div class="form-group field-auxilios-tipo_auxilio required">
         <label for="auxilios-tipo_auxilio" class="control-label col-sm-3">Tipo de auxilio</label>
@@ -92,8 +93,9 @@ use app\models\Auxilios;
             <div class="help-block help-block-error "></div>
         </div>
     </div>
-
     <!-- <?= $form->field($model, 'tipo_auxilio')->textInput() ?> -->
+
+    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
     <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -104,7 +106,7 @@ use app\models\Auxilios;
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#fam').val('<?=$model->familiar;?>');
+        $('#auxilios-familiar').val('<?=$model->familiar;?>');
         $('#auxilios-fecha').val('<?=$model->fecha_auxilio?>');
         $('#auxilios-tipo_auxilio').val('<?=$model->tipo_auxilio?>');
         $('#auxilios-estado').val('<?=$model->estado?>');

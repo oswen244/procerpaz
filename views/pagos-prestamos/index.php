@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return  Html::a('', ['update', 'id'=>$data->id_pagos, 'id_prestamo' => $data->id_prestamo], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
                                 Html::a('', ['delete', 'id'=>$data->id_pagos, 'id_prestamo' => $data->id_prestamo], ['class' => 'act glyphicon glyphicon-trash',
                                 'data' => [
-                                    'confirm' => '¿Está seguro que desea borrar este auxilio?',
+                                    'confirm' => '¿Está seguro que desea borrar este pago?',
                                     'method' => 'post',
                                 ],
                                 'title'=>'Eliminar',
