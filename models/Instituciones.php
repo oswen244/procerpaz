@@ -29,7 +29,7 @@ class Instituciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre'], 'required'],
+            [['nombre'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['nombre', 'descripcion'], 'string', 'max' => 45]
         ];
     }

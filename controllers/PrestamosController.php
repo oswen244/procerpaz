@@ -117,7 +117,7 @@ class PrestamosController extends Controller
             $pagos->capital = $model->monto;
             $pagos->id_prestamo = $model->id_prestamo;
             $pagos->save();
-            return $this->redirect(['view', 'id' => $model->id_prestamo]);
+            return $this->redirect(['index']);
         } else {
             $estados = $this->buscarEstados(); 
             return $this->render('create', [

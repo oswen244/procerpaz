@@ -159,11 +159,13 @@ class AuxiliosController extends Controller
     {
         $model = new Auxilios();
 
-        if ($model->load(Yii::$app->request->post())){ 
-            if(true){
-                // $fam = $this->buscarFamiliar($_POST['Auxilios[familiar]']);
+        if ($model->load(Yii::$app->request->post()))
+        { 
+
+            if(isset($_POST['familiar']))
+            {
                 $fam = $this->findModelFamiliar($_POST['familiar']);
-                $model->familiar = $fam->nombres." ".$fam->apellidos;
+                $model->id_familiar = $fam->id_familiar;
             }
             if($model->save()) {
                 if($tipo == 1){
@@ -171,7 +173,11 @@ class AuxiliosController extends Controller
                 }else{
                     return $this->redirect(['indexexe']);
                 }
+            }else{
+                
+                return 'No guarda';
             }
+
 
         } else {
             $familiares = '';
@@ -230,7 +236,11 @@ class AuxiliosController extends Controller
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_auxilio]);
+            if($tipo === '1'){
+                return $this->redirect(['indexdes']);
+            }else{
+                return $this->redirect(['indexexe']);
+            }
         } else {
             $num_id = $this->idCliente($model->id_cliente);
             $familiares = $this->buscarFamiliares($model->id_cliente);
@@ -273,15 +283,6 @@ class AuxiliosController extends Controller
         \Yii::$app->response->format = 'json';
 
         return $familiares;
-    }
-
-     public function buscarFamiliar($id_familiar){
-        $query = (new \yii\db\Query());
-        $query->select('nombres,apellidos')->from('familiares')->where('id_familiar=:id');
-        $query->addParams([':id'=>$id_familiar]);
-        $familiares = $query->one();
-
-        return $familiar;
     }
 
     public function buscarFamiliares($id_cliente){

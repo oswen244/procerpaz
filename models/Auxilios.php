@@ -46,7 +46,7 @@ class Auxilios extends \yii\db\ActiveRecord
             [['tipo', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio', 'id_familiar'], 'integer'],
             [['porcentaje_aux', 'monto'], 'number'],
             [['fecha_auxilio'], 'safe'],
-            [['id_cliente', 'tipo_auxilio', 'id_familiar'], 'required'],
+            [['id_cliente', 'tipo_auxilio'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['proveedor'], 'string', 'max' => 45]
         ];
     }
@@ -67,7 +67,7 @@ class Auxilios extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'id_cliente' => 'Id Cliente',
             'tipo_auxilio' => 'Tipo de auxilio',
-            'familiar' => 'Familiar',
+            'id_familiar' => 'Familiar',
         ];
     }
 

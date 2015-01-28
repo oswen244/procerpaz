@@ -31,9 +31,9 @@ class Mensualidades extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fecha_pago', 'monto', 'id_cliente'], 'required'],
+            [['fecha_pago', 'monto', 'id_cliente'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['fecha_pago'], 'safe'],
-            [['monto'], 'number'],
+            [['monto'], 'number', 'message' => 'Este campo debe ser numérico'],
             [['total_cuotas', 'id_cliente'], 'integer']
         ];
     }

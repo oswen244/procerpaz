@@ -33,9 +33,9 @@ class PagosPrestamos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['capital', 'valor_cuota', 'interes', 'amortizacion'], 'number'],
+            [['capital', 'valor_cuota', 'interes', 'amortizacion'], 'number', 'message' => 'Este campo debe ser numérico'],
             [['fecha'], 'safe'],
-            [['id_prestamo'], 'required'],
+            [['id_prestamo'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['id_prestamo'], 'integer']
         ];
     }

@@ -26,19 +26,39 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => ['class' => 'text-center'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
                    // 'id_prestamo',
                     // 'id_cliente',
-                    'monto',
-                    'interes_mensual',
+                    // 'monto',
+                    [
+                        'attribute' => 'monto',
+                        'value' => function($data){ return "$ ".number_format($data->monto,0);}
+                    ],
+                    // 'interes_mensual',
+                    [
+                        'attribute' => 'interes_mensual',
+                        'value' => function($data){ return $data->interes_mensual."%";}
+                    ],
                     // 'num_cuotas',
-                    'valor_cuota',
+                    // 'valor_cuota',
+                    [
+                        'attribute' => 'valor_cuota',
+                        'value' => function($data){ return "$ ".number_format($data->valor_cuota,0);}
+                    ],
                     // 'cuotas_pagadas',
                     // 'fecha_prest',
                     // 'fecha_rep',
-                    'id_estado',
+                    // 'id_estado',
+                    [
+                        'attribute'=>'id_estado',
+                        'label'=>'Estado',
+                        'value'=> function($model){
+                            return $model->idEstado->nombre;
+                        }  
+                    ],
 
             ],
             'toolbar' => [

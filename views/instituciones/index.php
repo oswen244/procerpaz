@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombre',
             'descripcion',
 
-            ['class' => '\kartik\grid\ActionColumn'],
+            ['class' => '\yii\grid\ActionColumn'],
         ],
         'toolbar' => [
             ['content'=>

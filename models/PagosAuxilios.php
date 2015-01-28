@@ -30,8 +30,8 @@ class PagosAuxilios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['monto', 'fecha', 'id_auxilio'], 'required'],
-            [['monto'], 'number'],
+            [['monto', 'fecha', 'id_auxilio'], 'required', 'message' => 'Este campo no puede quedar vacío'],
+            [['monto'], 'number', 'message' => 'Este campo debe ser numérico'],
             [['fecha'], 'safe'],
             [['id_auxilio'], 'integer']
         ];

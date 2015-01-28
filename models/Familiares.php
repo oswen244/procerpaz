@@ -43,9 +43,9 @@ class Familiares extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'id_cliente', 'id_parentezco'], 'required'],
+            [['nombres', 'apellidos', 'tipo_id', 'num_id', 'id_cliente', 'id_parentezco'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['fecha_nacimiento'], 'safe'],
-            [['id_cliente', 'id_parentezco'], 'integer'],
+            [['id_cliente', 'id_parentezco'], 'integer', 'message' => 'Este campo debe ser numérico'],
             [['nombres', 'apellidos', 'tipo_id', 'num_id', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1]
         ];

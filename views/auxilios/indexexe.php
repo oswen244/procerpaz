@@ -62,7 +62,13 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             'fecha_auxilio',
             // 'proveedor',
             // 'estado',
-            'id_familiar',
+            // 'id_familiar',
+            [
+                'attribute'=>'id_familiar',
+                'value'=> function ($model){
+                    return $model->idFamiliar->nombres." ".$model->idFamiliar->apellidos."-".$model->idFamiliar->idParentezco->parentezco;
+                }
+            ],
 
             [
                     'label' => '', 

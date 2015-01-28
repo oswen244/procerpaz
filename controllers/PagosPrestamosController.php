@@ -85,8 +85,10 @@ class PagosPrestamosController extends Controller
         $model->save();
         if($this->getCapital($id_prestamo) <= '0' || $this->getTotal($id_prestamo) === $model->num_cuotas){
             $model->id_estado = '10';
+            $model->fecha_fin = date('Y-m-d'); //coloca la fecha en que se cambió el estado del prestamo a cancelado
         }else{
             $model->id_estado = '11';
+            $model->fecha_fin = null;
         }
         $model->save();
     }

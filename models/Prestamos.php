@@ -16,6 +16,7 @@ use Yii;
  * @property string $fecha_rep
  * @property integer $id_cliente
  * @property integer $id_estado
+ * @property string $fecha_fin 
  *
  * @property PagosPrestamos[] $pagosPrestamos
  * @property Clientes $idCliente
@@ -37,10 +38,10 @@ class Prestamos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['monto', 'interes_mensual', 'valor_cuota'], 'number'],
-            [['num_cuotas', 'id_cliente', 'id_estado'], 'integer'],
-            [['fecha_prest', 'fecha_rep'], 'safe'],
-            [['id_cliente', 'id_estado'], 'required']
+            [['monto', 'interes_mensual', 'valor_cuota'], 'number' , 'message' => 'Este campo debe ser numérico'],
+            [['num_cuotas', 'id_cliente', 'id_estado'], 'integer', 'message' => 'Este campo debe ser numérico'],
+            [['fecha_prest', 'fecha_rep', 'fecha_fin'], 'safe'],
+            [['id_cliente', 'id_estado'], 'required', 'message' => 'Este campo no puede quedar vacío']
         ];
     }
 
@@ -59,6 +60,7 @@ class Prestamos extends \yii\db\ActiveRecord
             'fecha_rep' => 'Fecha Rep',
             'id_cliente' => 'Id Cliente',
             'id_estado' => 'Id Estado',
+            'fecha_fin' => 'Fecha Fin',
         ];
     }
 

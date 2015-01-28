@@ -34,7 +34,7 @@ use app\models\Auxilios;
                 <option value=""></option>
                 <?php if(!$model->isNewRecord){ ?>
                     <?php foreach($familiares as $row){?>
-                        <option value="<?= $row['nombres']." ".$row['apellidos'];?>"><?= $row['nombres']." ".$row['apellidos'];?></option>
+                        <option value="<?= $row['id_familiar'];?>"><?= $row['nombres']." ".$row['apellidos'];?></option>
                     <?php }?>
                 <?php }?>
                 </select>
@@ -44,10 +44,13 @@ use app\models\Auxilios;
     <?php } ?>        
     
     <?= $form->field($model, 'tipo')->hiddenInput(['value'=>$tipo])->label('') ?>
+
     <?php if($tipo === '1'){ ?>
         <?= $form->field($model, 'porcentaje_aux')->textInput(['placeHolder'=>'Porcentaje SMLMV a pagar']) ?>
+        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>''])->label('Monto mensual') ?>
     <?php } ?>
-    <?= $form->field($model, 'monto')->textInput(['maxlength' => 10, 'required'=>'']) ?>
+
+
     <?php if($tipo === '1'){ ?>
         <?= $form->field($model, 'num_meses')->textInput() ?>
     <?php } ?>
@@ -62,7 +65,9 @@ use app\models\Auxilios;
         </div>
     </div>
     <!-- <?= $form->field($model, 'fecha_auxilio')->textInput() ?> -->
+
     <?php if($tipo === '2'){ ?>
+        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>'']) ?>
         <?= $form->field($model, 'proveedor')->textInput(['maxlength' => 45]) ?>
     <?php } ?>
     <?php if($tipo === '1'){ ?>
@@ -106,7 +111,8 @@ use app\models\Auxilios;
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#auxilios-familiar').val('<?=$model->familiar;?>');
+
+        $('#auxilios-familiar').val('<?=$model->id_familiar?>');
         $('#auxilios-fecha').val('<?=$model->fecha_auxilio?>');
         $('#auxilios-tipo_auxilio').val('<?=$model->tipo_auxilio?>');
         $('#auxilios-estado').val('<?=$model->estado?>');

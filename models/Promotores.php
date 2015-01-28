@@ -30,7 +30,7 @@ class Promotores extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombres', 'apellidos'], 'required'],
+            [['nombres', 'apellidos'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['nombres', 'apellidos'], 'string', 'max' => 45]
         ];
     }

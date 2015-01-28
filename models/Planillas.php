@@ -34,9 +34,9 @@ class Planillas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fecha', 'comision_afiliado', 'por_ant_com'], 'required'],
+            [['fecha', 'comision_afiliado', 'por_ant_com'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['fecha'], 'safe'],
-            [['comision_afiliado', 'por_ant_com'], 'number'],
+            [['comision_afiliado', 'por_ant_com'], 'number', 'message' => 'Este campo debe ser numérico'],
             [['lugar', 'unidad'], 'string', 'max' => 45]
         ];
     }

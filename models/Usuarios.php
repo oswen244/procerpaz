@@ -46,7 +46,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public function rules()
     {
         return [
-            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required'],
+            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['estado'], 'integer'],
             [['nombres', 'apellidos', 'cargo', 'telefono', 'email', 'pais', 'ciudad', 'celular', 'usuario', 'contrasena', 'perfil'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1]
