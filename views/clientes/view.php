@@ -155,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
         });
 
         $('#clientes-id_estado').on('change', function(event) {
-            event.preventDefault();
+            // event.preventDefault();
             if($(this).val() === '2' || $(this).val() === '9'){
                 $('#clientes-fecha_ven').removeAttr('disabled');
             }else{
@@ -164,7 +164,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }); 
 
         $('#clientes-id_estado').on('change', function(event) {
-            event.preventDefault();
+            // event.preventDefault();
             if($(this).val() === '3' || $(this).val() === '4' || $(this).val() === '6'){
                 $('#clientes-fecha_desafil').removeAttr('disabled');
             }else{
