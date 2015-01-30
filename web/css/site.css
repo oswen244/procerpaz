@@ -7,6 +7,29 @@ a{
     text-decoration: none;
 }
 
+/*.navbar-brand{
+    background-image: url('../images/logo.png');
+}*/
+
+.panel-login{
+    background-color: #F9F9F9;
+}
+
+.nav > li > a:hover, .nav > li > a:focus{
+    text-decoration: none;
+    color: #fff;
+    background-color: #758AB2;
+}
+
+.btn-primary{
+    background-color: #758AB2;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+    color: #fff;
+    background-color: #758AB2; 
+}
+
 .kv-page-summary{
     text-align: center;
 }

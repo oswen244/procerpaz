@@ -16,23 +16,19 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['logout'],
+                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
-                        'allow' => false,
-                        'roles' => ['?'],
-                    ],
-                    [
+                        'allow' => true,
                         'actions' => ['login'],
-                        'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','logout'],
                         'allow' => true,
+                        // 'actions' => ['index'],
                         'roles' => ['@'],
                     ],
+                   
                 ],
             ],
             'verbs' => [
@@ -59,7 +55,19 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $obs = $this->contarObsequios();
+        return $this->render('index',[
+                'obsequios'=>$obs,
+            ]);
+    }
+
+    function contarObsequios()
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('obsequios')->where('fecha_ven BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND CURDATE()');
+        $obs = $query->scalar();
+
+        return $obs;
     }
 
     public function actionLogin()

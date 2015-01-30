@@ -11,11 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="padding:7% 10%">
-    <div class="panel panel-default">
+    <div class="panel panel-default panel-login">
         <div class="site-login panel-body">
-
+            <p class="text-center"><img src="<?= Yii::$app->request->baseUrl; ?>/images/logo.png" alt="Proserpaz"></p>
             <div class="col-md-12 text-center">
-            <h1><?= Html::encode($this->title) ?></h1><br>
+            <h3><?= Html::encode($this->title) ?></h3><br>
 
                 <?php $form = ActiveForm::begin([
                     'id' => 'login-form',
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-group">
                     <div class="text-center">
-                        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary btn-lg', 'name' => 'login-button']) ?>
                     </div>
                 </div>
 

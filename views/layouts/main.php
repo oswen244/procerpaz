@@ -31,14 +31,15 @@ AppAsset::register($this);
                 'brandLabel' => 'Proserpaz',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+                    'class' => 'navbar navbar-default navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     // ['label' => 'Inicio', 'url' => ['/site/index']],
-                    ['label' => 'Clientes',
+                    [
+                        'label' => 'Clientes',
                         'items' => [
                             ['label' => 'Listar clientes', 'url' => ['/clientes/index']],                            
                             ['label' => 'Planillas', 'url' => ['/planillas/index']],
