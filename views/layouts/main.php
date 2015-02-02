@@ -62,6 +62,13 @@ AppAsset::register($this);
                             ['label' => 'Actualizar descuentos', 'url' => ['#']],
                         ],
                     ],
+
+                    ['label' => 'Jurídico', 
+                        'items' => [
+                            ['label' => 'Listar casos', 'url' => ['proceso-juridico/index']],                            
+                            ['label' => 'Gestión de avances', 'url' => ['#']],
+                        ],
+                    ],
                     
                     ['label' => 'Prestamos', 'url' => ['/prestamos/index']],
                     
@@ -69,13 +76,11 @@ AppAsset::register($this);
                         'items' => [
                             ['label' => 'Listar usuarios', 'url' => ['/usuarios/index']],                            
                             ['label' => 'Perfiles', 'url' => ['/items/index']],
-                        ],
-                    ],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                            ['label' => 'Salir (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
+                        ],
+                    ],
                 ],
             ]);
             NavBar::end();

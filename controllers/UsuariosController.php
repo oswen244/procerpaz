@@ -81,6 +81,9 @@ class UsuariosController extends Controller
         
 
         if ($model->load(Yii::$app->request->post())) {
+            if($model->perfil === 'abogado'){
+                $model->estado = 1;
+            }
             $model->contrasena = sha1($model->contrasena);
             if($model->save()){
                 $model->perfil = str_replace(' ', '', $model->perfil);

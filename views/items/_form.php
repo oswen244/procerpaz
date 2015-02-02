@@ -206,6 +206,8 @@ use yii\bootstrap\ActiveForm;
                                             <li data-value="borrar_prestamos">Borrar prestamos</li>
                                         </ul>
                                     </li>
+                                    <li data-value="proc_jur">Director Jurídico</li>
+                                    <li data-value="abogado">Abogado</li>
                                 </ul>
                             </li>
                         </ul>

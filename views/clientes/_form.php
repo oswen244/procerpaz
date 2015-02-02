@@ -153,7 +153,7 @@ use app\models\Clientes;
     <?php } ?>
     <!-- <?= $form->field($model, 'id_estado')->textInput() ?> -->
     
-    <div class="form-group field-clientes-fecha_rep">
+    <!-- <div class="form-group field-clientes-fecha_rep">
         <div class="form-group field-clientes-fecha_rep">
             <label for="clientes-fecha_rep" class="control-label col-sm-3">Fecha de reporte</label>
             <div class="col-sm-6">
@@ -161,17 +161,17 @@ use app\models\Clientes;
             </div>            
         </div>
     </div>
-    
+     -->
     <!-- <?= $form->field($model, 'fecha_rep')->textInput() ?> -->
 
-    <div class="form-group field-clientes-fecha_ven">
+   <!--  <div class="form-group field-clientes-fecha_ven">
         <div class="form-group field-clientes-fecha_ven">
             <label for="clientes-fecha_ven" class="control-label col-sm-3">Fecha de vencimiento</label>
             <div class="col-sm-6">
                 <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_ven", "name" => "Clientes[fecha_ven]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_ven, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>           
         </div>
-    </div>
+    </div> -->
 
     <!-- <?= $form->field($model, 'fecha_ven')->textInput() ?> -->
 
