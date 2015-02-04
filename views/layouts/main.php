@@ -59,7 +59,7 @@ AppAsset::register($this);
                     ['label' => 'Cartera', 
                         'items' => [
                             ['label' => 'Exportar descuentos', 'url' => ['/cartera/indexex']],                            
-                            ['label' => 'Actualizar descuentos', 'url' => ['#']],
+                            ['label' => 'Actualizar descuentos', 'url' => ['/cartera/indexim']],
                         ],
                     ],
 

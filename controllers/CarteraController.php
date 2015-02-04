@@ -7,10 +7,15 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+use app\models\UploadForm;
+use SimpleExcel\SimpleExcel;
 
 
 class CarteraController extends Controller
 {
+    public $path = '../web/uploads/';
+
 	public function behaviors()
     {
         return [
@@ -41,6 +46,14 @@ class CarteraController extends Controller
     	$instituciones = $this->getInstituciones();
         return $this->render('indexex', [
         	'instituciones'=>$instituciones,
+        ]);
+    }
+
+    public function actionIndexim()
+    {
+        $instituciones = $this->getInstituciones();
+        return $this->render('indexim', [
+            'instituciones'=>$instituciones,
         ]);
     }
 
@@ -109,6 +122,29 @@ class CarteraController extends Controller
         // disposition / encoding on response body
         header("Content-Disposition: attachment;filename={$filename}");
         header("Content-Transfer-Encoding: binary");
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+        $excel = new SimpleExcel('csv');
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->validate()) {
+                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+                $excel->parser->loadFile($this->path.$model->file->baseName. '.' . $model->file->extension);
+                $foo = $excel->parser->getField();
+                
+            }
+            unlink($this->path.$model->file->baseName. '.' . $model->file->extension);
+        }
+        // \Yii::$app->response->format = 'json';
+
+        // return $foo;
+        return $this->render('indexim', [
+            'foo'=>json_encode($foo),
+        ]);
     }
 }
 
