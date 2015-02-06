@@ -5,12 +5,6 @@
         });
     }
 
-    function importTable(array){
-        return array[1];
-        // $.each(array, function(index, val) {
-             
-        // });
-    }
 
     function reloadSelect(data, idSelect, opcion){
         var x = [];

@@ -132,19 +132,96 @@ class CarteraController extends Controller
             $model->file = UploadedFile::getInstance($model, 'file');
 
             if ($model->validate()) {
+                $filename = $this->path.$model->file->baseName. '.' . $model->file->extension;
                 $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-                $excel->parser->loadFile($this->path.$model->file->baseName. '.' . $model->file->extension);
-                $foo = $excel->parser->getField();
-                
+                $cadena = $this->csv2Table($filename);
+                $totalCol = $this->totalColumns($filename);                
             }
-            unlink($this->path.$model->file->baseName. '.' . $model->file->extension);
-        }
-        // \Yii::$app->response->format = 'json';
-
-        // return $foo;
+        }   
+        $instituciones = $this->getInstituciones();
         return $this->render('indexim', [
-            'foo'=>json_encode($foo),
+            'instituciones'=>$instituciones,
+            'cadena'=>$cadena,
+            'totalCol'=>$totalCol,
+            'filename'=>$filename,
         ]);
+    }
+
+     public function actionCargar()
+    {
+        $model = new UploadForm();
+        $excel = new SimpleExcel('csv');
+        if (Yii::$app->request->isPost) {
+            // $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->validate()) {
+                $filename = $_POST['archivo_nom'];
+                $excel->parser->loadFile($filename);
+                $foo = $excel->parser->getField();
+
+                // $totalCol = $this->totalColumns($filename);
+
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    foreach ($foo as $key => $value) {
+                        $fila = explode(';',$value[0]);
+                        $sql = "CALL importar(".(int)$fila[$_POST['doc']-1].",'".$fila[$_POST['nom']-1]."',".(float)$fila[$_POST['mon']-1].",".(int)$_POST['institucion'].")";
+                        \Yii::$app->db->createCommand($sql)->execute();
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+
+                 $sql = "CALL morosos()";
+                \Yii::$app->db->createCommand($sql)->execute();           
+            }
+            unlink($filename);
+        }
+
+        return $this->redirect(['indexim', 'm' =>'OK']);   
+
+    }
+
+    public function totalColumns($filename){
+        $f = fopen($filename, "r");
+        $line = fgetcsv($f);
+        $cell = count(explode(';', $line[0]));
+        fclose($f);
+
+        return $cell;
+    }
+
+    public function csv2Table($filename) {
+
+        $cadena = "";
+        $header = "<table class='table table-bordered table-striped'>";
+        $f = fopen($filename, "r");
+
+
+        //--------Contenido---------//
+        while (($line = fgetcsv($f)) !== false) {
+            $cadena = $cadena."<tr class='text-center'>";
+            foreach ($line as $cell) {
+                $cell = explode(';', $cell);
+                foreach ($cell as $key) {
+                    $cadena = $cadena."<td>" .utf8_encode ($key) . "</td>";
+                }
+            }
+            $cadena = $cadena."</tr>";
+        }
+        //-------Header---------//
+        $header = $header.'<tr>';
+        for ($i=1; $i <= $this->totalColumns($filename) ; $i++) { 
+            $header = $header."<th class='text-center'>Columna $i</th>";
+        }
+        $header = $header.'</tr>';
+        $cadena = $header.$cadena;
+
+        fclose($f);
+        $cadena = $cadena."</table>";
+
+        return $cadena;
     }
 }
 

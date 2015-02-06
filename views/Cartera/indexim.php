@@ -14,8 +14,23 @@
             </div>
         </div>
 
-        <?php $form = ActiveForm::begin(['action'=>'#', 'layout' => 'horizontal', 'options' => ['enctype' => 'multipart/form-data',  'name' => 'formulario1']]) ?>
+        <?php $form = ActiveForm::begin(['action'=>'cargar', 'layout' => 'horizontal']) ?>
             
+            <?php if(isset($filename)){ ?>
+                <input type="text" name="archivo_nom" value="<?=$filename?>" hidden>
+            <?php } ?>
+            <!-- Institución -->
+            <div class="selcol">
+            <label for="" class="control-label col-sm-4">Institución</label>
+            <div class="form-group col-sm-5">
+                <select name="institucion" type="date" id="instituciones" required class="form-control">
+                    <option value=""></option>
+                     <?php foreach($instituciones as $row){?>
+                        <option value="<?= $row['id_institucion'];?>"><?= $row['nombre'];?></option>
+                    <?php }?>
+                </select>
+            </div>
+            </div>
 
             <!-- # de documento -->
             <div class="selcol">
@@ -23,8 +38,10 @@
             <div class="form-group col-sm-5">
                 <select name="doc" id="documento" required class="form-control">
                     <option value=""></option>
-                    <?php for ($i=1; $i <= 20; $i++) { ?>
-                        <option value="<?=$i;?>">Columna <?=$i;?></option>
+                    <?php if(isset($totalCol)){ ?>
+                        <?php for ($i=1; $i <= $totalCol; $i++) { ?>
+                            <option value="<?=$i;?>">Columna <?=$i;?></option>
+                       <?php } ?>
                    <?php } ?>
                 </select>
             </div>
@@ -36,8 +53,10 @@
             <div class="form-group col-sm-5">
                 <select name="nom" id="nombre" required class="form-control">
                     <option value=""></option>
-                    <?php for ($i=1; $i <= 20; $i++) { ?>
-                        <option value="<?=$i;?>">Columna <?=$i;?></option>
+                    <?php if(isset($totalCol)){ ?>
+                        <?php for ($i=1; $i <= $totalCol; $i++) { ?>
+                            <option value="<?=$i;?>">Columna <?=$i;?></option>
+                       <?php } ?>
                    <?php } ?>
                 </select>
             </div>
@@ -49,8 +68,10 @@
             <div class="form-group col-sm-5">
                 <select name="mon" id="monto" required class="form-control">
                     <option value=""></option>
-                    <?php for ($i=1; $i <= 20; $i++) { ?>
-                        <option value="<?=$i;?>">Columna <?=$i;?></option>
+                    <?php if(isset($totalCol)){ ?>
+                        <?php for ($i=1; $i <= $totalCol; $i++) { ?>
+                            <option value="<?=$i;?>">Columna <?=$i;?></option>
+                       <?php } ?>
                    <?php } ?>
                 </select>
             </div>
@@ -67,10 +88,9 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        if('<?= isset($foo) ? true : false ?>' === '1'){
+        if('<?= isset($cadena) ? true : false ?>' === '1'){
             $('.selcol').show();
-            console.log('<?= isset($foo) ? print_r($foo) : '' ?>');
-            $('#table').html(importTable('<?= isset($foo) ? print_r($foo) : '' ?>'));
+            $('#table').html("<?= isset($cadena) ? $cadena : '' ?>");
         }else{
             $('.selcol').hide();
         }
