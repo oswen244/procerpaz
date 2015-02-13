@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'rowOptions' => ['class' => 'text-center'],
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             // 'id_obsequios',
             'num_afil',

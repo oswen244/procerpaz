@@ -18,8 +18,9 @@ class PlanillasSearch extends Planillas
     public function rules()
     {
         return [
-            [['id_planilla'], 'integer'],
-            [['fecha', 'lugar', 'unidad', 'comision_afiliado', 'por_ant_com'], 'safe'],
+            [['id_planilla', 'numero'], 'integer'],
+            [['fecha', 'lugar', 'unidad'], 'safe'],
+            [['comision_afiliado', 'por_ant_com'], 'number'],
         ];
     }
 
@@ -53,13 +54,14 @@ class PlanillasSearch extends Planillas
 
         $query->andFilterWhere([
             'id_planilla' => $this->id_planilla,
+            'numero' => $this->numero, 
             'fecha' => $this->fecha,
+            'comision_afiliado' => $this->comision_afiliado, 
+            'por_ant_com' => $this->por_ant_com, 
         ]);
 
         $query->andFilterWhere(['like', 'lugar', $this->lugar])
-            ->andFilterWhere(['like', 'unidad', $this->unidad])
-            ->andFilterWhere(['like', 'comision_afiliado', $this->comision_afiliado])
-            ->andFilterWhere(['like', 'por_ant_com', $this->por_ant_com]);
+            ->andFilterWhere(['like', 'unidad', $this->unidad]);
 
         return $dataProvider;
     }

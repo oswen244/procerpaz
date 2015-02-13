@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "planillas".
  *
  * @property integer $id_planilla
+ * @property integer $numero 
  * @property string $fecha
  * @property string $lugar
  * @property string $unidad
@@ -34,9 +35,10 @@ class Planillas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fecha', 'comision_afiliado', 'por_ant_com'], 'required', 'message' => 'Este campo no puede quedar vacío'],
+            [['numero', 'fecha', 'comision_afiliado', 'por_ant_com'], 'required'],
+            [['numero'], 'integer'],
             [['fecha'], 'safe'],
-            [['comision_afiliado', 'por_ant_com'], 'number', 'message' => 'Este campo debe ser numérico'],
+            [['comision_afiliado', 'por_ant_com'], 'number'],
             [['lugar', 'unidad'], 'string', 'max' => 45]
         ];
     }
@@ -47,7 +49,8 @@ class Planillas extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_planilla' => 'Id Planilla',
+            'id_planilla' => 'Planilla',
+            'numero' => 'Número',
             'fecha' => 'Fecha',
             'lugar' => 'Lugar',
             'unidad' => 'Unidad',

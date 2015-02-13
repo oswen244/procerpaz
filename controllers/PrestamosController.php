@@ -158,9 +158,26 @@ class PrestamosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $total = $this->isPagos($id);
+        if($total==='0'){
+            $this->findModel($id)->delete();
+            $m = 'Borrado exitoso';
+        }else{
+            $m = 'Imposible borrar el prestamo, existen pagos asociados!';
+        }
+        
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'm'=>$m]);
+    }
+
+    public function isPagos($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('pagos_prestamos')->where('id_prestamo=:id');
+        $query->addParams([':id'=>$id]);
+        $total = $query->scalar();
+
+        return $total;
     }
 
     public function actionGetcliente(){

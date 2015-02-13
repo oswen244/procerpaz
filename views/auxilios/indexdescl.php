@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             'filterModel' => $searchModel,
             'rowOptions' => ['class' => 'text-center'],
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
 
                 // 'id_auxilio',
                 // 'tipo',

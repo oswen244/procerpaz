@@ -36,51 +36,65 @@ AppAsset::register($this);
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
+                'items' => [ 
                     // ['label' => 'Inicio', 'url' => ['/site/index']],
+                Yii::$app->user->can('admin') || Yii::$app->user->can('leer_clientes') || Yii::$app->user->can('leer_planillas') || Yii::$app->user->can('leer_promotores') || Yii::$app->user->can('leer_instituciones') ? 
                     [
                         'label' => 'Clientes',
                         'items' => [
-                            ['label' => 'Listar clientes', 'url' => ['/clientes/index']],                            
-                            ['label' => 'Planillas', 'url' => ['/planillas/index']],
-                            ['label' => 'Promotores', 'url' => ['/promotores/index']],                            
-                            ['label' => 'Instituciones', 'url' => ['/instituciones/index']],                            
+                        Yii::$app->user->can('leer_clientes') ?
+                            ['label' => 'Listar clientes', 'url' => ['/clientes/index']] : '',
+                        Yii::$app->user->can('leer_planillas') ?                          
+                            ['label' => 'Planillas', 'url' => ['/planillas/index']] : '',
+                        Yii::$app->user->can('leer_promotores') ?
+                            ['label' => 'Promotores', 'url' => ['/promotores/index']] : '',
+                        Yii::$app->user->can('leer_instituciones') ?                        
+                            ['label' => 'Instituciones', 'url' => ['/instituciones/index']] : '',                            
                         ],
 
-                    ],
+                    ] : '',
+                Yii::$app->user->can('admin') || Yii::$app->user->can('leer_auxilio_des') || Yii::$app->user->can('leer_auxilio_exe') ? 
                     ['label' => 'Auxilios',
                         'items' => [
-                            ['label' => 'Auxilio de desempleo', 'url' => ['/auxilios/indexdes']],                            
-                            ['label' => 'Auxilio exequial', 'url' => ['/auxilios/indexexe']],
+                            Yii::$app->user->can('leer_auxilio_des') ?
+                            ['label' => 'Auxilio de desempleo', 'url' => ['/auxilios/indexdes']] : '',
+                            Yii::$app->user->can('leer_auxilio_exe') ?
+                            ['label' => 'Auxilio exequial', 'url' => ['/auxilios/indexexe']] : '',
                         ],
 
-                    ],
-
+                    ] : '',
+                Yii::$app->user->can('admin') ?
                     ['label' => 'Cartera', 
                         'items' => [
                             ['label' => 'Exportar descuentos', 'url' => ['/cartera/indexex']],                            
                             ['label' => 'Actualizar descuentos', 'url' => ['/cartera/indexim']],
                         ],
-                    ],
+                    ] : '',
 
+                Yii::$app->user->can('leer_proc_jur') ?
                     ['label' => 'Jurídico', 
                         'items' => [
-                            ['label' => 'Listar casos', 'url' => ['proceso-juridico/index']],                            
-                            ['label' => 'Gestión de avances', 'url' => ['#']],
+                            ['label' => 'Listar casos', 'url' => ['proceso-juridico/index']],
+                            Yii::$app->user->can('dir_juridico') ? 
+                            ['label' => 'Listar Abogados', 'url' => ['proceso-juridico/abogados']] : '',
                         ],
-                    ],
+                    ] : '',
                     
-                    ['label' => 'Prestamos', 'url' => ['/prestamos/index']],
-                    
+                Yii::$app->user->can('leer_prestamos') ?    
+                    ['label' => 'Prestamos', 'url' => ['/prestamos/index']] : '',
+
+                Yii::$app->user->can('admin') ?  
                     ['label' => 'Usuarios', 
                         'items' => [
                             ['label' => 'Listar usuarios', 'url' => ['/usuarios/index']],                            
                             ['label' => 'Perfiles', 'url' => ['/items/index']],
-                            ['label' => 'Salir (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
+                            
                         ],
-                    ],
+                    ] : '',
+
+                ['label' => 'Salir (' . Yii::$app->user->identity->username . ')',
+                        'url' => ['/site/logout'],
+                        'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
             NavBar::end();

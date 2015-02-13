@@ -39,9 +39,14 @@ class ProcesoJuridicoSearch extends ProcesoJuridico
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$id_abog,$perfil)
     {
-        $query = ProcesoJuridico::find();
+        if($perfil === 'abogado'){
+            $query = ProcesoJuridico::find()->where('id_abogado=:id');
+            $query->addParams([':id'=>$id_abog]);
+        }else{
+            $query = ProcesoJuridico::find();
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

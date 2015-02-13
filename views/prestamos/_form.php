@@ -16,13 +16,13 @@ use yii\bootstrap\ActiveForm;
 /* @var $model app\models\Prestamos */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class="text-center">(*) campos requeridos.</div><br>
 <div class="prestamos-form">
 
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
     <div class="form-group field-auxilios-monto">
-        <label class="control-label col-sm-3">N° de identificación</label>
+        <label class="control-label col-sm-3">N° de identificación *</label>
         <div class="col-sm-6">                
             <input id="doc" type="text" required class="form-control">
         </div>
@@ -34,19 +34,19 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
-    <?= $form->field($model, 'monto')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'monto')->textInput(['required' => '', 'maxlength' => 10])->label('Monto *') ?>
 
-    <?= $form->field($model, 'interes_mensual')->textInput() ?>
+    <?= $form->field($model, 'interes_mensual')->textInput(['required' => ''])->label('interes mensual *') ?>
 
-    <?= $form->field($model, 'num_cuotas')->textInput() ?>
+    <?= $form->field($model, 'num_cuotas')->textInput(['required' => ''])->label('Número de cuotas *') ?>
 
-    <?= $form->field($model, 'valor_cuota')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'valor_cuota')->textInput(['maxlength' => 10])->label('Valor cuota') ?>
 
     <div class="form-group field-prestamos-fecha_prest">
         <div class="form-group field-prestamos-fecha_prest">
-            <label for="prestamos-fecha_prest" class="control-label col-sm-3">Fecha de prestamo</label>
+            <label for="prestamos-fecha_prest" class="control-label col-sm-3">Fecha de prestamo *</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "prestamos-fecha_prest", "name" => "Prestamos[fecha_prest]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_prest, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
+                <?= yii\jui\DatePicker::widget(["id" => "prestamos-fecha_prest", "name" => "Prestamos[fecha_prest]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'value'=>$model->fecha_prest, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"]])?>
             </div>            
         </div>
     </div>
@@ -66,7 +66,7 @@ use yii\bootstrap\ActiveForm;
 
     
     <div class="form-group field-prestamos-id_estado required">
-        <label for="prestamos-id_estado" class="control-label col-sm-3">Estado</label>
+        <label for="prestamos-id_estado" class="control-label col-sm-3">Estado *</label>
         <div class="col-sm-6">
             <select name="Prestamos[id_estado]" id="prestamos-id_estado" class="form-control">
                 <option value=""></option>

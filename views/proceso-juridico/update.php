@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	        'model' => $model,
 	        'abogados'=>$abogados,
 		    'estados'=>$estados,
+		    'id_usuario'=>$id_usuario,
 	    ]) ?>
 
 	</div>

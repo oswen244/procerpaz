@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'rowOptions' => ['class' => 'text-center'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             // 'id_usuario',
             'nombres',
@@ -35,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'perfil',
             // 'estado',
 
-            ['class' => '\yii\grid\ActionColumn'],
+            ['class' => '\yii\grid\ActionColumn',
+                'options'=>['width'=>'8%'],
+            ],
         ],
         'toolbar' => [
             ['content'=>

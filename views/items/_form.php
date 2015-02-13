@@ -35,7 +35,7 @@
                 $.post(accion, {data: data}).done(function(data) {
                     console.log(data);
                 });
-            }else{alert('Debe llenar los campos de Nombre y Descripción')}
+            }else{alert('Debe llenar el campo de Nombre')}
 
         });
         
@@ -95,11 +95,11 @@ use yii\bootstrap\ActiveForm;
 
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 64])->label('Nombre') ?>
+    <!-- <?= $form->field($model, 'name')->textInput(['maxlength' => 64])->label('Nombre') ?> -->
 
     <!-- <?= $form->field($model, 'type')->textInput() ?> -->
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6])->label('Descripción') ?>
+    <?= $form->field($model, 'description')->textInput(['required'=>'', 'rows' => 6])->label('Nombre *') ?>
 
     <!-- <?= $form->field($model, 'rule_name')->textInput(['maxlength' => 64]) ?> -->
 
@@ -206,8 +206,8 @@ use yii\bootstrap\ActiveForm;
                                             <li data-value="borrar_prestamos">Borrar prestamos</li>
                                         </ul>
                                     </li>
-                                    <li data-value="proc_jur">Director Jurídico</li>
-                                    <li data-value="abogado">Abogado</li>
+                                    <li data-value="abog">Abogado</li>
+                                    <li data-value="dir_juridico">Director juridico</li>
                                 </ul>
                             </li>
                         </ul>

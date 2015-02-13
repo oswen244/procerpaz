@@ -83,8 +83,8 @@ class ItemsController extends Controller
         if (Yii::$app->request->post())
         {
             $data = $_POST['data'];
-            $model->name = $data[1];
-            $role = $auth->createRole($data[1]);
+            $model->name = str_replace(' ', '_', $data[2]);
+            $role = $auth->createRole($model->name);
             $role->description = $data[2];
             $role->data = '';
 

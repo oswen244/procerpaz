@@ -23,6 +23,8 @@ use Yii;
  */
 class ProcesoJuridico extends \yii\db\ActiveRecord
 {
+    const ASIS = 'Asistiendo';
+    const SASIS = 'Sin asistencia';
     /**
      * @inheritdoc
      */

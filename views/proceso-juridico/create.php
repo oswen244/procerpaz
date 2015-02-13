@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#procesojuridico-id_abogado').val('<?=$id_usuario;?>');  
+	});
+</script>
 <?php
 
 use yii\helpers\Html;
@@ -27,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'model' => $model,
 	        'abogados'=>$abogados,
 	        'estados'=>$estados,
+	        'id_usuario'=>$id_usuario,
 	    ]) ?>
 
 	</div>

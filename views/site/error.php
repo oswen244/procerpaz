@@ -11,9 +11,10 @@ $this->title = $name;
 ?>
 <div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
+    <div class="text-center">
+        <h1><?= Html::encode($code === 403 ? 'ACCESO DENEGADO' : $this->title) ?></h1>
+    </div>
+    <div class="alert alert-danger text-center">
         <?= nl2br(Html::encode($message)) ?>
     </div>
 

@@ -18,9 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'rowOptions' => ['class' => 'text-center'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             // 'id_planilla',
+            'numero',
             'fecha',
             'lugar',
             'unidad',
@@ -44,3 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+<?php if(isset($m)){ ?>
+
+    <script type="text/javascript">
+       $(document).ready(function() {
+             alert("<?=$_GET['m'];?>")            
+        });
+    </script>
+
+<?php } ?>

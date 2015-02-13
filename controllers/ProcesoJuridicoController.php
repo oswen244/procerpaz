@@ -4,17 +4,22 @@ namespace app\controllers;
 
 use Yii;
 use app\models\ProcesoJuridico;
+use app\models\Usuarios;
 use app\models\ProcesoJuridicoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * ProcesoJuridicoController implements the CRUD actions for ProcesoJuridico model.
  */
 class ProcesoJuridicoController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -52,7 +57,17 @@ class ProcesoJuridicoController extends Controller
                         'actions' => ['index','delete'],
                         'roles' => ['borrar_proc_jur'],
                     ],
-                    
+                    [
+                        'allow' => true,
+                        'actions' => ['configuracion'],
+                        'roles' => ['borrar_proc_jur'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['guardar-config','abogados'],
+                        'roles' => ['borrar_proc_jur'],
+                    ],
+
                 ],
             ],
             'verbs' => [
@@ -68,10 +83,13 @@ class ProcesoJuridicoController extends Controller
      * Lists all ProcesoJuridico models.
      * @return mixed
      */
+
     public function actionIndex()
     {
+        $d = Yii::$app->user->id; //id del abogado
+        $perfil = $this->getPerfil($d);
         $searchModel = new ProcesoJuridicoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$d,$perfil);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -79,6 +97,55 @@ class ProcesoJuridicoController extends Controller
         ]);
     }
 
+    public function getPerfil($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('perfil')->from('usuarios')->where('id_usuario=:id');
+        $query->addParams([':id'=>$id]);
+        $perfil = $query->scalar();
+
+        return $perfil;
+    }
+
+    public function actionAbogados()
+    {
+        $query = Usuarios::find()->where('perfil="abogado"')->orderBy('estado');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+        return $this->render('abogados', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionConfiguracion($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('configuracion', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionGuardarConfig()
+    {
+        if (Yii::$app->request->post()){
+            $model = $this->findModel($_POST['id_proceso']);
+            $model->peso_max = $_POST['peso_max'];
+            $model->tiempo_max = $_POST['tiempo_max'];
+
+            if($model->update()){
+                return $this->redirect(['index']);
+            }else{
+                return $this->render('configuracion', [
+                    'model' => $model,
+                ]);
+            }
+        }
+
+    }
     /**
      * Displays a single ProcesoJuridico model.
      * @param integer $id
@@ -96,13 +163,20 @@ class ProcesoJuridicoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new ProcesoJuridico();
 
         if ($model->load(Yii::$app->request->post())){
             $model->hora = date('H:i:s');
-            if($model->save()) {
+            $usuario = $this->findModelUsuario($model->id_abogado);
+            if($usuario->estado == 1){
+                $usuario->estado = 2;
+            }
+            if($model->save() && $usuario->save()) {
+                mkdir('juridico/'.$model->id_proceso);
+                mkdir('juridico/'.$model->id_proceso.'/avances');
+                mkdir('juridico/'.$model->id_proceso.'/otros');
                 return $this->redirect(['index']);
             }
         } else {
@@ -112,6 +186,7 @@ class ProcesoJuridicoController extends Controller
                 'model' => $model,
                 'abogados'=>$abogados,
                 'estados'=>$estados,
+                'id_usuario'=>$id,
             ]);
         }
     }
@@ -166,8 +241,36 @@ class ProcesoJuridicoController extends Controller
                 'model' => $model,
                 'abogados'=>$abogados,
                 'estados'=>$estados,
+                'id_usuario'=>$id,
             ]);
         }
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+        if (Yii::$app->request->isPost) {
+            $caso = $_POST['id_proceso'];
+            $proceso = $this->findModel($caso);
+            $folder = $_POST['folder'];
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if(($proceso->peso_max*1024*1024) < $model->file->size){
+                $m = 'Tamaño del archivo es mayor a lo permitido';
+            }else{
+                if ($model->validate()) {
+                    $filename = $model->file->baseName. '.' . $model->file->extension;
+                    $model->file->saveAs('juridico/' .$caso.'/'. $folder.'/'.$filename);
+                    $m = 'El archivo ha sido cargado con exito';
+                    
+                    return $this->redirect(['index','m'=>'1']);
+
+                }
+            }
+            return $this->redirect(['index','m'=>'2']);
+
+        }
+
     }
 
     /**
@@ -195,7 +298,16 @@ class ProcesoJuridicoController extends Controller
         if (($model = ProcesoJuridico::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+    }
+
+     protected function findModelUsuario($id)
+    {
+        if (($model = Usuarios::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('La página solicitada no existe.');
         }
     }
 }

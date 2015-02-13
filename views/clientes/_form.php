@@ -23,14 +23,14 @@ use app\models\Clientes;
 /* @var $model app\models\Clientes */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+ <div class="text-center">(*) campos requeridos.</div><br>
 <div class="clientes-form">
 
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']) ?>
     
     <div class="form-group field-clientes-fecha_afiliacion">
         <div class="form-group field-clientes-fecha_afiliacion">
-            <label for="clientes-fecha_afiliacion" class="control-label col-sm-3">Fecha de afiliación</label>
+            <label for="clientes-fecha_afiliacion" class="control-label col-sm-3">Fecha de afiliación *</label>
             <div class="col-sm-6">
                 <?php if($model->isNewRecord){ ?>
                     <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
@@ -42,33 +42,33 @@ use app\models\Clientes;
     </div>
     <!-- <?= $form->field($model, 'fecha_afiliacion')->textInput() ?> -->
 
-    <?= $form->field($model, 'num_afiliacion')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'num_afiliacion')->textInput(['maxlength' => 45])->label('Número de afiliación *') ?>
 
-    <?= $form->field($model, 'nombres')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'nombres')->textInput(['maxlength' => 45])->label('Nombres *') ?>
 
-    <?= $form->field($model, 'apellidos')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'apellidos')->textInput(['maxlength' => 45])->label('Apellidos *') ?>
     
     <!-- <?= $form->field($model, 'tipo_id')->textInput(['maxlength' => 45]) ?> -->
     
     <div class="form-group field-clientes-tipo_id required">
-        <label for="clientes-tipo_id" class="control-label col-sm-3">Tipo de ID</label>
+        <label for="clientes-tipo_id" class="control-label col-sm-3">Tipo de ID *</label>
         <div class="col-sm-6">
             <select name="Clientes[tipo_id]" id="clientes-tipo_id" class="form-control">
                 <option value=""></option>
-                <option value="<?=Clientes::CEDULA?>"><?=Clientes::CEDULA?></option>
-                <option value="<?=Clientes::TI?>"><?=Clientes::TI?></option>
-                <option value="<?=Clientes::PASAPORTE?>"><?=Clientes::PASAPORTE?></option>
-                <option value="<?=Clientes::RUT?>"><?=Clientes::RUT?></option>
+                <option value="<?=Clientes::CEDULA?>"><?=Clientes::CEDULA?> - Cédula</option>
+                <option value="<?=Clientes::TI?>"><?=Clientes::TI?> - Tarjeta de identidad</option>
+                <option value="<?=Clientes::PASAPORTE?>"><?=Clientes::PASAPORTE?> - Pasaporte</option>
+                <option value="<?=Clientes::RUT?>"><?=Clientes::RUT?> - RUT</option>
             </select>
             <div class="help-block help-block-error "></div>
         </div>
     </div>
 
 
-    <?= $form->field($model, 'num_id')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'num_id')->textInput(['maxlength' => 45])->label('Número de ID *') ?>
 
     <div class="form-group field-clientes-genero required">
-        <label for="clientes-genero" class="control-label col-sm-3">Sexo</label>
+        <label for="clientes-genero" class="control-label col-sm-3">Sexo *</label>
         <div class="col-sm-6">
             <select name="Clientes[genero]" id="clientes-genero" class="form-control">
                 <option value=""></option>
@@ -109,7 +109,7 @@ use app\models\Clientes;
     <?= $form->field($model, 'celular')->textInput(['maxlength' => 45]) ?>
 
     <div class="form-group field-clientes-id_institucion required">
-        <label for="clientes-id_institucion" class="control-label col-sm-3">Institución</label>
+        <label for="clientes-id_institucion" class="control-label col-sm-3">Institución *</label>
         <div class="col-sm-6">
             <select name="Clientes[id_institucion]" id="clientes-id_institucion" class="form-control">
                 <option value=""></option>
@@ -124,7 +124,7 @@ use app\models\Clientes;
     <!-- <?= $form->field($model, 'id_institucion')->textInput() ?> -->
 
     <div class="form-group field-clientes-id_planilla required">
-        <label for="clientes-id_planilla" class="control-label col-sm-3">Planilla</label>
+        <label for="clientes-id_planilla" class="control-label col-sm-3">Planilla *</label>
         <div class="col-sm-6">
             <select name="Clientes[id_planilla]" id="clientes-id_planilla" class="form-control">
                 <option value=""></option>
@@ -139,7 +139,7 @@ use app\models\Clientes;
     <!-- <?= $form->field($model, 'id_planilla')->textInput() ?> -->
     <?php if($model->isNewRecord){ ?>
         <div class="form-group field-clientes-id_estado required">
-            <label for="clientes-id_estado" class="control-label col-sm-3">Estado del cliente</label>
+            <label for="clientes-id_estado" class="control-label col-sm-3">Estado del cliente *</label>
             <div class="col-sm-6">
                 <select name="Clientes[id_estado]" id="clientes-id_estado" class="form-control">
                     <option value=""></option>
@@ -175,7 +175,7 @@ use app\models\Clientes;
 
     <!-- <?= $form->field($model, 'fecha_ven')->textInput() ?> -->
 
-    <?= $form->field($model, 'monto_paquete')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'monto_paquete')->textInput(['maxlength' => 10])->label('Monto de paquete *') ?>
 
     <?= $form->field($model, 'observaciones')->textArea(['maxlength' => 1000]) ?>
 

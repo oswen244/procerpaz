@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
 
-$this->title = 'Planilla N° '.$model->id_planilla;
+$this->title = 'Planilla N° '.$model->numero;
 $this->params['breadcrumbs'][] = ['label' => 'Planillas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -84,7 +84,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 // 'id_planilla',
-                'gastos_promotor',
+                // 'gastos_promotor',
+                [
+                    'attribute'=>'gastos_promotor',
+                    'value'=>function($model){
+                        return "$".number_format($model->gastos_promotor,0);
+                    }
+                ],
 
 
                 [
@@ -199,12 +205,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-body">
                 <div class="col-sm-12 input-group">
-                    <span class="input-group-addon">$</span><input id="gastoInput" type="number" class="form-control">                    
+                    <span class="input-group-addon">$</span><input id="gastoInput" class="form-control">                    
                 </div>
+                <div id="error"></div>
                 <input id="idInput" hidden type="number" class="">
             </div>
             <div class="modal-footer">
-                <button id="gastoProm" type="button" class="btn btn-primary" data-dismiss="modal">Guardar cambios</button>
+                <button id="gastoProm" type="button" class="btn btn-primary" >Guardar cambios</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -224,6 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $('.gastos').on('click', function(event) {
             event.preventDefault();
             $('#idInput').val($(this).parents('tr').attr('data-key'));
+            $('#gastoProm').removeAttr('data-dismiss');
             $('#gastoModal').modal({backdrop:'static'});
         });
 
@@ -245,9 +253,15 @@ $this->params['breadcrumbs'][] = $this->title;
             data[0] = $('#idInput').val();
             data[1] = $('#gastoInput').val();
             // console.log(data);
-            $.post('gastos', {data: data}).done(function(data) {
-                alert(data);
-            });
+            if(isNaN(data[1])){
+                $('#error').html('El campo debe ser númerico')
+                $('#gastoInput').val('');
+            }else{
+                $('#gastoProm').attr('data-dismiss', 'modal');
+                $.post('gastos', {data: data}).done(function(data) {
+                    alert(data);
+                });
+            }
             
         });
 

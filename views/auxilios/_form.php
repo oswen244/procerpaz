@@ -11,12 +11,12 @@ use app\models\Auxilios;
 /* @var $model app\models\Auxilios */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+ <div class="text-center">(*) campos requeridos.</div><br>
 <div class="auxilios-form">
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
         <div class="form-group field-auxilios-monto">
-            <label class="control-label col-sm-3">N° de identificación</label>
+            <label class="control-label col-sm-3">N° de identificación *</label>
             <div class="col-sm-6">                
                 <input id="doc" type="text" required class="form-control">
             </div>
@@ -28,7 +28,7 @@ use app\models\Auxilios;
 
     <?php if($tipo === '2'){ ?>
         <div class="form-group field-auxilios-monto">
-            <label class="control-label col-sm-3">Familiares</label>
+            <label class="control-label col-sm-3">Familiares *</label>
             <div class="col-sm-6">
                 <select name="familiar" id="auxilios-familiar" class="form-control">
                 <option value=""></option>
@@ -47,7 +47,7 @@ use app\models\Auxilios;
 
     <?php if($tipo === '1'){ ?>
         <?= $form->field($model, 'porcentaje_aux')->textInput(['placeHolder'=>'Porcentaje SMLMV a pagar']) ?>
-        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>''])->label('Monto mensual') ?>
+        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>''])->label('Monto mensual *') ?>
     <?php } ?>
 
 
@@ -57,7 +57,7 @@ use app\models\Auxilios;
 
      <div class="form-group field-auxilios-fecha_auxilio">
         <div class="form-group field-auxilios-fecha_auxilio">
-            <label for="auxilios-fecha_auxilio" class="control-label col-sm-3">Fecha</label>
+            <label for="auxilios-fecha_auxilio" class="control-label col-sm-3">Fecha *</label>
             <div class="col-sm-6">
                 <?= yii\jui\DatePicker::widget(["id" => "auxilios-fecha", "name" => "Auxilios[fecha_auxilio]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_auxilio, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>
@@ -67,7 +67,7 @@ use app\models\Auxilios;
     <!-- <?= $form->field($model, 'fecha_auxilio')->textInput() ?> -->
 
     <?php if($tipo === '2'){ ?>
-        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>'']) ?>
+        <?= $form->field($model, 'monto')->textInput(['placeHolder'=>'$', 'maxlength' => 10, 'required'=>''])->label('Monto *') ?>
         <?= $form->field($model, 'proveedor')->textInput(['maxlength' => 45]) ?>
     <?php } ?>
     <?php if($tipo === '1'){ ?>
@@ -87,7 +87,7 @@ use app\models\Auxilios;
     <?php } ?>
 
     <div class="form-group field-auxilios-tipo_auxilio required">
-        <label for="auxilios-tipo_auxilio" class="control-label col-sm-3">Tipo de auxilio</label>
+        <label for="auxilios-tipo_auxilio" class="control-label col-sm-3">Tipo de auxilio *</label>
         <div class="col-sm-6">
             <select name="Auxilios[tipo_auxilio]" id="auxilios-tipo_auxilio" required class="form-control">
                 <option value=""></option>

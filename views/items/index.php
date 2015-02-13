@@ -18,18 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'rowOptions' => ['class' => 'text-center'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             // 'name',
-            [
-                'attribute'=>'name',
-                'label'=>'Nombre',
-            ],
+            // [
+            //     'attribute'=>'name',
+            //     'label'=>'Nombre',
+            // ],
             // 'type',
             // 'description:ntext',
             [
                 'attribute'=>'description',
-                'label'=>'Descripción',
+                'label'=>'Nombre',
             ],
             // 'rule_name',
             // 'data:ntext',

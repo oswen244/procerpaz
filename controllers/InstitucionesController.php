@@ -135,9 +135,25 @@ class InstitucionesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $totalClientes = $this->clientesPlanillas($id);
+        if($totalClientes === '0'){
+            $this->findModel($id)->delete();
+            $m = 'Borrado exitoso';
+        }else{
+            $m = 'Imposible borrar Institución, existen clientes asosciados!';
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'm'=>$m]);
+    }
+
+    public function clientesPlanillas($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('clientes')->where('id_planilla=:id');
+        $query->addParams([':id'=>$id]);
+        $total = $query->scalar();
+
+        return $total;
     }
 
     /**

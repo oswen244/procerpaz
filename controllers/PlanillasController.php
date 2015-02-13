@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Planillas;
+use app\models\Promotores;
 use app\models\PromotoresPlanillas;
 use app\models\GastosPlanillas;
 use app\models\Clientes;
@@ -92,7 +93,7 @@ class PlanillasController extends Controller
     public function actionView($id)
     {
         $searchModel = new PromotoresSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $this->promotores($id);
 
         $searchModelLista = new PromotoresPlanillasSearch();
         $dataProviderLista = $searchModelLista->search(Yii::$app->request->queryParams,$id);
@@ -115,6 +116,18 @@ class PlanillasController extends Controller
             'totalGastosProm'=>$totalGastosProm,
             'totalGastosOtrosProm'=>$totalGastosOtrosProm,
         ]);
+    }
+
+    public function promotores($id)
+    {
+        $query = Promotores::find()->where('id_promotor NOT IN (SELECT id_promotor FROM promotores_planillas WHERE id_planilla =:id)');
+        $query->addParams([':id'=>$id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
     }
 
     public function totalGastosOtrosProm($id_planilla)
@@ -210,6 +223,14 @@ class PlanillasController extends Controller
         }
     }
 
+    public function serialPlanillas(){ // devuelve el id de la planilla con el numero mas alto
+        $query = (new \yii\db\Query());
+        $query->select('MAX(id_planilla)')->from('planillas');
+        $planilla = $query->scalar();
+
+        return $planilla;
+    }
+
     /**
      * Updates an existing Planillas model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -237,9 +258,47 @@ class PlanillasController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $totalClientes = $this->clientesPlanillas($id);
+        $totalGastos = $this->gastosPlanillas($id);
+        $totalpromo = $this->promPlanillas($id);
+        if($totalClientes === '0' && $totalGastos==='0' && $totalpromo==='0'){
+            $this->findModel($id)->delete();
+            $m = 'Borrado exitoso';
+        }else{
+            $m = 'Imposible borrar planilla. Borre todos los elementos asociados primero';
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'm'=>$m]);
+    }
+
+    public function clientesPlanillas($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('clientes')->where('id_planilla=:id');
+        $query->addParams([':id'=>$id]);
+        $total = $query->scalar();
+
+        return $total;
+    }
+
+    public function gastosPlanillas($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('gastos_planillas')->where('id_planilla=:id');
+        $query->addParams([':id'=>$id]);
+        $total = $query->scalar();
+
+        return $total;
+    }
+
+    public function promPlanillas($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('promotores_planillas')->where('id_planilla=:id');
+        $query->addParams([':id'=>$id]);
+        $total = $query->scalar();
+
+        return $total;
     }
 
     /**

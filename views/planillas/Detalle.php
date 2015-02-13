@@ -246,8 +246,8 @@
             
         ]); ?>
 
-        <p>Total % a pagar: <span>$<?=number_format((($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100))*$promotores->getTotalCount());?></span></p>
-        <p>Total % Pendiente: <span>$<?=number_format((($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100))*$promotores->getTotalCount());?></span></p>
+        <p>Total % a pagar: <span>$<?= $promotores->getTotalCount() !== 0 ? number_format((($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100))*$promotores->getTotalCount()) : 0;?></span></p>
+        <p>Total % Pendiente: <span>$<?= $promotores->getTotalCount() !== 0 ? number_format((($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100))*$promotores->getTotalCount()) : 0;?></span></p>
 
 </div>
 
@@ -255,9 +255,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.monto').html('<span>$<?=number_format($valorTotal/$promotores->getTotalCount());?></span>');
-		$('.pagar').html('<span>$<?=number_format(($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100));?></span>');
-		$('.pendiente').html('<span>$<?=number_format(($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100));?></span>');
+		$('.monto').html('<span>$<?= $promotores->getTotalCount() !== 0 ? number_format($valorTotal/$promotores->getTotalCount()) : "0";?></span>');
+		$('.pagar').html('<span>$<?= $promotores->getTotalCount() !== 0 ? number_format(($valorTotal/$promotores->getTotalCount())*($model->por_ant_com/100)) : "0";?></span>');
+		$('.pendiente').html('<span>$<?= $promotores->getTotalCount() !== 0 ? number_format(($valorTotal/$promotores->getTotalCount())*((100-$model->por_ant_com)/100)) : "0";?></span>');
 	});
 </script>
 

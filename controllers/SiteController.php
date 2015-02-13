@@ -55,10 +55,18 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        
+        if(Yii::$app->user->can('admin')){
+            $sql = "CALL vence_obsequio()";
+            \Yii::$app->db->createCommand($sql)->execute();
+
+            $sql = "CALL cambiar_estado_desafil()";
+            \Yii::$app->db->createCommand($sql)->execute();
+        }
         $obs = $this->contarObsequios();
         return $this->render('index',[
                 'obsequios'=>$obs,
-            ]);
+        ]);
     }
 
     function contarObsequios()

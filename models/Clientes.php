@@ -69,6 +69,7 @@ class Clientes extends \yii\db\ActiveRecord
         return [
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado', 'monto_paquete'], 'required' , 'message' => 'Este campo no puede quedar vacío'],
             [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven', 'fecha_desafil'], 'safe'],
+            [['email'], 'email'],
             [['id_institucion', 'id_planilla', 'id_estado'], 'integer', 'message' => 'Este campo debe ser numérico'],
             [['monto_paquete'], 'number', 'message' => 'Este campo debe ser numérico'],
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'lugar_exp', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'string', 'max' => 45],

@@ -336,9 +336,13 @@ class ClientesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $cliente = $this->findModel($id);
+        $cliente->id_estado = 4;
 
-        return $this->redirect(['index']);
+        if($cliente->save()){
+            return $this->redirect(['index']);
+        }
+
     }
 
      /**
@@ -348,7 +352,7 @@ class ClientesController extends Controller
      * @return mixed
      */
     public function actionDeleteFamiliar($id)
-    {
+    {   
 
         $this->findFamiliar($id)->delete();
 

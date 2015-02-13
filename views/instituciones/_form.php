@@ -8,12 +8,12 @@ use yii\bootstrap\ActiveForm;
 /* @var $model app\models\Instituciones */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+ <div class="text-center">(*) campos requeridos.</div><br>
 <div class="instituciones-form">
 
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'nombre')->textInput(['maxlength' => 45])->label('Nombre *') ?>
 
     <?= $form->field($model, 'descripcion')->textArea(['maxlength' => 45]) ?>
 
