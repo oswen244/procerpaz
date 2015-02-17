@@ -27,16 +27,13 @@ class PlanillasController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -118,7 +115,7 @@ class PlanillasController extends Controller
         ]);
     }
 
-    public function promotores($id)
+    public function promotores($id) //Devuleve los promotores que no estan asociados a una planilla especificada
     {
         $query = Promotores::find()->where('id_promotor NOT IN (SELECT id_promotor FROM promotores_planillas WHERE id_planilla =:id)');
         $query->addParams([':id'=>$id]);
@@ -141,7 +138,7 @@ class PlanillasController extends Controller
         return $total;
     }
 
-    public function totalGastosProm($id_planilla)
+    public function totalGastosProm($id_planilla)// Devuelve los gastos de los promotores en una planilla especificada
     {
 
         $query = (new \yii\db\Query());
@@ -153,7 +150,7 @@ class PlanillasController extends Controller
         return $total;
     }
 
-    public function afiliados($id_planilla)
+    public function afiliados($id_planilla)//Devuelve los clientes asociados a una planilla
     {
         $query = Clientes::find()->where('id_planilla=:id');
         $query->addParams([':id' => $id_planilla]);
@@ -165,7 +162,7 @@ class PlanillasController extends Controller
         return $dataProvider;
     }
 
-    public function gastosPlanilla($id_planilla)
+    public function gastosPlanilla($id_planilla) //Devuelve los gastos de una planilla
     {
         $query = GastosPlanillas::find()->groupBy('asumido_por');
         $dataProvider = new ActiveDataProvider([
@@ -174,7 +171,7 @@ class PlanillasController extends Controller
         return $dataProvider;
     }
 
-    public function actionAsignar()
+    public function actionAsignar()// Asigna promotores a una planilla
     {
         $ids = $_POST['data'];
         $query = "INSERT INTO promotores_planillas (id_promotor,id_planilla) VALUES";
@@ -191,7 +188,7 @@ class PlanillasController extends Controller
         return $m;
     }
 
-    public function actionGastos()
+    public function actionGastos() //Actualiza el gasto de un promotor en la vista View de una planilla
     {
         $data = $_POST['data'];
         $connection = \Yii::$app->db;
@@ -271,7 +268,7 @@ class PlanillasController extends Controller
         return $this->redirect(['index', 'm'=>$m]);
     }
 
-    public function clientesPlanillas($id)
+    public function clientesPlanillas($id)//Devuelve el número de clientes asociados a una planilla
     {
         $query = (new \yii\db\Query());
         $query->select('COUNT(*)')->from('clientes')->where('id_planilla=:id');
@@ -281,7 +278,7 @@ class PlanillasController extends Controller
         return $total;
     }
 
-    public function gastosPlanillas($id)
+    public function gastosPlanillas($id)// Devuelve el número de gastos de una planilla
     {
         $query = (new \yii\db\Query());
         $query->select('COUNT(*)')->from('gastos_planillas')->where('id_planilla=:id');
@@ -291,7 +288,7 @@ class PlanillasController extends Controller
         return $total;
     }
 
-    public function promPlanillas($id)
+    public function promPlanillas($id) //Devuelve el número de promotores asociados a una planilla
     {
         $query = (new \yii\db\Query());
         $query->select('COUNT(*)')->from('promotores_planillas')->where('id_planilla=:id');

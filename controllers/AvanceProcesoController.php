@@ -30,7 +30,7 @@ class AvanceProcesoController extends Controller
      * Lists all AvanceProceso models.
      * @return mixed
      */
-    public function actionIndex($id_p)
+    public function actionIndex($id_p) //Se listan los avances solo del proceso seleccionado
     {
         $searchModel = new AvanceProcesoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id_p);

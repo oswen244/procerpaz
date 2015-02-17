@@ -21,16 +21,13 @@ class PrestamosController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -79,7 +76,7 @@ class PrestamosController extends Controller
         ]);
     }
 
-    public function actionIndexcl($id)
+    public function actionIndexcl($id) //Renderiza los prestamos en la vista View de un cliente
     {
         $searchModel = new PrestamosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
@@ -170,7 +167,7 @@ class PrestamosController extends Controller
         return $this->redirect(['index', 'm'=>$m]);
     }
 
-    public function isPagos($id)
+    public function isPagos($id) // Devuelve el número de pagos de un prestamo sí los hay
     {
         $query = (new \yii\db\Query());
         $query->select('COUNT(*)')->from('pagos_prestamos')->where('id_prestamo=:id');
@@ -180,7 +177,7 @@ class PrestamosController extends Controller
         return $total;
     }
 
-    public function actionGetcliente(){
+    public function actionGetcliente(){ //obtiene el nombre, apellidos y id de un cliente pasando el número de documento
         $query = (new \yii\db\Query());
         $query->select('id_cliente, nombres, apellidos')->from('clientes')->where('num_id=:documento');
         $query->addParams([':documento'=>$_POST['data']]);
@@ -190,7 +187,7 @@ class PrestamosController extends Controller
         return $cliente;
     }
 
-    public function buscarEstados()
+    public function buscarEstados() //Lista los estados relacionados con prestamos
     {
         $query = (new \yii\db\Query());
         $query->select('id_estado, nombre')->from('estados')->where('entidad=:entidad');
@@ -200,7 +197,7 @@ class PrestamosController extends Controller
         return $instituciones;
     }
 
-    public function idCliente($id)
+    public function idCliente($id) //obtiene el número de identificacion del cliente pasando el id
     {
         $query = (new \yii\db\Query());
         $query->select('num_id')->from('clientes')->where('id_cliente=:id');

@@ -20,16 +20,13 @@ class InstitucionesController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -146,7 +143,7 @@ class InstitucionesController extends Controller
         return $this->redirect(['index', 'm'=>$m]);
     }
 
-    public function clientesPlanillas($id)
+    public function clientesPlanillas($id) //Cuenta los clientes asociados a una planilla
     {
         $query = (new \yii\db\Query());
         $query->select('COUNT(*)')->from('clientes')->where('id_planilla=:id');

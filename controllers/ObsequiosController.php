@@ -20,16 +20,13 @@ class ObsequiosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['logout'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                 ],

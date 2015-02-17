@@ -20,17 +20,14 @@ class AuxiliosController extends Controller
     {
         return [
         'access' => [
-                'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
+                'class' => AccessControl::className(), //Permisos para las acciones
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -88,7 +85,7 @@ class AuxiliosController extends Controller
      * Lists all Auxilios models.
      * @return mixed
      */
-    public function actionIndexdes()
+    public function actionIndexdes() //Lista los auxilios de desempleo
     {
         $tipo = '1';
         $searchModel = new AuxiliosSearch();
@@ -101,7 +98,7 @@ class AuxiliosController extends Controller
         ]);
     }
 
-     public function actionIndexexe()
+     public function actionIndexexe() // Lista los auxilios exequiales
     {
         $tipo = '2';
         $searchModel = new AuxiliosSearch();
@@ -114,7 +111,7 @@ class AuxiliosController extends Controller
         ]);
     }
 
-    public function actionIndexdescl($id)
+    public function actionIndexdescl($id) //Lista los auxilios de desempleo en el perfil del cliente
     {
         $searchModel = new AuxiliosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1',$id);
@@ -126,7 +123,7 @@ class AuxiliosController extends Controller
         ]);
     }
 
-     public function actionIndexexecl($id)
+     public function actionIndexexecl($id) //Lista los auxilios exequiales en el perfil del cliente
     {
         $searchModel = new AuxiliosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2',$id);
@@ -195,7 +192,8 @@ class AuxiliosController extends Controller
         }
     }
 
-    public function actionGetcliente(){
+    public function actionGetcliente() //Obtiene el id, nombres y apellidos del cliente pasando el número de identificación
+    {
         $query = (new \yii\db\Query());
         $query->select('id_cliente, nombres, apellidos')->from('clientes')->where('num_id=:documento');
         $query->addParams([':documento'=>$_POST['data']]);
@@ -205,7 +203,7 @@ class AuxiliosController extends Controller
         return $cliente;
     }
 
-    public function buscarTipos($offset)
+    public function buscarTipos($offset)//Devuelve los tipos de auxilios de la base de datos
     {
         $query = "SELECT id_tipo, tipo_auxilio FROM tipo_auxilio LIMIT 2 OFFSET ".$offset;
         $result = \Yii::$app->db->createCommand($query)->queryAll();
@@ -216,7 +214,8 @@ class AuxiliosController extends Controller
     /**
      * @return mixed
      */
-    private function idCliente($id){
+    private function idCliente($id) //Devuelve el número de identificación del cliente pasando el id
+    {
         $query = (new \yii\db\Query());
         $query->select('num_id')->from('clientes')->where('id_cliente=:id');
         $query->addParams([':id'=>$id]);
@@ -273,19 +272,24 @@ class AuxiliosController extends Controller
             return $this->redirect(['indexexe']);
     }
 
-    public function actionFamiliares(){
+    public function actionFamiliares() //
+    {
+        // Primero se busca el id del cliente
         $query = (new \yii\db\Query());
         $query->select('id_cliente')->from('clientes')->where('num_id=:num_id AND id_estado=:estado');
         $query->addParams([':num_id' => $_POST['data'], ':estado' => '1']);
         $id_cliente = $query->scalar();
         
+
+        // Despues se listan los familiares
         $familiares = $this->buscarFamiliares($id_cliente);
         \Yii::$app->response->format = 'json';
 
         return $familiares;
     }
 
-    public function buscarFamiliares($id_cliente){
+    public function buscarFamiliares($id_cliente) //Devuelve los familiares de un cliente pasando el id del cliente
+    {
         $query = (new \yii\db\Query());
         $query->select('id_familiar,nombres,apellidos')->from('familiares')->where('id_cliente=:id');
         $query->addParams([':id'=>$id_cliente]);

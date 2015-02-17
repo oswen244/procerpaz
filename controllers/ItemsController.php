@@ -20,16 +20,13 @@ class ItemsController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                 ],
@@ -105,11 +102,6 @@ class ItemsController extends Controller
         }
     }
 
-    public function guardatHijos($arbol)
-    {
-
-    }
-
     /**
      * Updates an existing Items model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -157,7 +149,7 @@ class ItemsController extends Controller
           
     }
 
-    function getNodesSelected($padre)
+    function getNodesSelected($padre) //Devuelve los hijos de un nodo seleccionado pasando el padre
     {
         $query = (new \yii\db\Query());
         $query->select('child')->from('items_hijos')->where('parent=:padre');

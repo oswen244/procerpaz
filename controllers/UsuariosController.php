@@ -20,16 +20,13 @@ class UsuariosController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                 ]
@@ -102,7 +99,7 @@ class UsuariosController extends Controller
         }
     }
 
-    public function perfiles()
+    public function perfiles() //Lista los perfiles creados y básicos
     {
         $query = (new \yii\db\Query());
         $query->select('name,description')->from('items')->where('data<>1');

@@ -56,7 +56,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         
-        if(Yii::$app->user->can('admin')){
+        if(Yii::$app->user->can('admin')){ //Verifica si existen obsequios vencidos y/o vencimiento de desafiliaciones provicionales
             $sql = "CALL vence_obsequio()";
             \Yii::$app->db->createCommand($sql)->execute();
 

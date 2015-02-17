@@ -23,16 +23,13 @@ class ClientesController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -217,7 +214,8 @@ class ClientesController extends Controller
         return $instituciones;
     }
 
-    public function buscarParentezcos(){
+    public function buscarParentezcos()
+    {
         $query = (new \yii\db\Query());
         $query->select('id_parentezco, parentezco')->from('parentezcos');
         $parentezcos = $query->all();
@@ -273,7 +271,7 @@ class ClientesController extends Controller
         }
     }
 
-    public function actionCambiarEstado()
+    public function actionCambiarEstado()// Cambia el estado de un cliente desde la vista View
     {
         if (Yii::$app->request->post()) 
         {   

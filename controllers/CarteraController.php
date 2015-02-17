@@ -21,16 +21,13 @@ class CarteraController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     
@@ -41,7 +38,7 @@ class CarteraController extends Controller
         ];
     }
 
-    public function actionIndexex()
+    public function actionIndexex() //Renderiza la vista para el archivo de exportacion
     {
     	$instituciones = $this->getInstituciones();
         return $this->render('indexex', [
@@ -49,7 +46,7 @@ class CarteraController extends Controller
         ]);
     }
 
-    public function actionIndexim()
+    public function actionIndexim()//Renderiza la vista para el archivo de importacion
     {
         $instituciones = $this->getInstituciones();
         return $this->render('indexim', [
@@ -57,7 +54,7 @@ class CarteraController extends Controller
         ]);
     }
 
-    public function getInstituciones()
+    public function getInstituciones() //Devuelve las instituciones
     {
     	$query = (new \yii\db\Query());
     	$query->select('id_institucion,nombre')->from('instituciones');
@@ -66,7 +63,7 @@ class CarteraController extends Controller
     	return $ins;
     }
 
-    public function actionGenerar()
+    public function actionGenerar() //Genera los archivos dependiendo del tipo (Nuevos o cancelaciones)
     {
         if(Yii::$app->request->post()){
 
@@ -147,19 +144,16 @@ class CarteraController extends Controller
         ]);
     }
 
-     public function actionCargar()
+     public function actionCargar() // procesa el Archivo de importacion y cambia los estados de los morosos
     {
         $model = new UploadForm();
         $excel = new SimpleExcel('csv');
         if (Yii::$app->request->isPost) {
-            // $model->file = UploadedFile::getInstance($model, 'file');
 
             if ($model->validate()) {
                 $filename = $_POST['archivo_nom'];
                 $excel->parser->loadFile($filename);
                 $foo = $excel->parser->getField();
-
-                // $totalCol = $this->totalColumns($filename);
 
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
@@ -183,7 +177,8 @@ class CarteraController extends Controller
 
     }
 
-    public function totalColumns($filename){
+    public function totalColumns($filename)//Obtiene el numero de columnas del archivo csv
+    {
         $f = fopen($filename, "r");
         $line = fgetcsv($f);
         $cell = count(explode(';', $line[0]));
@@ -192,7 +187,8 @@ class CarteraController extends Controller
         return $cell;
     }
 
-    public function csv2Table($filename) {
+    public function csv2Table($filename) //Convierte la data del archivo csv a una tabla html
+    {
 
         $cadena = "";
         $header = "<table class='table table-bordered table-striped'>";

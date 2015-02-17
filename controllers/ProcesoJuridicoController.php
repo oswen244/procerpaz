@@ -25,16 +25,13 @@ class ProcesoJuridicoController extends Controller
         return [
         'access' => [
                 'class' => AccessControl::className(),
-                // 'only' => ['login', 'logout', 'signup', 'index'],
                 'rules' => [
                     [
                         'allow' => false,
-                        // 'actions' => ['index'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        // 'actions' => ['*'],
                         'roles' => ['admin'],
                     ],
                     [
@@ -107,7 +104,7 @@ class ProcesoJuridicoController extends Controller
         return $perfil;
     }
 
-    public function actionAbogados()
+    public function actionAbogados() //Lista todos los abogados para la tabla
     {
         $query = Usuarios::find()->where('perfil="abogado"')->orderBy('estado');
 
@@ -129,7 +126,7 @@ class ProcesoJuridicoController extends Controller
         ]);
     }
 
-    public function actionGuardarConfig()
+    public function actionGuardarConfig() //Guarda la configuracion del caso (tiempo y peso)
     {
         if (Yii::$app->request->post()){
             $model = $this->findModel($_POST['id_proceso']);
@@ -191,7 +188,8 @@ class ProcesoJuridicoController extends Controller
         }
     }
 
-    public function actionGetcliente(){
+    public function actionGetcliente()//Obtiene el cliente pasando el núemero de documento
+    {
         $query = (new \yii\db\Query());
         $query->select('id_cliente, nombres, apellidos')->from('clientes')->where('num_id=:documento');
         $query->addParams([':documento'=>$_POST['data']]);
@@ -201,7 +199,7 @@ class ProcesoJuridicoController extends Controller
         return $cliente;
     }
 
-    public function getAbogados()
+    public function getAbogados() //Obtiene los abogados
     {
         $query = (new \yii\db\Query());
         $query->select('id_usuario,nombres,apellidos,estado')->from('usuarios')->where('perfil="abogado"');
@@ -210,7 +208,7 @@ class ProcesoJuridicoController extends Controller
         return $abog;
     }
 
-    public function getEstados()
+    public function getEstados() //obtiene los estados relacionados con procesos juridicos
     {
         $query = (new \yii\db\Query());
         $query->select('id_estado,nombre')->from('estados')->where('entidad="ProcesoJuridico"');
@@ -246,7 +244,7 @@ class ProcesoJuridicoController extends Controller
         }
     }
 
-    public function actionUpload()
+    public function actionUpload() // carga los archivos relacionados con los casos
     {
         $model = new UploadForm();
         if (Yii::$app->request->isPost) {
