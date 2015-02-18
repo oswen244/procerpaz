@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
+use app\models\Promotores;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PromotoresSearch */
@@ -22,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id_promotor',
             'nombres',
             'apellidos',
+            [
+                'attribute'=>'estado',
+                'value'=>function($model){
+                    if($model->estado === 1){return Promotores::ACTIVO;}else{return Promotores::ELIMINADO;}
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

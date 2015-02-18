@@ -80,6 +80,8 @@ class UsuariosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if($model->perfil === 'abogado'){
                 $model->estado = 1;
+            }else{
+                $model->estado = 0;
             }
             $model->contrasena = sha1($model->contrasena);
             if($model->save()){
@@ -145,7 +147,10 @@ class UsuariosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $usuario = $this->findModel($id);
+        $usuario->estado = '3';
+        $usuario->save();
+        // $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

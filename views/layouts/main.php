@@ -63,11 +63,13 @@ AppAsset::register($this);
                         ],
 
                     ] : '',
-                Yii::$app->user->can('admin') ?
+                Yii::$app->user->can('exp_cart') || Yii::$app->user->can('imp_cart')?
                     ['label' => 'Cartera', 
                         'items' => [
-                            ['label' => 'Exportar descuentos', 'url' => ['/cartera/indexex']],                            
-                            ['label' => 'Actualizar descuentos', 'url' => ['/cartera/indexim']],
+                        Yii::$app->user->can('exp_cart')?
+                            ['label' => 'Exportar descuentos', 'url' => ['/cartera/indexex']] : '',
+                        Yii::$app->user->can('imp_cart')?                            
+                            ['label' => 'Actualizar descuentos', 'url' => ['/cartera/indexim']] : '',
                         ],
                     ] : '',
 

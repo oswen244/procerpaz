@@ -41,7 +41,7 @@ class UsuariosSearch extends Usuarios
      */
     public function search($params)
     {
-        $query = Usuarios::find();
+        $query = Usuarios::find()->where('estado<>3');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

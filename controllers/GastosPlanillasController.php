@@ -99,11 +99,11 @@ class GastosPlanillasController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_planilla)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index?id_planilla='.$id_planilla]);
     }
 
     /**

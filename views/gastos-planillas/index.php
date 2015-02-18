@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'vAlign' => 'middle',
                     'value' =>  function($data){
                         return  Html::a('', ['update', 'id'=>$data->id_gastos_planillas, 'id_planilla'=>$data->id_planilla], ['class' => 'act glyphicon glyphicon-pencil', 'title'=>'Editar']).'&nbsp'.
-                                Html::a('', ['delete', 'id' => $data->id_gastos_planillas], ['class' => 'act glyphicon glyphicon-trash',
+                                Html::a('', ['delete', 'id' => $data->id_gastos_planillas,  'id_planilla'=>$data->id_planilla], ['class' => 'act glyphicon glyphicon-trash',
                                 'data' => [
                                     'confirm' => '¿Está seguro que desea borrar este gasto?',
                                     'method' => 'post',

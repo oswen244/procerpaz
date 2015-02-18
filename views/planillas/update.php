@@ -7,8 +7,8 @@ use yii\helpers\Html;
 
 $this->title = 'Actualizar Planilla N° ' . ' ' . $model->id_planilla;
 $this->params['breadcrumbs'][] = ['label' => 'Planillas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_planilla, 'url' => ['view', 'id' => $model->id_planilla]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => $model->numero, 'url' => ['view', 'id' => $model->id_planilla]];
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 
 <div class="col-md-12">

@@ -42,7 +42,7 @@ class ProcesoJuridicoSearch extends ProcesoJuridico
     public function search($params,$id_abog,$perfil)
     {
         if($perfil === 'abogado'){
-            $query = ProcesoJuridico::find()->where('id_abogado=:id');
+            $query = ProcesoJuridico::find()->where('id_abogado=:id AND estado<>3');
             $query->addParams([':id'=>$id_abog]);
         }else{
             $query = ProcesoJuridico::find();

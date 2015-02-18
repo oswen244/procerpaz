@@ -5,10 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\GastosPlanillas */
 
-$this->title = 'Actualizar gasto: ' . ' ' . $model->id_gastos_planillas;
+$this->title = 'Actualizar gasto';
 $this->params['breadcrumbs'][] = ['label' => 'Gastos Planillas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_gastos_planillas, 'url' => ['view', 'id' => $model->id_gastos_planillas]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 
 <div class="col-md-12">

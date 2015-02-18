@@ -206,6 +206,12 @@ use yii\bootstrap\ActiveForm;
                                             <li data-value="borrar_prestamos">Borrar prestamos</li>
                                         </ul>
                                     </li>
+                                    <li data-value="cart">Cartera
+                                        <ul>
+                                            <li data-value="exp_cart">Exportar</li>
+                                            <li data-value="imp_cart">Importar</li>
+                                        </ul>
+                                    </li>
                                     <li data-value="abog">Abogado</li>
                                     <li data-value="dir_juridico">Director juridico</li>
                                 </ul>

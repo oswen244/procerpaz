@@ -10,12 +10,14 @@ use Yii;
  * @property integer $id_promotor
  * @property string $nombres
  * @property string $apellidos
+ * @property integer $estado
  *
  * @property PromotoresPlanillas[] $promotoresPlanillas
- * @property Planillas[] $idPlanillas
  */
 class Promotores extends \yii\db\ActiveRecord
 {
+    const ACTIVO = 'Activo';
+    const ELIMINADO = 'Eliminado';
     /**
      * @inheritdoc
      */
@@ -30,7 +32,8 @@ class Promotores extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombres', 'apellidos'], 'required', 'message' => 'Este campo no puede quedar vacío'],
+            [['nombres', 'apellidos'], 'required'],
+            [['estado'], 'integer'],
             [['nombres', 'apellidos'], 'string', 'max' => 45]
         ];
     }

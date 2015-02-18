@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\AvanceProceso */
 
-$this->title = 'Update Avance Proceso: ' . ' ' . $model->id_avance;
+$this->title = 'Actualizar Avance Proceso: ' . ' ' . $model->id_avance;
 $this->params['breadcrumbs'][] = ['label' => 'Avance Procesos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_avance, 'url' => ['view', 'id' => $model->id_avance]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="avance-proceso-update">
 

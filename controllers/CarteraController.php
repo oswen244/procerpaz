@@ -30,7 +30,21 @@ class CarteraController extends Controller
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
-                    
+                    [
+                        'allow' => true,
+                        'actions' => ['indexex','indexim','generar','cargar','upload','cargar'],
+                        'roles' => ['cart'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['indexex','generar'],
+                        'roles' => ['exp_cart'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['indexim','generar','upload','cargar'],
+                        'roles' => ['imp_cart'],
+                    ],
             	],
             
         	],

@@ -18,7 +18,7 @@ class PromotoresSearch extends Promotores
     public function rules()
     {
         return [
-            [['id_promotor'], 'integer'],
+            [['id_promotor', 'estado'], 'integer'],
             [['nombres', 'apellidos'], 'safe'],
         ];
     }
@@ -53,6 +53,7 @@ class PromotoresSearch extends Promotores
 
         $query->andFilterWhere([
             'id_promotor' => $this->id_promotor,
+            'estado'=> $this->estado,
         ]);
 
         $query->andFilterWhere(['like', 'nombres', $this->nombres])

@@ -12,8 +12,7 @@ use yii\helpers\Html;
 
 $this->title = 'Actualizar prestamo: ' . ' ' . $model->id_prestamo;
 $this->params['breadcrumbs'][] = ['label' => 'Prestamos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_prestamo, 'url' => ['view', 'id' => $model->id_prestamo]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 
 <div class="col-md-12">

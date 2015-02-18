@@ -11,6 +11,7 @@ use kartik\grid\GridView;
 $this->title = 'Prestamos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="text-center"><?= Html::tag('h3', (isset($_GET['m'])) ? $_GET['m'] : '' ,['class'=> 'help-block']);?></div>
 <div class="prestamos-index">
 
     <?= GridView::widget([

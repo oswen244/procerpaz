@@ -101,8 +101,11 @@ class PromotoresController extends Controller
     {
         $model = new Promotores();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_promotor]);
+        if ($model->load(Yii::$app->request->post())){ 
+            $model->estado = 1;
+            if($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_promotor]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -137,9 +140,26 @@ class PromotoresController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $promotor = $this->findModel($id);
+        if($this->promPlanillas($id) !== '0'){
+            $promotor->estado = 2;
+            $promotor->save();
+        }else{
+            $promotor->delete();
+        }
+        // $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function promPlanillas($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('promotores_planillas')->where('id_promotor=:id');
+        $query->addParams([':id'=>$id]);
+        $r = $query->scalar();
+
+        return $r;
     }
 
     /**
