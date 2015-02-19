@@ -78,11 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Acciones', 
                 'vAlign' => 'middle',
                 'value' =>  function($model){
-                    return  Html::a('', ['avance-proceso/index', 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-forward', 'title'=>'Subir avance']).'&nbsp&nbsp'.
-                            Html::a('', ['#', 'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-folder-open', 'title'=>'Ver archivos']).'&nbsp&nbsp'.
-                            Html::a('', [''], ['class' => 'arch_cas glyphicon glyphicon-open-file', 'title'=>'Subir archivo']).'&nbsp&nbsp'.
-                            Html::a('', ['update', 'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp&nbsp&nbsp'.
-                            Html::a('', ['configuracion', 'id'=>$model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-cog' : '', 'title'=>'Configuración']).'&nbsp&nbsp'.
+                    return  Html::a('', ['avance-proceso/index', 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-forward', 'title'=>'Avances']).'&nbsp'.
+                            Html::a('', ['update', 'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
+                            Html::a('', ['configuracion', 'id'=>$model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-cog' : '', 'title'=>'Configuración']).'&nbsp'.
                             Html::a('', ['delete', 'id' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-trash' : '',
                             'data' => [
                                 'confirm' => '¿Está seguro que desea borrar este proceso?. Tambien se borrarán los avances y archivos relacionados',
@@ -93,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                 },
                 'format' => 'raw',
-                'options'=>['width'=>'15%'],
+                'options'=>['width'=>'8%'],
             ],
 
         ],
@@ -137,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $('#archivoModal').modal({backdrop:'static'});
             $(document).on('click', '#tablaProc tr.proc',function(event) {
                 $('#id_proceso').attr('value', $(this).attr('data-key'));
-                $('#folder').attr('value', 'otros');
+                $('#folder').attr('value', 'avances');
             });
 
         });    

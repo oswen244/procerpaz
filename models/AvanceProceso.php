@@ -12,6 +12,8 @@ use Yii;
  * @property string $fecha
  * @property string $hora
  * @property string $avance
+ * @property string $archivo
+ * @property string $usuario
  *
  * @property ProcesoJuridico $idProceso
  */
@@ -31,10 +33,12 @@ class AvanceProceso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_proceso', 'fecha', 'hora', 'avance'], 'required'],
+            [['id_proceso', 'fecha', 'hora'], 'required'],
             [['id_proceso'], 'integer'],
             [['fecha', 'hora'], 'safe'],
-            [['avance'], 'string', 'max' => 1000]
+            [['avance'], 'string', 'max' => 1000],
+            [['archivo'], 'string', 'max' => 80],
+            [['usuario'], 'string', 'max' => 45]
         ];
     }
 
@@ -49,6 +53,8 @@ class AvanceProceso extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'hora' => 'Hora',
             'avance' => 'Avance',
+            'archivo' => 'Archivo',
+            'usuario' => 'Usuario',
         ];
     }
 

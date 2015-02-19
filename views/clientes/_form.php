@@ -35,7 +35,7 @@ use app\models\Clientes;
                 <?php if($model->isNewRecord){ ?>
                     <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
                 <?php }else{ ?>
-                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=> $model->fecha_afiliacion, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
+                    <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_afiliacion", "name" => "Clientes[fecha_afiliacion]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=> $model->fecha_afiliacion, 'required' => '', 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['yearRange'=>'1950:2000', 'changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
                 <?php } ?>
             </div>            
         </div>
@@ -87,7 +87,7 @@ use app\models\Clientes;
         <div class="form-group field-clientes-fecha_nacimiento">
             <label for="clientes-fecha_nacimiento" class="control-label col-sm-3">Fecha de nacimiento</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_nacimiento", "name" => "Clientes[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_nacimiento, 'class' => 'fecha form-control', "placeholder" => "año-mes-dia ej:1985-05-10"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
+                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_nacimiento", "name" => "Clientes[fecha_nacimiento]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_nacimiento, 'class' => 'fecha form-control', "placeholder" => "año-mes-dia ej:1985-05-10"], 'clientOptions'=>['yearRange'=>$rango_fecha, 'changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>

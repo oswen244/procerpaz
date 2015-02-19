@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = 'Actualizar';
 	        'instituciones' => $instituciones,
             'planillas' => $planillas,
             'estados'=>$estados,
+            'rango_fecha'=>$rango_fecha,
 	    ]) ?>
 
 	</div>

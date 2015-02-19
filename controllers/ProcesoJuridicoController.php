@@ -173,7 +173,6 @@ class ProcesoJuridicoController extends Controller
             if($model->save() && $usuario->save()) {
                 mkdir('juridico/'.$model->id_proceso);
                 mkdir('juridico/'.$model->id_proceso.'/avances');
-                mkdir('juridico/'.$model->id_proceso.'/otros');
                 return $this->redirect(['index']);
             }
         } else {
@@ -229,6 +228,7 @@ class ProcesoJuridicoController extends Controller
 
         if ($model->load(Yii::$app->request->post())){ 
             $model->hora = date('H:i:s');
+            
             if($model->save()) {
                 return $this->redirect(['index']);
             }
@@ -244,32 +244,32 @@ class ProcesoJuridicoController extends Controller
         }
     }
 
-    public function actionUpload() // carga los archivos relacionados con los casos
-    {
-        $model = new UploadForm();
-        if (Yii::$app->request->isPost) {
-            $caso = $_POST['id_proceso'];
-            $proceso = $this->findModel($caso);
-            $folder = $_POST['folder'];
-            $model->file = UploadedFile::getInstance($model, 'file');
+    // public function actionUpload() // carga los archivos relacionados con los casos
+    // {
+    //     $model = new UploadForm();
+    //     if (Yii::$app->request->isPost) {
+    //         $caso = $_POST['id_proceso'];
+    //         $proceso = $this->findModel($caso);
+    //         $folder = $_POST['folder'];
+    //         $model->file = UploadedFile::getInstance($model, 'file');
 
-            if(($proceso->peso_max*1024*1024) < $model->file->size){
-                $m = 'Tamaño del archivo es mayor a lo permitido';
-            }else{
-                if ($model->validate()) {
-                    $filename = $model->file->baseName. '.' . $model->file->extension;
-                    $model->file->saveAs('juridico/' .$caso.'/'. $folder.'/'.$filename);
-                    $m = 'El archivo ha sido cargado con exito';
+    //         if(($proceso->peso_max*1024*1024) < $model->file->size){
+    //             $m = 'Tamaño del archivo es mayor a lo permitido';
+    //         }else{
+    //             if ($model->validate()) {
+    //                 $filename = $model->file->baseName. '.' . $model->file->extension;
+    //                 $model->file->saveAs('juridico/' .$caso.'/'. $folder.'/'.$filename);
+    //                 $m = 'El archivo ha sido cargado con exito';
                     
-                    return $this->redirect(['index','m'=>'1']);
+    //                 return $this->redirect(['index','m'=>'1']);
 
-                }
-            }
-            return $this->redirect(['index','m'=>'2']);
+    //             }
+    //         }
+    //         return $this->redirect(['index','m'=>'2']);
 
-        }
+    //     }
 
-    }
+    // }
 
     /**
      * Deletes an existing ProcesoJuridico model.

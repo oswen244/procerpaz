@@ -19,7 +19,7 @@ class AvanceProcesoSearch extends AvanceProceso
     {
         return [
             [['id_avance', 'id_proceso'], 'integer'],
-            [['fecha', 'hora', 'avance'], 'safe'],
+            [['fecha', 'hora', 'avance', 'archivo', 'usuario'], 'safe'],
         ];
     }
 
@@ -63,7 +63,9 @@ class AvanceProcesoSearch extends AvanceProceso
             'hora' => $this->hora,
         ]);
 
-        $query->andFilterWhere(['like', 'avance', $this->avance]);
+        $query->andFilterWhere(['like', 'avance', $this->avance])
+           ->andFilterWhere(['like', 'archivo', $this->archivo])
+           ->andFilterWhere(['like', 'usuario', $this->usuario]);
 
         return $dataProvider;
     }

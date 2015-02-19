@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 $this->title = 'Avance Procesos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<div class="text-center"><?= Html::tag('h3', isset($_GET['m']) ? $_GET['m'] : '' ,['class'=> 'help-block']);?></div>
 <div class="col-md-12">
      <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
@@ -30,7 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'id_proceso',
                 'fecha',
                 'hora',
-                // 'avance',
+                'usuario',
+                'avance',
+                // 'archivo',
+                [
+                    'attribute'=>'archivo',
+                    'value'=>function($model){
+                        return Html::a($model->archivo, Yii::$app->request->baseUrl.'/juridico/'.$model->id_proceso.'/avances/'.$model->archivo, ['title'=>'Descargar archivo', 'download'=>$model->archivo]);
+                    },
+                    'format'=>'raw',
+                ],
 
                 // ['class' => 'yii\grid\ActionColumn'],
 
@@ -39,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'vAlign' => 'middle',
                 'value' =>  function($model){
                     return  Html::a('', ['view', 'id'=>$model->id_avance, 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver']).'&nbsp'.
-                            Html::a('', ['update', 'id'=>$model->id_avance,  'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
-                            Html::a('', ['delete', 'id'=>$model->id_avance,  'id' => $model->id_proceso], ['class' => 'glyphicon glyphicon-trash',
+                            Html::a('', ['update', 'id'=>$model->id_avance,  'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
+                            Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => 'glyphicon glyphicon-trash',
                             'data' => [
                                 'confirm' => '¿Está seguro que desea borrar este avance?',
                                 'method' => 'post',
@@ -57,12 +66,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['content'=>
                    Html::a('Agregar un avance', ['create', 'id_proceso'=>$id_proceso], ['class' => 'btn btn-success']),
                 ],
-                '{export}',
             ],
             'hover' => true,
             'panel' => [
                 'type' => GridView::TYPE_DEFAULT,
-                'heading' => '<i class="glyphicon glyphicon-folder-open"></i> Acances del proceso',
+                'heading' => '<i class="glyphicon glyphicon-folder-open"></i> Avances del proceso',
             ],
         ]); ?>
 

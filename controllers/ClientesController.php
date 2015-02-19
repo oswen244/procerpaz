@@ -98,6 +98,17 @@ class ClientesController extends Controller
         ];
     }
 
+    public function rangoFecha()
+    {
+        $fecha = date('Y');
+        $fecha_min = strtotime('-65 year', strtotime($fecha));
+        $fecha_max = strtotime('-15 year', strtotime($fecha));
+        $fecha_min = date('Y', $fecha_min);
+        $fecha_max = date('Y', $fecha_max);
+
+        return $fecha_min.':'.$fecha_max;
+    }
+
     /**
      * Lists all Clientes models.
      * @return mixed
@@ -106,10 +117,11 @@ class ClientesController extends Controller
     {
         $searchModel = new ClientesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
 
@@ -177,11 +189,13 @@ class ClientesController extends Controller
             $instituciones = $this->buscarInstituciones();
             $planillas = $this->buscarPlanillas();
             $estados = $this->buscarEstados();
+            $rango_fecha = $this->rangoFecha();
             return $this->render('create', [
                 'model' => $model,
                 'instituciones' => $instituciones,
                 'planillas' => $planillas,
                 'estados'=>$estados,
+                'rango_fecha'=>$rango_fecha,
             ]);
         }
     }
@@ -236,10 +250,12 @@ class ClientesController extends Controller
             return $this->redirect(['familiares', 'id' => $id]);
         } else {
             $parentezcos = $this->buscarParentezcos();
+            $rango_fecha = $this->rangoFecha();
             return $this->render('createFamiliares', [
                 'familiar' => $familiar,
                 'id_cliente' => $id,
                 'parentezcos' => $parentezcos,
+                'rango_fecha'=>$rango_fecha,
             ]);
         }
     }
@@ -260,13 +276,13 @@ class ClientesController extends Controller
             $instituciones = $this->buscarInstituciones();
             $planillas = $this->buscarPlanillas();
             $estados = $this->buscarEstados();
-            
+            $rango_fecha = $this->rangoFecha();
             return $this->render('update', [
                 'model' => $model,
                 'instituciones' => $instituciones,
                 'planillas' => $planillas,
                 'estados'=>$estados,
-                
+                'rango_fecha'=>$rango_fecha,
             ]);
         }
     }
@@ -318,10 +334,12 @@ class ClientesController extends Controller
             return $this->redirect(['view-familiar', 'id' => $familiar->id_familiar, 'idc'=> $idc]);
         } else {
             $parentezcos = $this->buscarParentezcos();
+            $rango_fecha = $this->rangoFecha();
             return $this->render('updateFamiliares', [
                 'familiar' => $familiar,
                 'id_cliente' => $idc,
                 'parentezcos' => $parentezcos,
+                'rango_fecha'=>$rango_fecha,
             ]);
         }
     }
