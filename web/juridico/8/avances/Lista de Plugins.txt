@@ -1,0 +1,17 @@
+Lista de Plugins
+
+AutoFile Name
+Bootstrap 3 Snipets
+Emmet
+jQuery
+Search StackOverflow
+sFTP
+colorPicker
+Git
+Alignment
+
+Depronto
+
+Live Reload: Actualización automatica de los cambios realizados en el navegador
+Sidebar Enhancements: Muestra mas opciones en el menu contextual
+

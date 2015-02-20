@@ -55,7 +55,7 @@ class ClientesController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['leer_mensualidad','editar_mensualidad','crear_mensualidad','borrar_mensualidad','leer_planillas','editar_planillas','crear_planillas','borrar_planillas'],
+                        'roles' => ['leer_mensualidad','editar_mensualidad','crear_mensualidad','borrar_mensualidad','leer_planillas','editar_planillas','crear_planillas','borrar_planillas','abog'],
                     ],
                     [
                         'allow' => true,
@@ -133,6 +133,7 @@ class ClientesController extends Controller
     public function actionFamiliares($id)
     {
         $familiar = new Familiares();
+        $cliente = $this->findModel($id);
 
         $searchModel = new FamiliaresSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
@@ -142,6 +143,7 @@ class ClientesController extends Controller
             'dataProvider' => $dataProvider,
             'familiar' => $familiar,
             'id_cliente' => $id,
+            'nombre_cliente'=>$cliente->nombres.' '.$cliente->apellidos,
         ]);
     }
 

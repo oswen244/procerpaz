@@ -12,6 +12,12 @@ use app\models\Auxilios;
  */
 class AuxiliosSearch extends Auxilios
 {
+    public $documento_cliente;
+    public $nombre_cliente;
+    public $apellido_cliente;
+    public $tipoAuxilio;
+    public $familiar;
+
     /**
      * @inheritdoc
      */
@@ -21,6 +27,7 @@ class AuxiliosSearch extends Auxilios
             [['id_auxilio', 'tipo', 'num_meses', 'estado', 'id_cliente', 'tipo_auxilio', 'id_familiar'], 'integer'],
             [['porcentaje_aux', 'monto'], 'number'],
             [['fecha_auxilio', 'proveedor'], 'safe'],
+            [['documento_cliente', 'nombre_cliente', 'apellido_cliente', 'tipoAuxilio'], 'safe'],
         ];
     }
 
@@ -43,16 +50,37 @@ class AuxiliosSearch extends Auxilios
     public function search($params,$tipo, $id)
     {
         if($id == 0){
-            $query = Auxilios::find()->where('tipo=:tipo');
+            $query = Auxilios::find()->where('auxilios.tipo=:tipo');
         }else{
-            $query = Auxilios::find()->where('tipo=:tipo AND id_cliente =:id');
+            $query = Auxilios::find()->where('auxilios.tipo=:tipo AND auxilios.id_cliente =:id');
             $query->addParams([':id' => $id]);
         } 
         $query->addParams([':tipo' => $tipo]);
 
+        $query->joinWith(['idCliente', 'idFamiliar', 'tipoAuxilio']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+
+        $dataProvider->sort->attributes['documento_cliente'] =[
+            'asc'=>['clientes.num_id'=>SORT_ASC],
+            'desc'=>['clientes.num_id'=>SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['nombre_cliente'] =[
+            'asc'=>['clientes.nombres'=>SORT_ASC],
+            'desc'=>['clientes.nombres'=>SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['apellido_cliente'] =[
+            'asc'=>['clientes.apellidos'=>SORT_ASC],
+            'desc'=>['clientes.apellidos'=>SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['tipoAuxilio'] =[
+            'asc'=>['tipo_auxilio.tipo_auxilio'=>SORT_ASC],
+            'desc'=>['tipo_auxilio.tipo_auxilio'=>SORT_DESC],
+        ];
+
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -73,6 +101,10 @@ class AuxiliosSearch extends Auxilios
         ]);
 
         $query->andFilterWhere(['like', 'proveedor', $this->proveedor]);
+        $query->andFilterWhere(['like', 'clientes.num_id', $this->documento_cliente]);
+        $query->andFilterWhere(['like', 'clientes.nombres', $this->nombre_cliente]);
+        $query->andFilterWhere(['like', 'clientes.apellidos', $this->apellido_cliente]);
+        $query->andFilterWhere(['like', 'tipo_auxilio.tipo_auxilio', $this->tipoAuxilio]);
 
         return $dataProvider;
     }

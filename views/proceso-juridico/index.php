@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
+use app\models\Clientes;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProcesoJuridicoSearch */
@@ -33,42 +35,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id_proceso',
             [
-                'attribute'=>'id_cliente',
+                'attribute'=>'nombre_cliente',
                 'label'=>'Nombres',
-                'value'=> function($model){
-                    return $model->idCliente->nombres;
-                }
+                'value'=> 'idCliente.nombres',
             ],
              [
-                'attribute'=>'id_cliente',
+                'attribute'=>'apellido_cliente',
                 'label'=>'Apellidos',
-                'value'=> function($model){
-                    return $model->idCliente->apellidos;
-                }
+                'value'=> 'idCliente.apellidos',
             ],
             // 'id_abogado',
             [
-                'attribute'=>'id_abogado',
+                'attribute'=>'nombre_abogado',
                 'label'=>'Nombres',
-                'value'=> function ($model){
-                    return $model->idAbogado->nombres;
-                }
+                'value'=> 'idAbogado.nombres',
             ],
             [
-                'attribute'=>'id_abogado',
+                'attribute'=>'apellido_abogado',
                 'label'=>'Apellidos',
-                'value'=> function ($model){
-                    return $model->idAbogado->apellidos;
-                }
+                'value'=> 'idAbogado.apellidos',
             ],
             // 'tiempo_max',
             // 'id_estado',
             [
-                'attribute'=>'id_estado',
-                'label'=>'Estado',
-                'value'=> function($model){
-                    return $model->idEstado->nombre;
-                }
+                'attribute'=>'estado',
+                'value'=> 'idEstado.nombre',
             ],
             // 'peso_max',
             'fecha',
@@ -79,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'vAlign' => 'middle',
                 'value' =>  function($model){
                     return  Html::a('', ['avance-proceso/index', 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-forward', 'title'=>'Avances']).'&nbsp'.
+                            Html::a('', ['clientes/view', 'id'=>$model->id_cliente], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver info de cliente']).'&nbsp'.
                             Html::a('', ['update', 'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
                             Html::a('', ['configuracion', 'id'=>$model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-cog' : '', 'title'=>'Configuración']).'&nbsp'.
                             Html::a('', ['delete', 'id' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-trash' : '',
@@ -91,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                 },
                 'format' => 'raw',
-                'options'=>['width'=>'8%'],
+                'options'=>['width'=>'10%'],
             ],
 
         ],

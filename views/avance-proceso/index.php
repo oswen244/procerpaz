@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 $this->title = 'Avance Procesos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="text-center"><?= Html::tag('h3', isset($_GET['m']) ? $_GET['m'] : '' ,['class'=> 'help-block']);?></div>
+<div class="text-center"><?= Html::tag('h3', isset($_GET['m']) && $_GET['m']==='0' ? 'Tiempo de modificación agotado' : '' ,['class'=> 'help-block']);?></div>
 <div class="col-md-12">
      <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
@@ -49,9 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' =>  function($model){
                     return  Html::a('', ['view', 'id'=>$model->id_avance, 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver']).'&nbsp'.
                             Html::a('', ['update', 'id'=>$model->id_avance,  'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
-                            Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => 'glyphicon glyphicon-trash',
+                            Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico')?'glyphicon glyphicon-trash' :'',
                             'data' => [
-                                'confirm' => '¿Está seguro que desea borrar este avance?',
+                                'confirm' => '¿Está seguro que desea borrar este avance?. ADVERTENCIA: Se borrará el archivo relacionado con este avance si existe',
                                 'method' => 'post',
                             ],
                             'title'=>'Eliminar',

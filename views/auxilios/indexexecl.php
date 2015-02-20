@@ -9,7 +9,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['clientes/index']];
-$this->params['breadcrumbs'][] = ['label' => $id_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
+$this->params['breadcrumbs'][] = ['label' => $nombre_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
 $this->params['breadcrumbs'][] = 'Auxilios';
 ?>
 
@@ -34,27 +34,21 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 // 'id_auxilio',
                 // 'tipo',
                 // 'id_cliente',
-                 [
-                    'attribute' => 'id_cliente',
-                    'label'=>'Documento',
-                    'value' => function($model){
-                        return $model->idCliente->num_id;
-                    },
-                 ],
-                 [
-                    'attribute' => 'id_cliente',
-                    'label'=>'Nombres',
-                    'value' => function($model){
-                        return $model->idCliente->nombres;
-                    },
+                [
+                    'attribute' => 'documento_cliente',
+                    'label'=> 'Documento',
+                    'value' => 'idCliente.num_id',
                 ],
                 [
-                    'attribute' => 'id_cliente',
+                    'attribute' => 'nombre_cliente',
+                    'label'=>'Nombres',
+                    'value' => 'idCliente.nombres',
+                ],
+                [
+                    'attribute' => 'apellido_cliente',
                     'label'=>'Apellidos',
-                    'value' => function($model){
-                        return $model->idCliente->apellidos;
-                    },
-                 ],
+                    'value' => 'idCliente.apellidos',
+                ],
                 // 'porcentaje_aux',
                 [
                     'attribute' => 'monto',
@@ -65,11 +59,9 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 // 'proveedor',
                 // 'estado',
                 [
-                    'attribute' => 'tipo_auxilio',
+                    'attribute' => 'tipoAuxilio',
                     'label'=>'Tipo de auxilio',
-                    'value' => function($model){
-                        return $model->tipoAuxilio->tipo_auxilio;
-                    },
+                    'value' => 'tipoAuxilio.tipo_auxilio',
                 ],
 
             ],

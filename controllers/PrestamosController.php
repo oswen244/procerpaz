@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Prestamos;
+use app\models\Clientes;
 use app\models\PagosPrestamos;
 use app\models\PrestamosSearch;
 use yii\web\Controller;
@@ -81,10 +82,13 @@ class PrestamosController extends Controller
         $searchModel = new PrestamosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
 
+        $cliente = $this->findModelCliente($id);
+
         return $this->render('indexcl', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_cliente' => $id,
+            'nombre_cliente'=>$cliente->nombres.' '.$cliente->apellidos,
         ]);
     }
 
@@ -219,7 +223,16 @@ class PrestamosController extends Controller
         if (($model = Prestamos::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+    }
+
+    protected function findModelCliente($id)
+    {
+        if (($model = Clientes::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('La página solicitada no existe.');
         }
     }
 }

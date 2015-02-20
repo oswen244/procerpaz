@@ -10,7 +10,7 @@ use kartik\grid\GridView;
 
 $this->title = 'Mensualidades';
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['clientes/index']];
-$this->params['breadcrumbs'][] = ['label' => $id_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
+$this->params['breadcrumbs'][] = ['label' => $nombre_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

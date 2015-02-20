@@ -12,6 +12,7 @@ use app\models\Familiares;
  */
 class FamiliaresSearch extends Familiares
 {
+    public $parentezco;
     /**
      * @inheritdoc
      */
@@ -20,6 +21,7 @@ class FamiliaresSearch extends Familiares
         return [
             [['id_familiar', 'id_cliente', 'id_parentezco'], 'integer'],
             [['nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'fecha_nacimiento', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular'], 'safe'],
+            [['parentezco'], 'safe'],
         ];
     }
 
@@ -44,13 +46,21 @@ class FamiliaresSearch extends Familiares
         $query = Familiares::find()->where('id_cliente=:id');
         $query->addParams([':id' => $id]);
 
+        $query->joinWith(['idParentezco']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
+        $dataProvider->sort->attributes['parentezco'] =[
+            'asc'=>['parentezcos.parentezco'=>SORT_ASC],
+            'desc'=>['parentezcos.parentezco'=>SORT_DESC],
+        ];
+        
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
 
         $query->andFilterWhere([
             'id_familiar' => $this->id_familiar,
@@ -69,6 +79,7 @@ class FamiliaresSearch extends Familiares
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
+            ->andFilterWhere(['like', 'parentezcos.parentezco', $this->parentezco])
             ->andFilterWhere(['like', 'celular', $this->celular]);
 
         return $dataProvider;

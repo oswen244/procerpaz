@@ -24,25 +24,19 @@ $this->params['breadcrumbs'][] = 'Auxilios';
 
             // 'id_auxilio',
             [
-                'attribute' => 'id_cliente',
-                'label'=>'Documento',
-                'value' => function($model){
-                    return $model->idCliente->num_id;
-                },
+                'attribute' => 'documento_cliente',
+                'label'=> 'Documento',
+                'value' => 'idCliente.num_id',
             ],
             [
-                'attribute' => 'id_cliente',
+                'attribute' => 'nombre_cliente',
                 'label'=>'Nombres',
-                'value' => function($model){
-                    return $model->idCliente->nombres;
-                },
+                'value' => 'idCliente.nombres',
             ],
-             [
-                'attribute' => 'id_cliente',
+            [
+                'attribute' => 'apellido_cliente',
                 'label'=>'Apellidos',
-                'value' => function($model){
-                    return $model->idCliente->apellidos;
-                },
+                'value' => 'idCliente.apellidos',
             ],
             // 'tipo',
             // 'porcentaje_aux',
@@ -50,12 +44,10 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 'attribute' => 'monto',
                 'value' => function($data){ return "$ ".number_format($data->monto,0);}
             ],
-             [
-                'attribute' => 'tipo_auxilio',
+            [
+                'attribute' => 'tipoAuxilio',
                 'label'=>'Tipo de auxilio',
-                'value' => function($model){
-                    return $model->tipoAuxilio->tipo_auxilio;
-                },
+                'value' => 'tipoAuxilio.tipo_auxilio',
             ],
             // 'num_meses',
             'fecha_auxilio',

@@ -74,9 +74,10 @@ class AvanceProcesoController extends Controller
             $model->fecha = date('Y-m-d');
             $model->usuario = Yii::$app->user->identity->username;
            
-            if ($archivo->load(Yii::$app->request->Post()))
+            $archivo->file = UploadedFile::getInstance($archivo, 'file');
+            
+            if (isset($archivo->file))
             {
-                $archivo->file = UploadedFile::getInstance($archivo, 'file');
                 
                 if ($archivo->validate()) {
                     $filename = $archivo->file->baseName. '.' . $archivo->file->extension;
@@ -119,30 +120,6 @@ class AvanceProcesoController extends Controller
         }
     }
 
-
-    public function actionUpload() // carga los archivos relacionados con los casos
-    {
-        $archivo = new UploadForm();
-        if (Yii::$app->request->isPost) {
-            $caso = $_POST['id_proceso'];
-            $proceso = $this->findarchivo($caso);
-            $folder = $_POST['folder'];
-            $archivo->file = UploadedFile::getInstance($archivo, 'file');
-            
-            if ($archivo->validate()) {
-                $filename = $archivo->file->baseName. '.' . $archivo->file->extension;
-                $archivo->file->saveAs('juridico/' .$caso.'/'. $folder.'/'.$filename);
-                $m = 'El archivo ha sido cargado con exito';
-                
-                return $this->redirect(['create','m'=>$m]);
-            }
-            
-            return $this->redirect(['index','m'=>'Hubo un error al cargar el archivo']);
-
-        }
-
-    }
-
     /**
      * Updates an existing AvanceProceso model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -153,17 +130,31 @@ class AvanceProcesoController extends Controller
     {
         $model = $this->findModel($id);
         $proceso = $this->findModelProceso($id_p);
+        $archivo = new UploadForm();
+
+        $archivo->file = UploadedFile::getInstance($archivo, 'file');
 
         $hora = strtotime('-'.$proceso->tiempo_max.' minutes', strtotime(date('H:i:s')));
         $hora = date('H:i:s', $hora);
 
-        if($hora > $model->hora){
-            $m = 'Tiempo agotado para modificar ese avance';
-            return $this->redirect(['index', 'id_p' => $id_p, 'm'=>$m]);
+        $d = Yii::$app->user->id; //id del abogado
+        $perfil = $this->getPerfil($d);
+        
+        if(!(Yii::$app->user->can('dir_juridico')||Yii::$app->user->can('admin')))
+        {
+            if(date('Y-m-d') > $model->fecha || $hora > $model->hora)
+            {
+                $m = '0';
+                return $this->redirect(['index', 'id_p' => $id_p, 'm'=>$m]);
+            }
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_avance]);
+        if ($model->load(Yii::$app->request->post())){
+
+            if($model->save()) {
+                $this->actualizarArchivo($id_p, $model, $archivo);
+                return $this->redirect(['view', 'id' => $model->id_avance, 'id_p'=>$id_p]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -171,6 +162,52 @@ class AvanceProcesoController extends Controller
             ]);
         }
 
+    }
+
+    public function actualizarArchivo($id_p, $model, $archivo)
+    {
+        
+        if (isset($archivo->file))
+        {
+            
+            if ($archivo->validate()) {
+                $filename = $archivo->file->baseName. '.' . $archivo->file->extension;
+                if($model->archivo !== null){ unlink('juridico/' .$id_p.'/avances/'.$model->archivo);}                
+                $model->archivo = $archivo->file->name;
+                $archivo->file->saveAs('juridico/' .$id_p.'/avances/'.$filename);
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id_avance, 'id_p'=>$id_p]);
+                
+            }else{
+
+                $m = 'Hubo un error al cargar el archivo';
+                return $this->render('update', [
+                    'model' => $model,
+                    'id_p'=>$id_p,
+                    'm'=>$m,
+                ]);
+            }
+
+        }else{
+
+            $m = 'Hubo un error al cargar el archivo';
+            return $this->render('update', [
+                'model' => $model,
+                'id_p'=>$id_p,
+                'm'=>$m,
+            ]);
+        }
+
+    }
+
+    public function getPerfil($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('perfil')->from('usuarios')->where('id_usuario=:id');
+        $query->addParams([':id'=>$id]);
+        $perfil = $query->scalar();
+
+        return $perfil;
     }
 
     /**
@@ -182,9 +219,9 @@ class AvanceProcesoController extends Controller
     public function actionDelete($id,$id_p)
     {
 
-        //PREGUNTAR POR LA HORA Y ELIMINAR EL ARCHIVO RELACIONADO SI EXISTE
-
-        $this->findModel($id)->delete();
+        $avance = $this->findModel($id);
+        if($avance->archivo !== null){ unlink('juridico/' .$id_p.'/avances/'.$avance->archivo);}
+        $avance->delete();
 
         return $this->redirect(['index?id_p='.$id_p]);
     }

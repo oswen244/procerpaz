@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Mensualidades;
+use app\models\Clientes;
 use app\models\MensualidadesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -69,10 +70,13 @@ class MensualidadesController extends Controller
         $searchModel = new MensualidadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id);
 
+        $cliente = $this->findModelCliente($id);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_cliente' => $id,
+            'nombre_cliente'=>$cliente->nombres.' '.$cliente->apellidos,
         ]);
     }
 
@@ -154,6 +158,15 @@ class MensualidadesController extends Controller
     protected function findModel($id)
     {
         if (($model = Mensualidades::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelCliente($id)
+    {
+        if (($model = Clientes::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

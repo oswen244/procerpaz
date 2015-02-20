@@ -22,25 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id_prestamo',
             [
-                'attribute' => 'id_cliente',
-                'label'=>'Documento',
-                'value' => function($model){
-                    return $model->idCliente->num_id;
-                },
+                'attribute' => 'documento_cliente',
+                'label'=> 'Documento',
+                'value' => 'idCliente.num_id',
             ],
             [
-                'attribute' => 'id_cliente',
+                'attribute' => 'nombre_cliente',
                 'label'=>'Nombres',
-                'value' => function($model){
-                    return $model->idCliente->nombres;
-                },
+                'value' => 'idCliente.nombres',
             ],
             [
-                'attribute' => 'id_cliente',
+                'attribute' => 'apellido_cliente',
                 'label'=>'Apellidos',
-                'value' => function($model){
-                    return $model->idCliente->apellidos;
-                },
+                'value' => 'idCliente.apellidos',
             ],
             // 'id_cliente',
             [
@@ -62,11 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'fecha_prest',
             // 'fecha_rep',
             [
-                'attribute' => 'id_estado',
-                'label'=>'Estado',
-                'value' => function($model){
-                    return $model->idEstado->nombre;
-                },
+                'attribute'=>'estado',
+                'value'=> 'idEstado.nombre',
             ],
             // 'id_estado',
 
@@ -86,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                 },
                 'format' => 'raw',
-                'options'=>['width'=>'6%'],
+                'options'=>['width'=>'8%'],
             ],
         ],
         'toolbar' => [

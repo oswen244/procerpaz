@@ -12,6 +12,9 @@ use app\models\Clientes;
  */
 class ClientesSearch extends Clientes
 {
+    public $planilla;
+    public $estado;
+    public $institucion;
     /**
      * @inheritdoc
      */
@@ -20,6 +23,7 @@ class ClientesSearch extends Clientes
         return [
             [['id_cliente', 'id_institucion', 'id_planilla', 'id_estado'], 'integer'],
             [['num_afiliacion', 'fecha_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'lugar_exp', 'fecha_nacimiento', 'grado', 'pais', 'ciudad', 'email', 'direccion', 'telefono', 'celular', 'observaciones', 'fecha_rep', 'fecha_ven', 'fecha_desafil'], 'safe'],
+            [['planilla','estado','institucion'], 'safe'],
             [['monto_paquete'], 'number'],
         ];
     }
@@ -44,9 +48,28 @@ class ClientesSearch extends Clientes
     {
         $query = Clientes::find();
 
+        $query->joinWith(['idPlanilla','idEstado','idInstitucion']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+
+        $dataProvider->sort->attributes['estado'] =[
+            'asc'=>['estados.nombre'=>SORT_ASC],
+            'desc'=>['estados.nombre'=>SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['planilla'] =[
+            'asc'=>['planillas.numero'=>SORT_ASC],
+            'desc'=>['planillas.numero'=>SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['institucion'] =[
+            'asc'=>['instituciones.nombre'=>SORT_ASC],
+            'desc'=>['instituciones.nombre'=>SORT_DESC],
+        ];
+
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -79,6 +102,9 @@ class ClientesSearch extends Clientes
             ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'celular', $this->celular]) 
+            ->andFilterWhere(['like', 'estados.nombre', $this->estado])
+            ->andFilterWhere(['like', 'planillas.numero', $this->planilla])
+            ->andFilterWhere(['like', 'instituciones.nombre', $this->institucion])
             ->andFilterWhere(['like', 'observaciones', $this->observaciones]);
 
         return $dataProvider;

@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
      <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
            <li><?= Html::a('Regresar', ['index', 'id_p'=>$id_p], ['class' => '']) ?></li>
-           <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_avance], ['class' => '']) ?></li><br>
-           <li><?= Html::a('Eliminar', ['delete', 'id' => $model->id_avance], [
+           <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_avance, 'id_p'=>$model->id_proceso], ['class' => '']) ?></li><br>
+           <li><?= Html::a('Eliminar', ['delete', 'id' => $model->id_avance, 'id_p'=>$model->id_proceso], [
                 'class' => '',
                 'data' => [
                     'confirm' => '¿Está seguro que desea borrar este avance?',

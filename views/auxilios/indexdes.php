@@ -24,25 +24,19 @@ $this->params['breadcrumbs'][] = 'Auxilios';
             // 'id_auxilio',
             // 'tipo',
             [
-                'attribute' => 'id_cliente',
-                'label'=>'Documento',
-                'value' => function($model){
-                    return $model->idCliente->num_id;
-                },
+                'attribute' => 'documento_cliente',
+                'label'=> 'Documento',
+                'value' => 'idCliente.num_id',
             ],
             [
-                'attribute' => 'id_cliente',
+                'attribute' => 'nombre_cliente',
                 'label'=>'Nombres',
-                'value' => function($model){
-                    return $model->idCliente->nombres;
-                },
+                'value' => 'idCliente.nombres',
             ],
             [
-                'attribute' => 'id_cliente',
+                'attribute' => 'apellido_cliente',
                 'label'=>'Apellidos',
-                'value' => function($model){
-                    return $model->idCliente->apellidos;
-                },
+                'value' => 'idCliente.apellidos',
             ],
             // 'porcentaje_aux',
             [
@@ -64,15 +58,13 @@ $this->params['breadcrumbs'][] = 'Auxilios';
                 },
             ],
             [
-                'attribute' => 'tipo_auxilio',
+                'attribute' => 'tipoAuxilio',
                 'label'=>'Tipo de auxilio',
-                'value' => function($model){
-                    return $model->tipoAuxilio->tipo_auxilio;
-                },
+                'value' => 'tipoAuxilio.tipo_auxilio',
             ],
 
             [
-                'label' => '', 
+                'label' => 'Acciones', 
                 'vAlign' => 'middle',
                 'value' =>  function($data){
                     return  Html::a('', ['pagos-auxilios/index', 'id_auxilio'=>$data->id_auxilio, 'monto'=>$data->monto], ['class' => 'glyphicon glyphicon-usd', 'title'=>'Pagos']).'&nbsp'.

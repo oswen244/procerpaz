@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Auxilios;
+use app\models\Clientes;
 use app\models\Familiares;
 use app\models\AuxiliosSearch;
 use yii\web\Controller;
@@ -116,10 +117,13 @@ class AuxiliosController extends Controller
         $searchModel = new AuxiliosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1',$id);
 
+        $cliente = $this->findModelCliente($id);
+
         return $this->render('indexdescl', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_cliente' => $id,
+            'nombre_cliente'=>$cliente->nombres.' '.$cliente->apellidos,
         ]);
     }
 
@@ -128,10 +132,13 @@ class AuxiliosController extends Controller
         $searchModel = new AuxiliosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'2',$id);
 
+        $cliente = $this->findModelCliente($id);
+
         return $this->render('indexexecl', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_cliente' => $id,
+            'nombre_cliente'=>$cliente->nombres.' '.$cliente->apellidos,
         ]);
     }
 
@@ -309,6 +316,15 @@ class AuxiliosController extends Controller
     protected function findModel($id)
     {
         if (($model = Auxilios::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('La página solicitada no existe');
+        }
+    }
+
+    protected function findModelCliente($id)
+    {
+        if (($model = Clientes::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('La página solicitada no existe');

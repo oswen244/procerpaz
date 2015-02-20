@@ -10,7 +10,7 @@ use kartik\grid\GridView;
 
 $this->title = 'Prestamos';
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['clientes/index']];
-$this->params['breadcrumbs'][] = ['label' => $id_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
+$this->params['breadcrumbs'][] = ['label' => $nombre_cliente, 'url' => ['clientes/view', 'id' => $id_cliente]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -30,35 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                   // 'id_prestamo',
-                    // 'id_cliente',
-                    // 'monto',
-                    [
-                        'attribute' => 'monto',
-                        'value' => function($data){ return "$ ".number_format($data->monto,0);}
-                    ],
-                    // 'interes_mensual',
-                    [
-                        'attribute' => 'interes_mensual',
-                        'value' => function($data){ return $data->interes_mensual."%";}
-                    ],
-                    // 'num_cuotas',
-                    // 'valor_cuota',
-                    [
-                        'attribute' => 'valor_cuota',
-                        'value' => function($data){ return "$ ".number_format($data->valor_cuota,0);}
-                    ],
-                    // 'cuotas_pagadas',
-                    // 'fecha_prest',
-                    // 'fecha_rep',
-                    // 'id_estado',
-                    [
-                        'attribute'=>'id_estado',
-                        'label'=>'Estado',
-                        'value'=> function($model){
-                            return $model->idEstado->nombre;
-                        }  
-                    ],
+               // 'id_prestamo',
+                // 'id_cliente',
+                // 'monto',
+                [
+                    'attribute' => 'monto',
+                    'value' => function($data){ return "$ ".number_format($data->monto,0);}
+                ],
+                // 'interes_mensual',
+                [
+                    'attribute' => 'interes_mensual',
+                    'value' => function($data){ return $data->interes_mensual."%";}
+                ],
+                // 'num_cuotas',
+                // 'valor_cuota',
+                [
+                    'attribute' => 'valor_cuota',
+                    'value' => function($data){ return "$ ".number_format($data->valor_cuota,0);}
+                ],
+                // 'cuotas_pagadas',
+                // 'fecha_prest',
+                // 'fecha_rep',
+                // 'id_estado',
+                [
+                    'attribute'=>'estado',
+                    'value'=> 'idEstado.nombre',
+                ],
 
             ],
             'toolbar' => [

@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	        'familiar' => $familiar,
             'id_cliente' => $id_cliente,
             'parentezcos' => $parentezcos,
+            'rango_fecha'=>$rango_fecha,
 	    ]) ?>
 
 	</div>

@@ -17,7 +17,7 @@ use kartik\grid\GridView;
 
 $this->title = 'Familiares';
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $id_cliente, 'url' => ['view', 'id' => $id_cliente]];
+$this->params['breadcrumbs'][] = ['label' => $nombre_cliente, 'url' => ['view', 'id' => $id_cliente]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -45,12 +45,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'apellidos',
                 // 'tipo_id',
                 // 'id_parentezco',
+                // [
+                //     'attribute'=>'id_parentezco',
+                //     'label'=>'Parentezco',
+                //     'value'=>function($model){
+                //         return $model->idParentezco->parentezco;
+                //     }
+                // ],
                 [
-                    'attribute'=>'id_parentezco',
-                    'label'=>'Parentezco',
-                    'value'=>function($model){
-                        return $model->idParentezco->parentezco;
-                    }
+                    'attribute'=>'parentezco',
+                    'value'=> 'idParentezco.parentezco',
                 ],
                 // 'num_id',
                 // 'genero',
