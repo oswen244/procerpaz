@@ -15,13 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked">
            <li><?= Html::a('Regresar', ['index', 'id_p'=>$id_p], ['class' => '']) ?></li>
            <li><?= Html::a('Actualizar', ['update', 'id' => $model->id_avance, 'id_p'=>$model->id_proceso], ['class' => '']) ?></li><br>
-           <li><?= Html::a('Eliminar', ['delete', 'id' => $model->id_avance, 'id_p'=>$model->id_proceso], [
+           <li><?= Yii::$app->user->can('dir_juridico')? Html::a('Eliminar', ['delete', 'id' => $model->id_avance, 'id_p'=>$model->id_proceso], [
                 'class' => '',
                 'data' => [
                     'confirm' => '¿Está seguro que desea borrar este avance?',
                     'method' => 'post',
                 ],
-            ]) ?></li>
+            ]) : '' ?></li>
         </ul>
     </div>
     <div class="text-center"><?= Html::tag('h3', isset($m) ? $m : '' ,['class'=> 'help-block']);?></div>
