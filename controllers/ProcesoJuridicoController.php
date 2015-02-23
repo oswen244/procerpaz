@@ -279,9 +279,25 @@ class ProcesoJuridicoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if($this->avances($id) > 0){
+            $m = '1';
+        }else{
+            $this->findModel($id)->delete();
+            rmdir('juridico/'.$id.'/avances');
+            rmdir('juridico/'.$id);
+            $m = '0';
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'm'=>$m]);
+    }
+
+    public function avances($id)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('avance_proceso')->where('id_proceso=:id');
+        $query->addParams([':id'=>$id]);
+        return $query->scalar();
+
     }
 
     /**

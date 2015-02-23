@@ -6,14 +6,13 @@ use app\models\Auxilios;
 /* @var $this yii\web\View */
 /* @var $model app\models\Auxilios */
 
-$this->title = 'Actualizar Auxilio: ' . ' ' . $model->id_auxilio;
+$this->title = 'Actualizar Auxilio';
 if($tipo == '1'){
 	$this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['indexdes']];
 }else{
 	$this->params['breadcrumbs'][] = ['label' => 'Auxilios', 'url' => ['indexexe']];
 }
-$this->params['breadcrumbs'][] = ['label' => $model->id_auxilio, 'url' => ['view', 'id' => $model->id_auxilio]]; 
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 
 <div class="col-md-12">

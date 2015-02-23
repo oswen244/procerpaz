@@ -13,7 +13,7 @@ use app\models\Clientes;
 $this->title = 'Procesos Juridicos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="text-center"><?= Html::tag('h3', (isset($_GET['m']) && $_GET['m']==='1') ? 'Archivo cargado!' : (isset($_GET['m']) ? 'Error al subir el archivo' : ''),['class'=> 'help-block']);?></div>
+<div class="text-center"><?= Html::tag('h3', (isset($_GET['m']) && $_GET['m']==='1') ? 'No se puede eliminar el proceso. Borre primero todos los avances relacionados' : (isset($_GET['m']) ? 'El proceso ha sido borrado' : ''),['class'=> 'help-block']);?></div>
 <div class="proceso-juridico-index">
 
     <?= GridView::widget([
@@ -60,9 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'estado',
                 'value'=> 'idEstado.nombre',
+                'options'=>['width'=>'10%'],
             ],
             // 'peso_max',
-            'fecha',
+            // 'fecha',
+            [
+                'attribute' => 'fecha',
+                'options'=>['width'=>'10%'],
+            ],
             // 'hora',
 
             [
@@ -70,12 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'vAlign' => 'middle',
                 'value' =>  function($model){
                     return  Html::a('', ['avance-proceso/index', 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-forward', 'title'=>'Avances']).'&nbsp'.
-                            Html::a('', ['clientes/view', 'id'=>$model->id_cliente], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver info de cliente']).'&nbsp'.
-                            Html::a('', ['update', 'id'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
+                            Html::a('', ['clientes/view', 'id'=>$model->id_cliente], ['class' => 'glyphicon glyphicon-info-sign', 'title'=>'Ver info de cliente']).'&nbsp'.
+                            Html::a('', ['update', 'id'=>$model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-pencil' : '', 'title'=>'Actualizar']).'&nbsp'.
                             Html::a('', ['configuracion', 'id'=>$model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-cog' : '', 'title'=>'Configuración']).'&nbsp'.
                             Html::a('', ['delete', 'id' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico') ? 'glyphicon glyphicon-trash' : '',
                             'data' => [
-                                'confirm' => '¿Está seguro que desea borrar este proceso?. Tambien se borrarán los avances y archivos relacionados',
+                                'confirm' => '¿Está seguro que desea borrar este proceso?',
                                 'method' => 'post',
                             ],
                             'title'=>'Eliminar',

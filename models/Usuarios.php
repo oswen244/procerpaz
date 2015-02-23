@@ -48,6 +48,8 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
         return [
             [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required', 'message' => 'Este campo no puede quedar vacío'],
             [['estado'], 'integer'],
+            [['usuario'], 'unique'],
+            [['email'], 'email'],
             [['nombres', 'apellidos', 'cargo', 'telefono', 'email', 'pais', 'ciudad', 'celular', 'usuario', 'contrasena', 'perfil'], 'string', 'max' => 45],
             [['genero'], 'string', 'max' => 1]
         ];
@@ -138,7 +140,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public static function findByUsername($username)
     {
         $usuario = Usuarios::find()->where(['usuario' => $username])->one();
-        if ($usuario !== null) {
+        if ($usuario !== null && $usuario['estado'] !== 3) {
             return new static($usuario);
         }
         return null;

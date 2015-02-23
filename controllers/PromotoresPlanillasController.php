@@ -32,7 +32,7 @@ class PromotoresPlanillasController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['delete'],
-                        'roles' => ['leer_planillas'],
+                        'roles' => ['editar_planillas'],
                     ],
                     
                 ],

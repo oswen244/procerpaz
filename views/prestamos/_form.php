@@ -27,12 +27,12 @@ use yii\bootstrap\ActiveForm;
             <input id="doc" type="text" required class="form-control">
         </div>
     </div>
+    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
     <div class="row text-center">
         <h3 id="clienteName"></h3>
     </div>
 
-    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
     <?= $form->field($model, 'monto')->textInput(['required' => '', 'maxlength' => 10])->label('Monto *') ?>
 

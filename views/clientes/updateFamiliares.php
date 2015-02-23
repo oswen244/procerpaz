@@ -6,8 +6,9 @@ use yii\helpers\Html;
 /* @var $model app\models\Familiares */
 
 $this->title = 'Actualizar Familiares: ' . ' ' . $familiar->nombres.' '.$familiar->apellidos;
-$this->params['breadcrumbs'][] = ['label' => 'Familiares', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Familiares', 'url' => ['familiares?id='.$id_cliente]];
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 
 <div class="col-md-12">

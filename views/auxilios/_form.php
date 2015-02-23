@@ -21,6 +21,7 @@ use app\models\Auxilios;
                 <input id="doc" type="text" required class="form-control">
             </div>
         </div>
+    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
         <div class="row text-center">
             <h3 id="clienteName"></h3>
@@ -52,7 +53,7 @@ use app\models\Auxilios;
 
 
     <?php if($tipo === '1'){ ?>
-        <?= $form->field($model, 'num_meses')->textInput() ?>
+        <?= $form->field($model, 'num_meses')->textInput(['required'=>''])->label('Número de meses *') ?>
     <?php } ?>
 
      <div class="form-group field-auxilios-fecha_auxilio">
@@ -100,7 +101,6 @@ use app\models\Auxilios;
     </div>
     <!-- <?= $form->field($model, 'tipo_auxilio')->textInput() ?> -->
 
-    <?= $form->field($model, 'id_cliente')->hiddenInput()->label('') ?>
 
     <div class="text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

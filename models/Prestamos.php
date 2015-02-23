@@ -38,10 +38,10 @@ class Prestamos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['monto', 'interes_mensual', 'valor_cuota'], 'number' , 'message' => 'Este campo debe ser numérico'],
-            [['num_cuotas', 'id_cliente', 'id_estado'], 'integer', 'message' => 'Este campo debe ser numérico'],
+            [['monto', 'interes_mensual', 'valor_cuota'], 'number'],
+            [['num_cuotas', 'id_cliente', 'id_estado'], 'integer'],
             [['fecha_prest', 'fecha_rep', 'fecha_fin'], 'safe'],
-            [['id_cliente', 'id_estado'], 'required', 'message' => 'Este campo no puede quedar vacío']
+            [['id_cliente', 'id_estado'], 'required', 'message' => 'Por favor verifique este campo']
         ];
     }
 

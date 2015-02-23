@@ -34,11 +34,11 @@ class PromotoresController extends Controller
                         'actions' => ['index','view'],
                         'roles' => ['leer_promotores'],
                     ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index','view'],
-                        'roles' => ['leer_planillas'],
-                    ],
+                    // [
+                    //     'allow' => true,
+                    //     'actions' => ['index','view'],
+                    //     'roles' => ['leer_planillas'],
+                    // ],
                     [
                         'allow' => true,
                         'actions' => ['index','create'],

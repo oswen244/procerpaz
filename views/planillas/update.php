@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Planillas */
 
-$this->title = 'Actualizar Planilla N° ' . ' ' . $model->id_planilla;
+$this->title = 'Actualizar Planilla N° ' . ' ' . $model->numero;
 $this->params['breadcrumbs'][] = ['label' => 'Planillas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->numero, 'url' => ['view', 'id' => $model->id_planilla]];
 $this->params['breadcrumbs'][] = 'Actualizar';

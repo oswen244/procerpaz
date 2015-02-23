@@ -26,7 +26,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'monto')->textInput(['maxlength' => 10]) ?>
 
-    <?= $form->field($model, 'total_cuotas')->textInput() ?>
+    <!-- <?= $form->field($model, 'total_cuotas')->textInput() ?> -->
 
 	<?php if($model->isNewRecord){ ?>
     	<?= $form->field($model, 'id_cliente')->hiddenInput(['value'=>$id_cliente])->label('') ?>

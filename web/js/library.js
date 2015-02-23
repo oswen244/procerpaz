@@ -24,8 +24,12 @@
         $(docInput).on('blur', function(event) {
             $.post('getcliente',{data: $(docInput).val()}).done(function(data) {
                 $(idInput).val(data['id_cliente']);
-                if($(docInput).val() != '')
-                    $(nombreTag).text(data['nombres']+' '+data['apellidos']);
+                if($(docInput).val() != ''){
+                    if(data['nombres'] == null)
+                        $(nombreTag).text('El usuario no existe');
+                    else
+                        $(nombreTag).text(data['nombres']+' '+data['apellidos']);
+                }
             });
         });
     }

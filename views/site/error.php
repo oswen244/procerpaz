@@ -29,7 +29,7 @@ $this->title = $name;
         Por favor contacte al administrador si tiene alguna inquietud. Gracias.
     </p>
     
-    <p><a onclick="goBack()" class="btn btn-success glyphicon glyphicon-backward"> Volver</a></p>
+    <p><a onclick="goBack()" class="btn btn-success btn-lg glyphicon glyphicon-backward"> Volver</a></p>
 
 </div>
 <script type="text/javascript">

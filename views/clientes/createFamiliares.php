@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'familiar' => $familiar, //este es el modelo
 	        'id_cliente' => $id_cliente,
 	        'parentezcos' => $parentezcos,
+	        'rango_fecha'=>$rango_fecha,
 	    ]) ?>
 
 	</div>
