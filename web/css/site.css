@@ -11,6 +11,26 @@ a{
     background-image: url('../images/logo.png');
 }*/
 
+/*Imagen de perfil*/
+div.show-image{
+    position: relative;
+    margin:5px;
+}
+
+div.show-image:hover img{
+    opacity:0.5;
+}
+div.show-image:hover a {
+    display: block;
+}
+div.show-image a {
+    position:absolute;
+    display:none;
+    top: 5%;
+    right: 7%;
+    font-size: 1.4em;
+}
+
 .panel-login{
     background-color: #F9F9F9;
 }

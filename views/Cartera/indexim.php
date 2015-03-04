@@ -11,9 +11,10 @@
                     <?= $this->render('upload', [
                     ]) ?>
                 </div>
+                <div class="text-center"><?= Html::tag('h5', (isset($m)) ? '*El archivo debe tener la extensión .csv' : '' ,['class'=> 'help-block']);?></div>
             </div>
         </div>
-
+<div class="text-center"><?= Html::tag('h3', (isset($m)) ? $m : '' ,['class'=> 'help-block']);?></div>
         <?php $form = ActiveForm::begin(['action'=>'cargar', 'layout' => 'horizontal']) ?>
             
             <?php if(isset($filename)){ ?>

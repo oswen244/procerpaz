@@ -84,9 +84,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'monto_paquete',
                     'value' => "$ ".number_format($model->monto_paquete,0)
                  ],
+                 // [
+                 //    'label' => 'Fecha de vencimiento', 
+                 //    'attribute' => 'fecha_ven',
+                 // ],
                  [
-                    'label' => 'Fecha de vencimiento', 
-                    'attribute' => 'fecha_ven',
+                    'label' => 'Fecha de reporte', 
+                    'attribute' => 'fecha_reporte',
                  ],
                 'observaciones',
             ],

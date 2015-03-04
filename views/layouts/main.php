@@ -94,9 +94,15 @@ AppAsset::register($this);
                         ],
                     ] : '',
 
-                ['label' => 'Salir (' . Yii::$app->user->identity->username . ')',
-                        'url' => ['/site/logout'],
-                        'linkOptions' => ['data-method' => 'post']],
+                [
+                    'label' => 'Mi perfil',
+                    'items' => [
+                            ['label' => 'Perfil', 'url' => ['/usuarios/view','id'=>Yii::$app->user->id]],                            
+                            ['label' => 'Salir (' . Yii::$app->user->identity->username . ')',
+                                    'url' => ['/site/logout'],
+                                    'linkOptions' => ['data-method' => 'post']],
+                            ],
+                        ],
                 ],
             ]);
             NavBar::end();

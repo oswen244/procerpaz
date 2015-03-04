@@ -21,6 +21,8 @@ use Yii;
  * @property string $contrasena
  * @property string $perfil
  * @property integer $estado
+ * @property integer $promotor
+ * @property string $foto_perfil 
  *
  * @property Planillas[] $planillas
  * @property ProcesoJuridico[] $procesoJuridicos
@@ -46,12 +48,13 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public function rules()
     {
         return [
-            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required', 'message' => 'Este campo no puede quedar vacío'],
-            [['estado'], 'integer'],
+            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required'],
+            [['estado','promotor'], 'integer'],
             [['usuario'], 'unique'],
             [['email'], 'email'],
             [['nombres', 'apellidos', 'cargo', 'telefono', 'email', 'pais', 'ciudad', 'celular', 'usuario', 'contrasena', 'perfil'], 'string', 'max' => 45],
-            [['genero'], 'string', 'max' => 1]
+            [['genero'], 'string', 'max' => 1],
+            [['foto_perfil'], 'string', 'max' => 120]
         ];
     }
 

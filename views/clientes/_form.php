@@ -10,6 +10,7 @@
         $('#clientes-fecha_nacimiento').val('<?=$model->fecha_nacimiento?>');
         $('#clientes-fecha_ven').val('<?=$model->fecha_ven?>');
         $('#clientes-fecha_rep').val('<?=$model->fecha_rep?>');
+        $('#clientes-fecha_reporte').val('<?=$model->fecha_reporte?>');
     });
 </script>
 <?php
@@ -56,7 +57,6 @@ use app\models\Clientes;
             <select name="Clientes[tipo_id]" id="clientes-tipo_id" class="form-control">
                 <option value=""></option>
                 <option value="<?=Clientes::CEDULA?>"><?=Clientes::CEDULA?> - Cédula</option>
-                <option value="<?=Clientes::TI?>"><?=Clientes::TI?> - Tarjeta de identidad</option>
                 <option value="<?=Clientes::PASAPORTE?>"><?=Clientes::PASAPORTE?> - Pasaporte</option>
                 <option value="<?=Clientes::RUT?>"><?=Clientes::RUT?> - RUT</option>
             </select>
@@ -153,15 +153,15 @@ use app\models\Clientes;
     <?php } ?>
     <!-- <?= $form->field($model, 'id_estado')->textInput() ?> -->
     
-    <!-- <div class="form-group field-clientes-fecha_rep">
-        <div class="form-group field-clientes-fecha_rep">
-            <label for="clientes-fecha_rep" class="control-label col-sm-3">Fecha de reporte</label>
+    <div class="form-group field-clientes-fecha_reporte">
+        <div class="form-group field-clientes-fecha_reporte">
+            <label for="clientes-fecha_reporte" class="control-label col-sm-3">Fecha de reporte</label>
             <div class="col-sm-6">
-                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_rep", "name" => "Clientes[fecha_rep]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_rep, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
+                <?= yii\jui\DatePicker::widget(["id" => "clientes-fecha_reporte", "name" => "Clientes[fecha_reporte]", "dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->fecha_reporte, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es'])?>
             </div>            
         </div>
     </div>
-     -->
+     
     <!-- <?= $form->field($model, 'fecha_rep')->textInput() ?> -->
 
    <!--  <div class="form-group field-clientes-fecha_ven">

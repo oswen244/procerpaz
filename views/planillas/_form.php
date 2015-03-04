@@ -18,7 +18,7 @@ use yii\bootstrap\ActiveForm;
 <div class="planillas-form">
     <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
-    <?= $form->field($model, 'numero')->textInput()->label('Número de planilla *') ?>
+    <?= $form->field($model, 'numero')->textInput(['value' => $model->isNewRecord ? $numero : $model->numero, 'readonly'=>''])->label('Número de planilla') ?>
 
      <div class="form-group field-clientes-fecha_afiliacion">
         <div class="form-group field-clientes-fecha_afiliacion">

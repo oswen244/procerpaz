@@ -214,15 +214,16 @@ class PlanillasController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_planilla]);
         } else {
+            $numero = $this->serialPlanillas() + 1;
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model, 'numero' => $numero,
             ]);
         }
     }
 
     public function serialPlanillas(){ // devuelve el id de la planilla con el numero mas alto
         $query = (new \yii\db\Query());
-        $query->select('MAX(id_planilla)')->from('planillas');
+        $query->select('MAX(numero)')->from('planillas');
         $planilla = $query->scalar();
 
         return $planilla;

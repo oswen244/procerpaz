@@ -143,10 +143,19 @@ class CarteraController extends Controller
             $model->file = UploadedFile::getInstance($model, 'file');
 
             if ($model->validate()) {
+
                 $filename = $this->path.$model->file->baseName. '.' . $model->file->extension;
-                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-                $cadena = $this->csv2Table($filename);
-                $totalCol = $this->totalColumns($filename);                
+                if($model->file->extension !== 'csv'){
+                    $instituciones = $this->getInstituciones();
+                    return $this->render('indexim', [
+                        'instituciones'=>$instituciones,
+                        'm' => "El archivo no es válido",
+                    ]);
+                }else{
+                    $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+                    $cadena = $this->csv2Table($filename);
+                    $totalCol = $this->totalColumns($filename);                
+                }
             }
         }   
         $instituciones = $this->getInstituciones();
@@ -165,6 +174,7 @@ class CarteraController extends Controller
         if (Yii::$app->request->isPost) {
 
             if ($model->validate()) {
+
                 $filename = $_POST['archivo_nom'];
                 $excel->parser->loadFile($filename);
                 $foo = $excel->parser->getField();
@@ -173,7 +183,7 @@ class CarteraController extends Controller
                 try {
                     foreach ($foo as $key => $value) {
                         $fila = explode(';',$value[0]);
-                        $sql = "CALL importar(".(int)$fila[$_POST['doc']-1].",'".$fila[$_POST['nom']-1]."',".(float)$fila[$_POST['mon']-1].",".(int)$_POST['institucion'].")";
+                        // $sql = "CALL importar(".(int)$fila[$_POST['doc']-1].",'".$fila[$_POST['nom']-1]."',".(float)$fila[$_POST['mon']-1].",".(int)$_POST['institucion'].")";
                         \Yii::$app->db->createCommand($sql)->execute();
                     }
                     $transaction->commit();

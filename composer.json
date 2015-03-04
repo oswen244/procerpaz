@@ -23,7 +23,6 @@
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-mpdf": "@dev",
         "yiisoft/yii2-jui": "*",
-        "kartik-v/yii2-widget-select2": "@dev",
         "faisalman/simple-excel-php": "0.3.*"
     },
     "require-dev": {

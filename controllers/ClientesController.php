@@ -296,7 +296,7 @@ class ClientesController extends Controller
             $model = $this->findModel($_POST['id_cliente']);
             $model->id_estado = $_POST['id_estado'];
             if($_POST['id_estado'] === 1){
-                $model->fecha_rep = date('Y-m-d');
+                $model->fecha_rep = date('Y-m-d'); //fecha_rep es la fecha de referencia cuando un estado cambia
             }
 
             if(isset($_POST['fecha_ven']))

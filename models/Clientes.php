@@ -32,6 +32,7 @@ use Yii;
  * @property string $fecha_rep 
  * @property string $fecha_ven 
  * @property string $fecha_desafil 
+ * @property string $fecha_reporte 
  *
  * @property Auxilios[] $auxilios
  * @property Estados $idEstado
@@ -46,8 +47,8 @@ class Clientes extends \yii\db\ActiveRecord
 {
     const CEDULA = 'CC';
     const CEDULA_EXT = 'CE';
-    const TI = 'TI';
     const PASAPORTE = 'PA';
+    const TI = 'TI';
     const NIT = 'NI';
     const REGISTRO_CIVIL = 'RC';
     const RUT = 'RUT';
@@ -68,7 +69,7 @@ class Clientes extends \yii\db\ActiveRecord
     {
         return [
             [['num_afiliacion', 'nombres', 'apellidos', 'tipo_id', 'num_id', 'genero', 'id_institucion', 'id_planilla', 'id_estado', 'monto_paquete'], 'required'],
-            [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven', 'fecha_desafil'], 'safe'],
+            [['fecha_afiliacion', 'fecha_nacimiento', 'fecha_rep', 'fecha_ven', 'fecha_desafil', 'fecha_reporte'], 'safe'],
             [['email'], 'email'],
             [['num_afiliacion','id_institucion', 'id_planilla', 'id_estado'], 'integer'],
             [['monto_paquete'], 'number'],
@@ -109,6 +110,7 @@ class Clientes extends \yii\db\ActiveRecord
             'fecha_rep' => 'Fecha Rep', 
             'fecha_ven' => 'Fecha Ven', 
             'fecha_desafil' => 'Fecha Desafil',
+            'fecha_reporte' => 'Fecha reporte',
         ];
     }
 

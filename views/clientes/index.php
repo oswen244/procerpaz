@@ -21,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\SerialColumn'],
 
             // 'id_cliente',
+            [
+                'attribute'=>'planilla',
+                'value'=> 'idPlanilla.numero',
+            ],
             'num_afiliacion',
             'fecha_afiliacion',
             'nombres',

@@ -6,14 +6,15 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 /**
- * UploadForm is the model behind the upload form.
+ * UploadFormImages is the model behind the upload form.
  */
-class UploadForm extends Model
+class UploadFormImages extends Model
 {
     /**
      * @var UploadedFile|Null file attribute
      */
     public $file;
+    public $usuario;
 
 
     /**
@@ -22,7 +23,8 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file'],
+            [['file'], 'file', 'extensions' => 'gif, jpg, png',],
+            [['usuario'], 'required'],
         ];
     }
 }

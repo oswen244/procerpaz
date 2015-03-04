@@ -75,6 +75,5 @@ use app\models\Usuarios;
 <script type="text/javascript">
    $(document).ready(function() {
         $('#usuarios-perfil').val('<?=$model->perfil;?>');
-        $('#usuarios-contrasena').val('');
     });
 </script>

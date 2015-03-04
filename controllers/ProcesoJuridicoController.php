@@ -171,8 +171,8 @@ class ProcesoJuridicoController extends Controller
                 $usuario->estado = 2;
             }
             if($model->save() && $usuario->save()) {
-                mkdir('juridico/'.$model->id_proceso);
-                mkdir('juridico/'.$model->id_proceso.'/avances');
+                mkdir('juridico/'.$model->id_proceso, 0777);
+                mkdir('juridico/'.$model->id_proceso.'/avances', 0777);
                 return $this->redirect(['index']);
             }
         } else {
@@ -282,13 +282,31 @@ class ProcesoJuridicoController extends Controller
         if($this->avances($id) > 0){
             $m = '1';
         }else{
-            $this->findModel($id)->delete();
+            $proceso = $this->findModel($id);
+            $id_abogado = $proceso->id_abogado;
+            $proceso->delete();
+            $this->cambiarEstadoAbog($id_abogado);
             rmdir('juridico/'.$id.'/avances');
             rmdir('juridico/'.$id);
             $m = '0';
         }
 
         return $this->redirect(['index', 'm'=>$m]);
+    }
+
+    public function cambiarEstadoAbog($id_abogado)
+    {
+        $query = (new \yii\db\Query());
+        $query->select('COUNT(*)')->from('proceso_juridico')->where('id_abogado=:id AND id_estado=12');
+        $query->addParams([':id'=>$id_abogado]);
+
+        if($query->scalar() == 0)
+        {
+            $abogado = $this->findModelUsuario($id_abogado);
+            $abogado->estado = 1;
+            $abogado->save();
+        }
+
     }
 
     public function avances($id)
