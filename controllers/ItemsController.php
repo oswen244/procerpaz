@@ -132,15 +132,16 @@ class ItemsController extends Controller
         if (Yii::$app->request->post())
         {
             $data = $_POST['data'];
-            $model = $this->findModel($data[1]);
-            $padre = $auth->getRole($data[1]);
+            $id = str_replace(' ', '_', $data[2]);
+            $model = $this->findModel($id);
+            $padre = $auth->getRole($id);
             $auth->removeChildren($padre);
-            $model->name = $data[1]; 
+            $model->name = $id; 
             $model->description = $data[2];
-        }
-        foreach ($data[0] as $key => $value) {
-            $child = $auth->getRole($value['data']['value']);
-            $auth->addChild($padre,$child);
+            foreach ($data[0] as $key => $value) {
+                $child = $auth->getRole($value['data']['value']);
+                $auth->addChild($padre,$child);
+            }
         }
 
         if($model->save()) {

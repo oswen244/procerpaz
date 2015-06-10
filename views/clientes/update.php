@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = 'Actualizar';
 	    <ul class="nav nav-pills nav-stacked">
 	        <li><?= Html::a('Ver información', ['view', 'id' => $model->id_cliente], ['class' => '']) ?></li>
 	        <li><?= Html::a('Familiares', ['familiares', 'id' => $model->id_cliente], ['class' => '']) ?></li>
-	        <li><a href="">Mensualidad</a></li>
+	        <li><?= Html::a('Mensualidades', ['mensualidades/index', 'id' => $model->id_cliente], ['class' => '']) ?></li>
 	         <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Auxilios<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Actualizar';
 	        <li><?= Html::a('Eliminar cliente', ['delete', 'id' => $model->id_cliente], [
 	            'class' => '',
 	            'data' => [
-	                'confirm' => 'Are you sure you want to delete this item?',
+	                'confirm' => 'Está seguro que desea eliminar este cliente?',
 	                'method' => 'post',
 	            ],
 	            ]) ?>

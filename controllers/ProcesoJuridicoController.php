@@ -41,12 +41,12 @@ class ProcesoJuridicoController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','create'],
+                        'actions' => ['index','create','getcliente'],
                         'roles' => ['crear_proc_jur'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','update'],
+                        'actions' => ['index','update','getcliente'],
                         'roles' => ['editar_proc_jur'],
                     ],
                     [
@@ -168,9 +168,11 @@ class ProcesoJuridicoController extends Controller
             $model->hora = date('H:i:s');
             $usuario = $this->findModelUsuario($model->id_abogado);
             if($usuario->estado == 1){
-                $usuario->estado = 2;
+                // $usuario->estado = 2;
+                // if($usuario->save()){return 'ok';}
+                $this->setEstado($model->id_abogado,2);
             }
-            if($model->save() && $usuario->save()) {
+            if($model->save()) {
                 mkdir('juridico/'.$model->id_proceso, 0777);
                 mkdir('juridico/'.$model->id_proceso.'/avances', 0777);
                 return $this->redirect(['index']);
@@ -196,6 +198,11 @@ class ProcesoJuridicoController extends Controller
         \Yii::$app->response->format = 'json';
 
         return $cliente;
+    }
+
+    public function setEstado($id,$estado)
+    {
+        \Yii::$app->db->createCommand('UPDATE usuarios SET estado =:estado WHERE id_usuario =:id',[':estado'=>$estado,':id'=>$id])->execute();
     }
 
     public function getAbogados() //Obtiene los abogados
@@ -302,9 +309,7 @@ class ProcesoJuridicoController extends Controller
 
         if($query->scalar() == 0)
         {
-            $abogado = $this->findModelUsuario($id_abogado);
-            $abogado->estado = 1;
-            $abogado->save();
+            $this->setEstado($id_abogado,1);
         }
 
     }

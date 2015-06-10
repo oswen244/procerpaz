@@ -29,9 +29,8 @@
             
             var data = {};
             data[0] = instancia.get_top_selected(true);
-            data[1] = $('#items-name').val();
             data[2] = $('#items-description').val();
-             if(data[1] !== '' && data[2] !== ''){
+             if(data[2] !== ''){
                 $.post(accion, {data: data}).done(function(data) {
                     console.log(data);
                 });

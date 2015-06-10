@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Clientes;
 
 class SiteController extends Controller
 {
@@ -62,10 +63,15 @@ class SiteController extends Controller
 
             $sql = "CALL cambiar_estado_desafil()";
             \Yii::$app->db->createCommand($sql)->execute();
+
+            $en_mora = Clientes::find()->where(['id_estado'=>5])->count();
+            $desafiliados = Clientes::find()->where(['id_estado'=>3])->count();
         }
         $obs = $this->contarObsequios();
         return $this->render('index',[
                 'obsequios'=>$obs,
+                'mora'=>$en_mora,
+                'desafil'=>$desafiliados,
         ]);
     }
 

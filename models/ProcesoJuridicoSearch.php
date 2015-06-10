@@ -60,7 +60,7 @@ class ProcesoJuridicoSearch extends ProcesoJuridico
         ]);
 
         $dataProvider->sort->attributes['nombre_cliente'] =[
-            'asc'=>['clientes.nombres'=>SORT_ASC],
+            'asc'=>['clientes.nombres'=>SORT_ASC], //Nombre de la tabla
             'desc'=>['clientes.nombres'=>SORT_DESC],
         ];
         $dataProvider->sort->attributes['apellido_cliente'] =[

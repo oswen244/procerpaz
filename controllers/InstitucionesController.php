@@ -133,11 +133,11 @@ class InstitucionesController extends Controller
     public function actionDelete($id)
     {
         $totalClientes = $this->clientesPlanillas($id);
-        if($totalClientes === '0'){
+        if($totalClientes > 0){
+            $m = 'Imposible borrar Institución, existen clientes asosciados!';
+        }else{
             $this->findModel($id)->delete();
             $m = 'Borrado exitoso';
-        }else{
-            $m = 'Imposible borrar Institución, existen clientes asosciados!';
         }
 
         return $this->redirect(['index', 'm'=>$m]);
@@ -146,7 +146,7 @@ class InstitucionesController extends Controller
     public function clientesPlanillas($id) //Cuenta los clientes asociados a una planilla
     {
         $query = (new \yii\db\Query());
-        $query->select('COUNT(*)')->from('clientes')->where('id_planilla=:id');
+        $query->select('COUNT(*)')->from('clientes')->where('id_institucion=:id');
         $query->addParams([':id'=>$id]);
         $total = $query->scalar();
 

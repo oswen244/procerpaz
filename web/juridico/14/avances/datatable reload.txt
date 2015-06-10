@@ -1,0 +1,7 @@
+http://wiki.terrasynq.net/tutorials/jquery-datatables-with-dynamic-datasource-refresh/
+
+http://stackoverflow.com/questions/9674560/how-to-refresh-datatables
+
+http://stackoverflow.com/questions/20141432/refresh-jquery-datatable-table
+
+http://stackoverflow.com/questions/5566541/how-to-reload-the-datatablejquery-data

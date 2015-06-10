@@ -16,7 +16,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'id_proceso')->hiddenInput(['value'=>$id_p])->label('') ?>
 
 
-    <!-- <?= $form->field($model, 'fecha')->textInput() ?> -->
+    <?= $form->field($model, 'fecha')->widget(yii\jui\DatePicker::classname(), ["dateFormat" => "yyyy-MM-dd", 'options' => ['value'=>$model->isNewRecord ? date('Y-m-d') : $model->fecha, 'class' => 'fecha form-control', "placeholder" => "aaaa-mm-dd"], 'clientOptions'=>['changeMonth'=>'true', 'changeYear'=>'true'], 'language'=>'es']) ?>
 
     <!-- <?= $form->field($model, 'hora')->textInput() ?> -->
 

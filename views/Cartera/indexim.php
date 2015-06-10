@@ -7,14 +7,18 @@
 
         <div class="panel panel-default">
             <div class="panel-body"> 
-                <div class="col-sm-6 col-sm-offset-3">
+                <div class="col-sm-12 text-center" style="padding: 0 25%;">
                     <?= $this->render('upload', [
                     ]) ?>
                 </div>
-                <div class="text-center"><?= Html::tag('h5', (isset($m)) ? '*El archivo debe tener la extensión .csv' : '' ,['class'=> 'help-block']);?></div>
+                <div class="col-sm-12 text-center" style="margin-top:15px;">
+                    <?=Html::a('Devolver cargue', 'ultimo-cargue', ['class'=>'btn btn-danger', 'style'=>isset($cargue) ? 'display:initial' : 'display:none']) ?>
+                </div>
+                <div class="text-center"><?= Html::tag('h5', (isset($m)) ? '*El archivo debe tener la extensión .csv o .txt' : '' ,['class'=> 'help-block']);?></div>
             </div>
         </div>
-<div class="text-center"><?= Html::tag('h3', (isset($m)) ? $m : '' ,['class'=> 'help-block']);?></div>
+<div class="text-center"><?= Html::tag('h3', (isset($m1)) ? ($m1==='OK' ? 'Registros ingresados con exito' : $m1) : '' ,['class'=> 'help-block']);?></div>
+<div class="text-center"><?= Html::tag('h3', (isset($tm)) ? 'Clientes con mensualidad: '. $tm." "."Clientes con prestamos: ".$p : '' ,['class'=> 'help-block']);?></div>
         <?php $form = ActiveForm::begin(['action'=>'cargar', 'layout' => 'horizontal']) ?>
             
             <?php if(isset($filename)){ ?>

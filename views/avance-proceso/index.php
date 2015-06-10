@@ -47,24 +47,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Acciones', 
                 'vAlign' => 'middle',
                 'value' =>  function($model){
-                    return  Html::a('', ['view', 'id'=>$model->id_avance, 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver']).'&nbsp'.
-                            Html::a('', ['update', 'id'=>$model->id_avance,  'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
-                            Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico')?'glyphicon glyphicon-trash' :'',
-                            'data' => [
-                                'confirm' => '¿Está seguro que desea borrar este avance?. ADVERTENCIA: Se borrará el archivo relacionado con este avance si existe',
-                                'method' => 'post',
-                            ],
-                            'title'=>'Eliminar',
 
-                        ]);
+                    if(!Yii::$app->user->can('dir_juridico') && $model->idProceso->id_estado == 13){
+
+                        return  Html::a('', ['view', 'id'=>$model->id_avance, 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver']).'&nbsp'.
+                                Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico')?'glyphicon glyphicon-trash' :'',
+                                'data' => [
+                                    'confirm' => '¿Está seguro que desea borrar este avance?. ADVERTENCIA: Se borrará el archivo relacionado con este avance si existe',
+                                    'method' => 'post',
+                                ],
+                                'title'=>'Eliminar',
+
+                            ]);
+                    }else{
+
+                        return  Html::a('', ['view', 'id'=>$model->id_avance, 'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-eye-open', 'title'=>'Ver']).'&nbsp'.
+                                Html::a('', ['update', 'id'=>$model->id_avance,  'id_p'=>$model->id_proceso], ['class' => 'glyphicon glyphicon-pencil', 'title'=>'Actualizar']).'&nbsp'.
+                                Html::a('', ['delete', 'id'=>$model->id_avance,  'id_p' => $model->id_proceso], ['class' => Yii::$app->user->can('dir_juridico')?'glyphicon glyphicon-trash' :'',
+                                'data' => [
+                                    'confirm' => '¿Está seguro que desea borrar este avance?. ADVERTENCIA: Se borrará el archivo relacionado con este avance si existe',
+                                    'method' => 'post',
+                                ],
+                                'title'=>'Eliminar',
+
+                            ]);
+                    }
+
                 },
                 'format' => 'raw',
                 'options'=>['width'=>'8%'],
             ],
             ],
             'toolbar' => [
-                ['content'=>
-                   Html::a('Agregar un avance', ['create', 'id_proceso'=>$id_proceso], ['class' => 'btn btn-success']),
+                [
+                    'content'=> Html::a('Agregar un avance', ['create', 'id_proceso'=>$id_proceso], ['disabled'=>$estado_p == true ? true : false, 'class' => 'btn btn-success']),
                 ],
             ],
             'hover' => true,

@@ -37,11 +37,19 @@ class AvanceProcesoController extends Controller
     {
         $searchModel = new AvanceProcesoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$id_p);
+        $estado_p = ProcesoJuridico::findOne($id_p)->id_estado;
 
+        if(!Yii::$app->user->can('dir_juridico') && $estado_p == 13){
+            $estado_p = true;
+        }else{
+            $estado_p = false;
+        }
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_proceso'=>$id_p,
+            'estado_p'=>$estado_p,
         ]);
     }
 
@@ -71,7 +79,7 @@ class AvanceProcesoController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
             $model->hora = date('H:i:s');
-            $model->fecha = date('Y-m-d');
+            // $model->fecha = date('Y-m-d');
             $model->usuario = Yii::$app->user->identity->username;
            
             $archivo->file = UploadedFile::getInstance($archivo, 'file');

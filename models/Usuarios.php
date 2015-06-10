@@ -48,7 +48,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public function rules()
     {
         return [
-            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil'], 'required'],
+            [['nombres', 'apellidos', 'usuario', 'contrasena', 'perfil', 'email'], 'required'],
             [['estado','promotor'], 'integer'],
             [['usuario'], 'unique'],
             [['email'], 'email'],
@@ -114,7 +114,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        $usuario = Usuarios::find()->where(['accessToken' => $toke])->one();
+        $usuario = Usuarios::find()->where(['accessToken' => $token])->one();
         if ($usuario['accessToken'] !== null) {
             return new static($usuario);
         }

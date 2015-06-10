@@ -125,9 +125,15 @@ class UsuariosController extends Controller
         
 
         if ($model->load(Yii::$app->request->post())) {
-            
             $model->estado = 1;
-           
+
+            Yii::$app->mailer->compose('credenciales',['usuario'=>$model->usuario, 'pass'=>$model->contrasena])
+            ->setFrom('sistemagestion@proserpaz.com')
+            ->setTo($model->email)
+            ->setSubject('Prueba')
+            // ->setTextBody('Este es el contenido del mensaje')
+            ->send();
+
             $model->contrasena = sha1($model->contrasena);
             $model->perfil = str_replace(' ', '', $model->perfil);
             if($model->save()){
@@ -173,7 +179,17 @@ class UsuariosController extends Controller
         $contrasena = $model->contrasena; //contraseña anterior en sha1
 
         if ($model->load(Yii::$app->request->post())){
-            if($model->contrasena !== $contrasena){$model->contrasena = sha1($model->contrasena);}
+
+            if($model->contrasena !== $contrasena){
+                
+                 Yii::$app->mailer->compose('credenciales',['usuario'=>$model->usuario, 'pass'=>$model->contrasena])
+                ->setFrom('sistemagestion@proserpaz.com')
+                ->setTo($model->email)
+                ->setSubject('Prueba')
+                // ->setTextBody('Este es el contenido del mensaje')
+                ->send();
+                $model->contrasena = sha1($model->contrasena);
+            }
             $role = Yii::$app->authManager->getRole($model->perfil);
             if($model->perfil !== ''){
                 Yii::$app->authManager->revokeAll($id);
